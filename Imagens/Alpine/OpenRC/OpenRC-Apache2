@@ -1,0 +1,71 @@
+# Usando OpenRC no Alpine com Docker
+
+## Instalação
+
+apk add openrc
+
+apk add apache2
+
+rc-service apache2 status
+ * You are attempting to run an openrc service on a
+ * system which openrc did not boot.
+ * You may be inside a chroot or you may have used
+ * another initialization system to boot this system.
+ * In this situation, you will get unpredictable results!
+ * If you really want to do this, issue the following command:
+ * touch /run/openrc/softlevel
+
+touch /run/openrc/softlevel
+
+rc-service apache2 status
+status: stopped
+rc-service apache2 start
+
+ * Caching service dependencies ...
+Service `hwdrivers' needs non existent service `dev'                                                                                                               [ ok ]
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/blkio/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/cpu/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/cpu,cpuacct/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/cpuacct/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/cpuset/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/devices/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/freezer/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/hugetlb/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/memory/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/net_cls/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/net_cls,net_prio/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/net_prio/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/perf_event/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/pids/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/rdma/tasks: Read-only file system
+/lib/rc/sh/openrc-run.sh: line 100: can't create /sys/fs/cgroup/systemd/tasks: Read-only file system
+ * Starting apache2 ...
+
+Inicia, mesmo com estas mensagens mas inicia.
+
+Para inibia estas mensagens, usar no Dockerfile:
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+RUN cp /usr/bin/php7 /usr/bin/php && rm -f /var/cache/apk/*
+
+# Add apache to run and configure
+RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_module/LoadModule\ session_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_cookie_module/LoadModule\ session_cookie_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_crypto_module/LoadModule\ session_crypto_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ deflate_module/LoadModule\ deflate_module/" /etc/apache2/httpd.conf \
+    && sed -i "s#^DocumentRoot \".*#DocumentRoot \"/app/public\"#g" /etc/apache2/httpd.conf \
+    && sed -i "s#/var/www/localhost/htdocs#/app/public#" /etc/apache2/httpd.conf \
+    && printf "\n<Directory \"/app/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
+
+RUN mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app
+
+RUN chown apache:apache /var/www/localhost/htdocs
+
+EXPOSE 80
+
+VOLUME [ “/sys/fs/cgroup” ]
+

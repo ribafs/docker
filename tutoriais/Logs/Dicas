@@ -1,0 +1,9 @@
+Em caso de problemas verificar
+
+- logs
+
+ou
+
+- docker-compose --verbose up
+
+

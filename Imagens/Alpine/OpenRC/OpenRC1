@@ -1,0 +1,105 @@
+# OpenRC
+
+Quick-Start Information
+
+Alpine Linux uses OpenRC for its init system.
+
+The following commands are available to manage the init system:
+
+    rc-update add <service> <runlevel>
+
+    rc-update del <service> <runlevel>
+
+    rc-service <service> <start stop restart>
+
+    Equivalent to /etc/init.d/service <start stop restart>
+
+    rc-status - To check services and their set runlevels
+
+    rc <runlevel> - To change to a different runlevel
+
+    reboot - Equivalent to shutdown -r now from traditional GNU/Linux systems
+
+    halt - Equivalent to shutdown -h now from traditional GNU/Linux systems
+
+    poweroff - To turn off the machine
+
+Available Runlevels
+
+The available runlevels are:
+
+    default - Used if no runlevel is specified. (This is generally the runlevel you want to add services to.)
+    hotplugged
+    manual
+
+The special runlevels are:
+
+    sysinit - Brings up any system specific stuff such as /dev, /proc and optionally /sys for Linux based systems. It also mounts /lib/rc/init.d as a ramdisk using tmpfs where available unless / is mounted rw at boot. rc uses /lib/rc/init.d to hold state information about the services it runs. sysinit always runs when the host first starts and should not be run again.
+    boot - Generally the only services you should add to the boot runlevel are those which deal with the mounting of filesystems, set the initial state of attached peripherals and logging. Hotplugged services are added to the boot runlevel by the system. All services in the boot and sysinit runlevels are automatically included in all other runlevels except for those listed here.
+    single - Stops all services except for those in the sysinit runlevel.
+    reboot - Changes to the shutdown runlevel and then reboots the host.
+    shutdown - Changes to the shutdown runlevel and then halts the host.
+
+rc-update usage
+
+Usage: rc-update [options] add service <runlevel>
+       rc-update [options] del service <runlevel>
+       rc-update [options] show
+
+Options: [suChqv]
+  -s, --stack                       Stack a runlevel instead of a service
+  -u, --update                      Force an update of the dependency tree
+  -h, --help                        Display this help output
+  -C, --nocolor                     Disable color output
+  -v, --verbose                     Run verbosely
+  -q, --quiet                       Run quietly
+
+rc-status usage
+
+Usage: rc-status [options] [runlevel1] [runlevel2] ...
+
+Options: [aclrsuChqv]
+  -a, --all                         Show services from all run levels
+  -c, --crashed                     Show crashed services
+  -l, --list                        Show list of run levels
+  -r, --runlevel                    Show the name of the current runlevel
+  -s, --servicelist                 Show service list
+  -u, --unused                      Show services not assigned to any runlevel
+  -h, --help                        Display this help output
+  -C, --nocolor                     Disable color output
+  -v, --verbose                     Run verbosely
+  -q, --quiet                       Run quietly
+
+rc-service usage
+
+Usage: rc-service [options]
+
+Options: [e:ilr:ChqVv]
+  -e, --exists <arg>                tests if the service exists or not
+  -i, --ifexists                    if the service exists then run the command
+  -l, --list                        list all available services
+  -r, --resolve <arg>               resolve the service name to an init script
+  -h, --help                        Display this help output
+  -C, --nocolor                     Disable color output
+  -V, --version                     Display software version
+  -v, --verbose                     Run verbosely
+  -q, --quiet                       Run quietly
+
+rc usage
+
+Usage: rc [options]
+
+Options: [a:o:s:SChqVv]
+  -a, --applet <arg>                runs the applet specified by the next argument
+  -o, --override <arg>              override the next runlevel to change into
+                                    when leaving single user or boot runlevels
+  -s, --service <arg>               runs the service specified with the rest
+                                    of the arguments
+  -S, --sys                         output the RC system type, if any
+  -h, --help                        Display this help output
+  -C, --nocolor                     Disable color output
+  -V, --version                     Display software version
+  -v, --verbose                     Run verbosely
+  -q, --quiet                       Run quietly
+
+

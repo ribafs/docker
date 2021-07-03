@@ -1,0 +1,26 @@
+Limpar cache
+
+docker system prune
+
+WARNING! This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - all dangling build cache
+
+Are you sure you want to continue? [y/N] y
+
+
+docker-compose build --no-cache && docker-compose up -d --force-recreate 
+
+docker builder prune -af
+
+Remove all images without at least one container associated to them :
+
+docker image prune -a
+
+2) Remove many more things :
+
+docker system prune -a
+
+

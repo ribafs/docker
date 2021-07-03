@@ -1,0 +1,35 @@
+# MariaDB no ubuntu
+FROM ubuntu
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+LABEL Exemplo parte do Tutorial Básico sobre Docker
+LABEL Na pare do docker-compose.yml
+
+USER root
+
+# Desabilitar a interatividade dom o usuário
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Instalar pacotes básicos
+RUN apt-get update && apt-get install -y nano
+
+# Instalar mariadb
+RUN apt-get install -y mariadb-server
+
+# Habilitar o suporte para UTF-8
+RUN apt-get clean && apt-get update && apt-get install -y locales
+RUN locale-gen en_US en_US.UTF-8
+RUN echo "export LC_ALL=en_US.UTF-8" >> ~/.bashrc
+RUN echo "export LANG=en_US.UTF-8" >> ~/.bashrc
+RUN echo "export LANGUAGE=en_US.UTF-8" >> ~/.bashrc
+RUN dpkg-reconfigure locales
+
+# Abrir a porta 80 no container
+EXPOSE 3306
+
+COPY db/setup.sql /
+
+# Criar o volume, para que seu conteúdo fique disponível no container
+VOLUME ["db"]
+

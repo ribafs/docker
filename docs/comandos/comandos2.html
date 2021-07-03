@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cantinho do Docker</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../assets/vendor/owl.carousel/../assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Knight - v2.1.0
+  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container">
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul class="nav-inner">
+          <li class="active"><a href="index.html">Início</a></li>
+          <li class="drop-down"><a href="#">Introdução</a>
+              <ul>
+                  <li><a href="../introducao/index.html">Introdução</a></li>
+                  <li><a href="../introducao/inst-linux.html">Instalação no Linux</a></li>
+                  <li><a href="../introducao/inst-win.html">Instalação no Windows</a></li>
+                  <li><a href="../introducao/linux.html">Comandos do Linux</a></li>
+                  <li><a href="../introducao/redes.html">Redes no Docker</a></li>
+                  <li><a href="../introducao/volumes.html">Volumes no Docker</a></li>
+              </ul>
+          </li>
+          <li class="drop-down"><a href="">Projeto</a>
+            <ul>
+              <li><a href="../projeto/index.html">Projeto</a></li>
+              <li><a href="../projeto/boas-praticas.html">Boas Práticas</a></li>
+              <li><a href="../projeto/estrutura.html">Estrutura</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Conceitos</a>
+            <ul>
+              <li><a href="../conceitos/index.html">Conceitos</a></li>
+              <li><a href="../conceitos/containers.html">Containers</a></li>
+              <li><a href="../conceitos/docker.html">Docker</a></li>
+              <li><a href="../conceitos/imagens.html">Imagens</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Comandos</a>
+            <ul>
+              <li><a href="index.html">Comandos</a></li>
+              <li><a href="comandos1.html">Comandos 1</a></li>
+              <li><a href="comandos2.html">Comandos 2</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Imagens</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Tutoriais</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Containers</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+              <li><a href="ferramentas.html" target="_blank">Ferramentas</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Sobre</a>
+            <ul>
+              <li><a href="../livros">Meus livros</a></li>
+              <li><a href="https://github.com/ribafs/" target="_blank">Meus Projetos</a></li>
+              <li><a href="../curriculo.html">Currículo</a></li>
+              <li><a href="../contato.html">Contato</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section>
+      <div class="container">
+
+          <h2 class="text-center">Comandos 2</h2>
+<div class="text-left">
+<h4>docker attach</h4>
+
+<p>Acessar o shell do container<br />
+
+docker attach IDContainer
+&nbsp;</p>
+
+<h4>docker commit</h4>
+
+<p>Salvar altera&ccedil;&otilde;es de um container em uma nova imagem<br />
+
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]<br />
+
+<strong>docker ps</strong></p>
+
+<pre>
+CONTAINER ID        IMAGE               COMMAND         CREATED         STATUS         PORTS           NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash       7 days ago      Up 25 hours                    desperate_dubinsky
+197387f1b436        ubuntu:12.04        /bin/bash       7 days ago      Up 25 hours                    focused_hamilton
+</pre>
+
+<p>docker commit c3f279d17e0a ribafs/apache-php:versao1
+&nbsp;</p>
+
+<h4>Salvar o container com novas configura&ccedil;&otilde;es</h4>
+
+<p>
+docker commit --change &quot;ENV DEBUG=true&quot; c3f279d17e0a ribafs/apache-php:versao1
+<br />
+docker commit --change=&#39;CMD [&quot;apachectl&quot;, &quot;-DFOREGROUND&quot;]&#39; -c &quot;EXPOSE 80&quot; c3f279d17e0a ribafs/apache-php:versao1</p>
+
+<h3>docker build - Criar imagem</h3>
+<br>
+<h4>Criar uma imagem a partir de um Dockerfile</h4>
+<br>
+Tendo o Dockerfile com FROM mariadb no diretório atual, execute:
+<br><br>
+<b>Observe o ponto ao final</b>
+<br><br>
+docker build -t maria-img .
+<br><br>
+<b>Alpine</b>
+<br><br>
+docker build --no-cache -t [image-name]:latest .
+<br><br>
+<h4>Criar container</h4>
+
+docker create -it ribafs/mariadb bash
+<br><br>
+<h4>Iniciar container</h4>
+
+docker ps -aq
+<br><br>
+docker start ID
+<br><br>
+<h4>Exemplos</h4>
+
+<pre>
+docker build -t image:latest -&lt;&lt;EOF
+FROM busybox
+RUN echo "hello world"
+EOF
+</pre>
+<br>
+<h4>Criar um diretório para trabalhar</h4>
+
+mkdir example
+<br>
+cd example
+<br>
+<b>Criar um arquivo</b>
+<br>
+touch somefile.txt
+<br><br>
+<h4>Criar uma imagem usando um diretório como contexto e um Dockerfile passado via stdin</h4>
+<pre>
+docker build -t myimage:latest -f- . &lt;&lt;EOF
+FROM busybox
+COPY somefile.txt .
+RUN cat /somefile.txt
+EOF
+</pre>
+
+
+<p><b>docker-compose</b></p>
+
+<p>docker-compose -f docker-compose.yml -f docker-compose.admin.yml run backup_db</p>
+
+<p>docker-compose kill</p>
+
+<p>docker-compose up --force-recreate</p>
+
+<p>docker-compose config</p>
+
+<p>docker-compose version</p>
+
+<p>docker -v<br />
+docker-compose -v</p>
+
+<p>docker-compose --verbose up</p>
+
+<p><b>docker-php-ext-install e docker-php-ext-configure</b></p>
+
+<p>Instalar extens&otilde;es do PHP num container docker, mas somente com a imagem oficial php: https://hub.docker.com/_/php</p>
+
+<p>Se n&atilde;o for a imagem oficial, usar</p>
+
+<p>RUN apt-get update &amp;&amp; apt-get install -y ...</p>
+
+<p>COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/</p>
+
+<p>RUN install-php-extensions mysqli pdo_mysql</p>
+
+<p>RUN docker-php-ext-install mbstring pdo pdo_mysql \</p>
+
+<p>RUN docker-php-ext-install pdo pdo_mysql gd intl mbstring</p>
+
+<p>RUN pecl install memcached \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-enable memcached</p>
+
+<p>No Dockerfile</p>
+
+<p>$PHP_EXTRA_CONFIGURE_ARGS .</p>
+
+<p>RUN apt-get update &amp;&amp; apt-get install -y \<br />
+libmcrypt-dev \<br />
+&amp;&amp; docker-php-ext-install -j$(nproc) mcrypt</p>
+
+<p>RUN pecl install redis-5.1.1 \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; pecl install xdebug-2.8.1 \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-enable redis xdebug</p>
+
+<p>RUN apt-get update &amp;&amp; apt-get install -y libmemcached-dev zlib1g-dev \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; pecl install memcached-2.2.0 \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-enable memcached</p>
+
+<p>RUN curl -fsSL &#39;https://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.gz&#39; -o xcache.tar.gz \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; mkdir -p /tmp/xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; tar -xf xcache.tar.gz -C /tmp/xcache --strip-components=1 \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; rm xcache.tar.gz \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-configure /tmp/xcache --enable-xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-install /tmp/xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; rm -r /tmp/xcache</p>
+
+<p><b>Comandos docker-php-ext-install</b></p>
+
+<p>Para instalar extens&otilde;es PHP nas imagens oficiais</p>
+
+<p>Possíveis valores para ext-name:</p>
+
+<p>bcmath<br />
+bz2<br />
+calendar<br />
+ctype<br />
+curl<br />
+dba<br />
+dom<br />
+enchant<br />
+exif<br />
+fileinfo<br />
+filter<br />
+ftp<br />
+gd<br />
+gettext<br />
+gmp<br />
+hash<br />
+iconv<br />
+imap<br />
+interbase<br />
+intl<br />
+json<br />
+ldap<br />
+mbstring<br />
+mcrypt<br />
+mysqli<br />
+oci8<br />
+odbc<br />
+opcache<br />
+pcntl<br />
+pdo<br />
+pdo_dblib<br />
+pdo_firebird<br />
+pdo_mysql<br />
+pdo_oci<br />
+pdo_odbc<br />
+pdo_pgsql<br />
+pdo_sqlite<br />
+pgsql<br />
+phar<br />
+posix<br />
+pspell<br />
+readline<br />
+recode<br />
+reflection<br />
+session<br />
+shmop<br />
+simplexml<br />
+snmp<br />
+soap<br />
+sockets<br />
+spl<br />
+standard<br />
+sysvmsg<br />
+sysvsem<br />
+sysvshm<br />
+tidy<br />
+tokenizer<br />
+wddx<br />
+xml<br />
+xmlreader<br />
+xmlrpc<br />
+xmlwriter<br />
+xsl<br />
+zip</p>
+
+<p><b>Exemplos</b></p>
+
+<p>RUN docker-php-ext-install pdo pdp_mysql</p>
+
+<p>RUN curl -fsSL &#39;https://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.gz&#39; -o xcache.tar.gz \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; mkdir -p /tmp/xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; tar -xf xcache.tar.gz -C /tmp/xcache --strip-components=1 \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; rm xcache.tar.gz \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-configure /tmp/xcache --enable-xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; docker-php-ext-install /tmp/xcache \<br />
+&nbsp;&nbsp;&nbsp; &amp;&amp; rm -r /tmp/xcache</p>
+
+
+<p>docker image</p>
+
+<p>https://docs.docker.com/engine/reference/commandline/image/</p>
+
+<p>docker image COMMAND</p>
+
+<p>docker image build &nbsp;&nbsp; &nbsp;Build an image from a Dockerfile</p>
+
+<p>docker image inspect &nbsp;&nbsp; &nbsp;Display detailed information on one or more images</p>
+
+<p>docker image prune &nbsp;&nbsp; &nbsp;Remove unused images</p>
+
+<p>docker image push &nbsp;&nbsp; &nbsp;Push an image or a repository to a registry</p>
+
+<p>docker image rm &nbsp;&nbsp; &nbsp;Remove one or more images</p>
+
+<p>docker image tag &nbsp;&nbsp; &nbsp;Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</p>
+
+<p><b>docker image build [OPTIONS] PATH | URL | -</b></p>
+
+<p>Options<br />
+Name, shorthand &nbsp;&nbsp; &nbsp;Default &nbsp;&nbsp; &nbsp;Description<br />
+--add-host &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Add a custom host-to-IP mapping (host:ip)<br />
+--build-arg &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Set build-time variables<br />
+--cache-from &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Images to consider as cache sources<br />
+--cgroup-parent &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Optional parent cgroup for the container<br />
+--compress &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Compress the build context using gzip<br />
+--cpu-period &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Limit the CPU CFS (Completely Fair Scheduler) period<br />
+--cpu-quota &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Limit the CPU CFS (Completely Fair Scheduler) quota<br />
+--cpu-shares , -c &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;CPU shares (relative weight)<br />
+--cpuset-cpus &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;CPUs in which to allow execution (0-3, 0,1)<br />
+--cpuset-mems &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;MEMs in which to allow execution (0-3, 0,1)<br />
+--disable-content-trust &nbsp;&nbsp; &nbsp;true &nbsp;&nbsp; &nbsp;Skip image verification<br />
+--file , -f &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Name of the Dockerfile (Default is &lsquo;PATH/Dockerfile&rsquo;)<br />
+--force-rm &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Always remove intermediate containers<br />
+--iidfile &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Write the image ID to the file<br />
+--isolation &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Container isolation technology<br />
+--label &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Set metadata for an image<br />
+--memory , -m &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Memory limit<br />
+--memory-swap &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Swap limit equal to memory plus swap: &lsquo;-1&rsquo; to enable unlimited swap<br />
+--network &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.25+<br />
+Set the networking mode for the RUN instructions during build<br />
+--no-cache &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Do not use cache when building the image<br />
+--output , -o &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.40+<br />
+Output destination (format: type=local,dest=path)<br />
+--platform &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.38+<br />
+Set platform if server is multi-platform capable<br />
+--progress &nbsp;&nbsp; &nbsp;auto &nbsp;&nbsp; &nbsp;Set type of progress output (auto, plain, tty). Use plain to show container output<br />
+--pull &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Always attempt to pull a newer version of the image<br />
+--quiet , -q &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Suppress the build output and print image ID on success<br />
+--rm &nbsp;&nbsp; &nbsp;true &nbsp;&nbsp; &nbsp;Remove intermediate containers after a successful build<br />
+--secret &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.39+<br />
+Secret file to expose to the build (only if BuildKit enabled): id=mysecret,src=/local/secret<br />
+--security-opt &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Security options<br />
+--shm-size &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Size of /dev/shm<br />
+--squash &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;experimental (daemon)API 1.25+<br />
+Squash newly built layers into a single new layer<br />
+--ssh &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.39+<br />
+SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: default|[=|[,]])<br />
+--stream &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Stream attaches to server to negotiate build context<br />
+--tag , -t &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Name and optionally a tag in the &lsquo;name:tag&rsquo; format<br />
+--target &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Set the target build stage to build.<br />
+--ulimit &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Ulimit options</p>
+
+<p><br />
+<b>docker run</b></p>
+
+<p>O comando docker run primeiro cria uma camada de cont&ecirc;iner grav&aacute;vel sobre a imagem especificada e, em seguida, a inicia usando o comando especificado. Um cont&ecirc;iner interrompido pode ser reiniciado com todas as suas altera&ccedil;&otilde;es anteriores intactas usando docker start. Consulte docker ps -a para ver uma lista de todos os cont&ecirc;ineres.</p>
+
+<p>O comando docker run pode ser usado em combina&ccedil;&atilde;o com docker commit para alterar o comando que um cont&ecirc;iner executa. H&aacute; informa&ccedil;&otilde;es detalhadas adicionais sobre a execu&ccedil;&atilde;o do docker na refer&ecirc;ncia de execu&ccedil;&atilde;o do Docker.</p>
+
+<p>Baixar uma imagem e j&aacute; criar o container</p>
+
+<p>To run the lastest stable version of this docker image run</p>
+
+<p>docker run -d -e MARIADB_RANDOM_ROOT_PASSWORD=yes --name maria-cont nimmis/alpine-mariadb</p>
+
+<p>docker run -d -e MARIADB_RANDOM_ROOT_PASSWORD=yes nimmis/alpine-mariadb</p>
+
+<p>Para expor o banco para uma interface externa</p>
+
+<p>docker run -d -p 3306:3306 e MARIADB_RANDOM_ROOT_PASSWORD=yes nimmis/alpine-mariadb</p>
+
+<p>docker run --name=[container_name] -d image:tag<br />
+docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]</p>
+
+<p>docker run -d --name redis example/redis --bind 127.0.0.1</p>
+
+<p>docker network create -d bridge my-net<br />
+$ docker run --network=my-net -itd --name=container3 busybox</p>
+
+<p>docker run id</p>
+
+<p>Para criar um container utilizando a imagem gerada e podendo manter a execu&ccedil;&atilde;o do container, executei o comando passando o ID da imagem gerada na minha m&aacute;quina atrav&eacute;s do comando docker run-it 41afdc6b059f.</p>
+
+<p>O -it serve para rodar o container em modo interativo, ou seja, eu quero interagir com ele efetivamente. Caso n&atilde;o utilizasse esse par&acirc;metro, o container subiria e cairia logo em seguida.</p>
+
+<p>docker run -it ID</p>
+
+<p>O -it serve para rodar o container em modo interativo, ou seja, eu quero interagir com ele efetivamente. Caso n&atilde;o utilizasse esse par&acirc;metro, o container subiria e cairia logo em seguida.</p>
+
+<p><b>Criar um container</b></p>
+
+<p>docker run imagem</p>
+
+<p><b>Executando um container</b></p>
+
+<p>docker run -d -p 4306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=testes -e MYSQL_USER=ribafs -e MYSQL_PASSWORD=ribafs imagem</p>
+
+<p>FROM php:7.4-cli<br />
+COPY . /usr/src/myapp<br />
+WORKDIR /usr/src/myapp<br />
+CMD [ &quot;php&quot;, &quot;./your-script.php&quot; ]</p>
+
+<p>docker build -t my-php-app .<br />
+docker run -it --rm --name my-running-app my-php-app</p>
+
+<p><br />
+Run a single PHP script</p>
+
+<p>For many simple, single file projects, you may find it inconvenient to write a complete Dockerfile. In such cases, you can run a PHP script by using the PHP Docker image directly:</p>
+
+<p>$ docker run -it --rm --name my-running-script -v &quot;$PWD&quot;:/usr/src/myapp -w /usr/src/myapp php:7.4-cli php your-script.php</p>
+
+<p>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</p>
+
+<p>Assign name and allocate pseudo-TTY (--name, -it)</p>
+
+<p>$ docker run --name test -it debian</p>
+
+<p>docker run -itd --network=my-net busybox</p>
+
+<p><br />
+<b>docker-exec</b></p>
+
+<p>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</p>
+
+<p>docker exec -it [container_name] mysql -uroot</p>
+
+<p>O docker exec executa um novo comando em um contaienr em execu&ccedil;&atilde;o.</p>
+
+<p>Este comando permite salvar as altera&ccedil;&otilde;es feitas na imagem. Mesmo ap&oacute;s sair do container as altera&ccedil;&otilde;es ser&atilde;o guardadas. Diferente do docker run, que ap&oacute;s sair todas as altera&ccedil;&otilde;es s&atilde;o perdidas.</p>
+
+<p>https://docs.docker.com/engine/reference/commandline/exec/</p>
+
+<p>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</p>
+
+<p>O docker exec executa um novo comando em um contaienr em execu&ccedil;&atilde;o.</p>
+
+<p>Este comando permite salvar as altera&ccedil;&otilde;es feitas na imagem. Mesmo ap&oacute;s sair do container as altera&ccedil;&otilde;es ser&atilde;o guardadas. Diferente do docker run, que ap&oacute;s sair todas as altera&ccedil;&otilde;es s&atilde;o perdidas.</p>
+
+<p>docker exec -ti my_container sh -c &quot;echo a &amp;&amp; echo b&quot;</p>
+
+<p>Abrir o container ubuntu_bash no bash</p>
+
+<p>docker exec -it ubuntu_bash bash</p>
+
+
+<p><b>docker pull</b></p>
+
+<p>Baixar image do docker hub</p>
+
+<p>docker pull imagem</p>
+
+<p><br />
+<b>docker push</b></p>
+
+<p>Enviar imagem para o docker hub</p>
+
+<p>docker push imagem</p>
+
+<hr>
+<p><b>Alguns comandos e par&acirc;metros</b></p>
+
+<p>docker run --publish , -p<br />
+docker run --volume , -v<br />
+docker run --detached, -d<br />
+docker run --tty , -t<br />
+docker run --name<br />
+docker exec --interactive , -i</p>
+
+<p>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Allocate a pseudo-tty</p>
+
+<p>Detached (-d)</p>
+
+<p>To start a container in detached mode, you use -d=true or just -d option. By design, containers started in detached mode exit when the root process used to run the container exits, unless you also specify the --rm option. If you use -d with --rm, the container is removed when it exits or when the daemon exits, whichever happens first.</p>
+
+<p>Do not pass a service x start command to a detached container. For example, this command attempts to start the nginx service.</p>
+
+<p>docker run -d -p 80:80 my_image service nginx start</p>
+
+<p>docker run -td -publish 80:80 --name apache-container apache-image service apache start</p>
+
+<p>To publish a port for our container, we&rsquo;ll use the --publish flag (-p for short) on the docker run command. The format of the --publish command is [host port]:[container port]. So if we wanted to expose port 8000 inside the container to port 3000 outside the container, we would pass 3000:8000 to the --publish flag.</p>
+
+<p>Start the container and expose port 8000 to port 8000 on the host.</p>
+
+<p>$ docker run --publish 8000:8000 node-docker</p>
+
+<p>--detach , -d &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Detached mode: run command in the background</p>
+
+<p>--interactive , -i &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Keep STDIN open even if not attached</p>
+
+<p>--privileged &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Give extended privileges to the command</p>
+
+<p>--tty , -t &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Allocate a pseudo-TTY</p>
+
+<p>--user , -u &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Username or UID (format: &lt;name|uid&gt;[:&lt;group|gid&gt;])</p>
+
+<p>--workdir , -w &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;API 1.35+<br />
+Working directory inside the container</p>
+
+<p><b>Referências</b></p>
+
+<p>https://docs.docker.com/engine/reference/commandline/exec/<br />
+https://raccoon.ninja/pt/dev-pt/comandos-basicos-do-docker/</p>
+
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/knight-free-bootstrap-theme/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

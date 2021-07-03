@@ -1,0 +1,48 @@
+version: "3.6"
+ 
+services:
+    db:
+
+      container_name: db-cont
+
+#      command: mysqld --default-authentication-plugin=mysql_native_password
+
+      restart: always
+
+      build:
+        context: .
+        dockerfile: Dockerfile-db
+
+      volumes: 
+        - db:/var/lib/mysql:rw
+
+      ports:
+        - "3333:3306"
+
+      environment:
+        TZ: "America/Fortaleza"
+        MYSQL_DATABASE: "testes"
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+      tty: true
+
+    web:
+      container_name: web-cont
+
+      build:
+        context: .
+        dockerfile: Dockerfile-web
+
+      volumes:
+        - ./web:/var/www/html
+
+      ports:
+        - "8888:80"
+
+      links:
+        - db
+
+volumes:
+  web: # Copia tudo de web para /var/www/html
+  db: # Tudo que estiver na pasta maria será copiado para /var/lib/mysql
+

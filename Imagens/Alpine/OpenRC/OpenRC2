@@ -1,0 +1,55 @@
+ How To Test OpenRC Services with Docker-Compose
+
+Similar to how I abused Docker conceptually to test systemd services with docker-compose, I spent some time recently trying to do the same thing with OpenRC for Alpine Linux.
+
+It basically requires the same steps as systemd. With the base 3.12 Alpine image, it's a matter of:
+
+    Install OpenRC
+    Optionally map /sys/fs/cgroup
+    Start up with /sbin/init
+    Run tests via docker exec
+
+1. Install OpenRC
+
+The base Alpine images don't include OpenRC, so you have to install it with apk. I do this in my Dockerfile:
+
+    FROM alpine:3.12
+    RUN apk add openrc
+    CMD ["/sbin/init"]
+
+2. Optionally map /sys/fs/cgroup
+
+Unlike with systemd, I didn't have to set up any tmpfs mounts to get OpenRC services running. I also didn't have to map the /sys/fs/cgroup directory -- but if I didn't, I would get a bunch of cgroup-related error messages when starting and stopping services (although the services themselves still seemed to work fine). So I just went ahead and mapped the dir in my docker-compose.yml to avoid those error messages:
+
+    version: '3'
+    services:
+      my_test_container:
+        build: .
+        image: my_test_image
+        volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+3. Start up with /sbin/init
+
+With the Alpine openrc package, the traditional /sbin/init startup command works to start OpenRC. I added CMD ["/sbin/init"] to my Dockerfile to start up with it, but you could instead add command: /sbin/init to the service in your docker-compose.yml file.
+4. Run tests via docker exec
+
+The above docker-compose.yml and Dockerfile will allow you to start up OpenRC in my_test_container with one command:
+
+    docker-compose up -d my_test_container
+
+With OpenRC up and running, you can use a second command to execute a shell on the very same container to test it out:
+
+    docker-compose exec my_test_container /bin/sh
+
+Or use exec to run other commands to test the services managed by OpenRC:
+
+    docker-compose exec my_test_container rc-status --servicelist
+
+Cleaning up
+
+The clean up steps with OpenRC are also basically the same as with systemd:
+
+    Stop the running container: docker-compose stop my_test_container
+    Remove the saved container state: docker-compose rm my_test_container
+    Remove the built image: docker image rm my_test_imag

@@ -1,0 +1,25 @@
+FROM alpine:edge as apache-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+COPY ["apache/index.php", "/app/public"]
+COPY ["apache/connection.php", "/app/public"]
+COPY ["apache/perms", "/usr/local/bin"]
+RUN ["chmod", "+x", "/usr/local/bin/perms"]
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+WORKDIR /var/www/htdocs
+
+RUN apk add apache2 php7-apache2
+
+# Add basics first
+RUN apk update && apk add curl ca-certificates tzdata nano
+
+RUN chown -R apache:apache /var/www/localhost/htdocs && chmod -R 755 /var/www/localhost/htdocs
+
+EXPOSE 80
+
+VOLUME [ “/sys/fs/cgroup” ]
+

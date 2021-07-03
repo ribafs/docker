@@ -1,0 +1,47 @@
+FROM alpine:edge as alp-web-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+COPY ["web/index.php", "/app/public"]
+COPY ["web/perms", "/usr/local/bin"]
+RUN ["chmod", "+x", "/usr/local/bin/perms"]
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+WORKDIR /var/www/localhost/htdocs
+
+RUN apk add apache2 php7-apache2 php7 php7-pdo_mysql php7-pdo_pgsql
+
+# Add basics first
+RUN apk update && apk add bash curl ca-certificates tzdata nano
+
+# Setup apache and php
+RUN apk add \
+	php7-xdebug \
+	php7-mcrypt \
+	php7-mbstring \
+	php7-pdo \
+	php7-zip \
+	php7-sqlite3 \
+	php7-pdo_pgsql \
+	php7-gd \
+	php7-pdo_mysql \
+	php7-pdo_sqlite \
+	php7-xml \
+	php7-xmlreader \
+	php7-curl \
+	php7-intl \
+	php7-apcu
+
+# Problems installing in above stack
+RUN apk add php7-simplexml
+
+RUN cp /usr/bin/php7 /usr/bin/php && rm -f /var/cache/apk/*
+
+RUN chown -R apache:apache /var/www/localhost/htdocs && chmod -R 755 /var/www/localhost/htdocs
+
+EXPOSE 80
+
+VOLUME [ “/sys/fs/cgroup” ]
+

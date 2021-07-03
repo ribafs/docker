@@ -1,0 +1,20 @@
+FROM alpine:edge as postgres-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+RUN apk add --no-cache postgresql-client postgresql
+
+COPY postgres/setup.sql /
+RUN chown postgres:postgres /setup.sql
+RUN chmod 755 /setup.sql
+
+# Add basics first
+RUN apk update && apk add bash curl tzdata nano
+
+EXPOSE 5432
+
+

@@ -1,0 +1,6 @@
+use mysql;
+create user 'super'@'%' identified by 'super';
+GRANT ALL PRIVILEGES ON *.* TO super@"%" IDENTIFIED BY 'super' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+

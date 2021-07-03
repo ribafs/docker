@@ -1,0 +1,16 @@
+# Sempre antes de instalar um pacote, executar apt-get update. Se usar vários comandos apt-get, use várias vezes apt-get update
+RUN apt-get update && apt-get install -y nano
+
+# Nunca usar somente apt, mas apt-get
+
+# Sempre use -y ao instalar pacotes, para que execute sem interatividade
+
+# Iniciar com o container
+CMD ["apachectl", "-DFOREGROUND"]
+
+WORKDIR /var/www/html
+
+Mudar o arquivo e restart apache:
+
+docker restart web-container
+

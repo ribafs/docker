@@ -1,0 +1,23 @@
+Criar um php.ini contendo todas as configurações desejadas em
+
+php/
+
+php/php.ini
+
+Adicionar ao volume
+
+COPY php/php.ini $PHP_INI_DIR/php.ini
+
+
+Para produção
+
+RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+
+
+Criar um httpd.conf (Alpine) com todas as configurações desejadas
+
+apache/httpd.conf
+
+COPY apache/httpd.conf /etc/apache2
+
+

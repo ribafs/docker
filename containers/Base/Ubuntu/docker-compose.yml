@@ -1,0 +1,73 @@
+version: "3.6" 
+services:
+    postgres:
+      container_name: postgres-container
+      restart: always
+      build:
+        context: .
+        dockerfile: ./Dockerfile-postgres
+      ports:
+        - "6432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      tty: true
+
+    maria:
+      container_name: maria-container
+      restart: always
+      build:
+        context: .
+        dockerfile: Dockerfile-maria
+      volumes: 
+        - maria:/var/lib/mysql:rw
+      ports:
+        - "3333:3306"
+      environment:
+        TZ: "America/Fortaleza"
+        MYSQL_DATABASE: "testes"
+        MYSQL_ROOT_PASSWORD: "root"
+      tty: true
+
+    web:
+      container_name: web-container
+      build:
+        context: .
+        dockerfile: Dockerfile-web
+      volumes:
+        - ./web:/var/www/html
+      ports:
+        - "8888:80"
+      links:
+        - maria
+        - postgres
+
+    sqlite:
+      container_name: sqlite-container
+      restart: always
+      build:
+        context: .
+        dockerfile: ./Dockerfile-sqlite
+      volumes:
+        - ./sqlite:/var/lib/sqlite
+      tty: true
+
+    adminer:
+      container_name: adminer-container
+      build:
+        context: .
+        dockerfile: Dockerfile-adminer
+      volumes:
+        - ./adminer:/var/www/html
+      links:
+        - maria
+        - postgres
+volumes:
+  pgdata: {}
+  maria:
+  web:
+  sqlite:
+  adminer:
+# Executar: composer: 
+# docker-compose down -v
+# docker-compose up -d 
+

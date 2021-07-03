@@ -1,0 +1,2 @@
+
+CMD ["apachectl", "-DFOREGROUND"]

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cantinho do Docker</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../assets/vendor/owl.carousel/../assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Knight - v2.1.0
+  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container">
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul class="nav-inner">
+          <li class="active"><a href="index.html">Início</a></li>
+          <li class="drop-down"><a href="#">Introdução</a>
+              <ul>
+                  <li><a href="index.html">Introdução</a></li>
+                  <li><a href="inst-linux.html">Instalação no Linux</a></li>
+                  <li><a href="inst-win.html">Instalação no Windows</a></li>
+                  <li><a href="linux.html">Comandos do Linux</a></li>
+                  <li><a href="redes.html">Redes no Docker</a></li>
+                  <li><a href="volumes.html">Volumes no Docker</a></li>
+              </ul>
+          </li>
+          <li class="drop-down"><a href="">Projeto</a>
+            <ul>
+              <li><a href="../projeto/index.html">Projeto</a></li>
+              <li><a href="../projeto/boas-praticas.html">Boas Práticas</a></li>
+              <li><a href="../projeto/estrutura.html">Estrutura</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Conceitos</a>
+            <ul>
+              <li><a href="../conceitos/index.html">Conceitos</a></li>
+              <li><a href="../conceitos/containers.html">Containers</a></li>
+              <li><a href="../conceitos/docker.html">Docker</a></li>
+              <li><a href="../conceitos/imagens.html">Imagens</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Comandos</a>
+            <ul>
+              <li><a href="../comandos/index.html">Comandos</a></li>
+              <li><a href="../comandos/comandos1.html">Comandos 1</a></li>
+              <li><a href="../comandos/comandos2.html">Comandos 2</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Imagens</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Tutoriais</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Containers</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+              <li><a href="ferramentas.html" target="_blank">Ferramentas</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Sobre</a>
+            <ul>
+              <li><a href="../livros">Meus livros</a></li>
+              <li><a href="https://github.com/ribafs/" target="_blank">Meus Projetos</a></li>
+              <li><a href="../curriculo.html">Currículo</a></li>
+              <li><a href="../contato.html">Contato</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section>
+      <div class="container">
+
+<div class="text-left">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<h2 class="text-center">Redes no Docker</h2>
+<br>
+<div class="text-left">
+  
+<p><b>Bridge</b></p>  
+<p>No Docker o modelo padrão que ele utiliza para o gerenciamento no networking dos containers é o modo bridge. Existe um isolamento entre a rede do host com as redes de dentro dos containers.</p>  
+
+<p><b>Aviso</b></p>
+
+<p>Definindo configura&ccedil;&otilde;es de conex&atilde;o por meio de vari&aacute;veis de ambiente Embora o uso de vari&aacute;veis de ambiente para definir as configura&ccedil;&otilde;es de conex&atilde;o seja geralmente um problema para o desenvolvimento, ele &eacute; altamente desencorajado durante a execu&ccedil;&atilde;o de aplicativos em produ&ccedil;&atilde;o. Para entender o porqu&ecirc;, veja por que voc&ecirc; n&atilde;o deve usar vari&aacute;veis de ambiente para dados secretos. Um mecanismo mais seguro &eacute; usar o suporte de segredo fornecido pela estrutura de orquestra&ccedil;&atilde;o de cont&ecirc;iner. Na maioria dos casos, esses segredos s&atilde;o montados como arquivos no cont&ecirc;iner em execu&ccedil;&atilde;o. Voc&ecirc; ver&aacute; que muitos aplicativos (incluindo a imagem do MySQL e o aplicativo de tarefas) tamb&eacute;m d&atilde;o suporte a env VARs com um _FILE sufixo para apontar para um arquivo que cont&eacute;m o arquivo. Por exemplo, definir o MYSQL_PASSWORD_FILE var far&aacute; com que o aplicativo use o conte&uacute;do do arquivo referenciado como a senha de conex&atilde;o. O Docker n&atilde;o faz nada para dar suporte a esses VARs de env. Seu aplicativo precisar&aacute; saber procurar a vari&aacute;vel e obter o conte&uacute;do do arquivo.</p>
+
+<p><b>Portas nos containers Docker</b></p>
+
+<p>&quot;portaHost:portaContainer&quot;</p>
+
+<p>N&atilde;o usar as mesmas portas no container que est&aacute; usando no host, exemplos:</p>
+
+<p>&quot;80:80&quot;<br />
+&quot;3306:3306&quot;</p>
+
+<p>Para criar o container precisar&aacute; parar os servi&ccedil;os do host.</p>
+
+<p>Mais tarde precisa do servi&ccedil;o no host e ele n&atilde;o starta devido o contaienr estar usando a porta.</p>
+
+<p>Caso use laravel n&atilde;o use assim</p>
+
+<p>&quot;8000:80&quot;</p>
+
+<p>Pois por padr&atilde;o o laravel usa a 8000</p>
+
+<p>Use uma que n&atilde;o vai usar no host. Exemplo:</p>
+
+<p>&quot;8888:80&quot;</p>
+
+<p>Isso indica que a porta 80 do container ser&aacute; mapeada para a porta 8888 no host.</p>
+
+<p>Se acessar em seu host</p>
+
+<p>http://localhost:8888</p>
+
+<p>Estar&aacute; acessando o site do container na porta 80</p>
+
+<p><br />
+<code>docker network ls</code></p>
+
+<p>docker network ls<br />
+<code>
+NETWORK ID&nbsp;&nbsp;&nbsp;&nbsp; NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER&nbsp;&nbsp;&nbsp; SCOPE<br />
+c7a4606f76c4&nbsp;&nbsp; bridge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bridge&nbsp;&nbsp;&nbsp; local<br />
+c6c912ff7b73&nbsp;&nbsp; host&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local</code></p>
+
+<p><b>A rede chamada bridge</b> &eacute; uma rede especial. A menos que voc&ecirc; diga o contr&aacute;rio, o Docker sempre inicia seus cont&ecirc;ineres nesta rede.</p>
+
+<p><code>docker network inspect bridge</code></p>
+
+<p><code>docker network disconnect bridge networktest</code></p>
+
+<p><code>docker network create -d bridge my_bridge</code></p>
+
+<p><b>Adicionar containers para uma rede</b></p>
+
+<p><code>docker run -d --net=my_bridge --name db training/postgres</code></p>
+
+<p><code>docker inspect --format=&#39;{{json .NetworkSettings.Networks}}&#39;&nbsp; db</code></p>
+
+<p><code>docker run -d -p 8081:8081 -e &quot;port=8081&quot; --name app --network=my-bridge-network selaworkshops/python-app:2.0<br><br>
+
+docker network &nbsp;&nbsp; &nbsp;Manage networks<br><br>
+
+docker network connect multi-host-network container1<br><br>
+
+docker run -itd --network=multi-host-network busybox<br><br>
+
+docker network connect --ip 10.10.36.122 multi-host-network container2<br><br>
+
+docker network create -d bridge my-bridge-network<br><br>
+
+docker run -itd --network=mynet busybox<br><br>
+
+docker network create --driver=bridge --subnet=192.168.0.0/16 br0<br><br>
+
+docker inspect app<br><br>
+
+docker network connect my-bridge-network client<br><br>
+
+docker network disconnect my-bridge-network app<br><br>
+
+docker network rm my-bridge-network<br><br>
+
+docker network ls</code>
+
+<p><br />
+<b>Comandos de redes</b></p>
+
+<p>Checar se a porta 3306 est&aacute; aberta no host</p>
+
+<p>netstat -vanp tcp | grep 3306</p>
+
+<p>
+netstat -plnt | grep &#39;:80&#39;</p>
+
+<p>netstat -plnt</p>
+
+<p>To list all TCP or UDP ports that are being listened on, including the services using the ports and the socket status use the following command:</p>
+
+<p>netstat -tunlp</p>
+
+<p>netstat -tnlp | grep :22</p>
+
+<p>ss -tunlp</p>
+
+<p>lsof -nP -iTCP -sTCP:LISTEN</p>
+
+<p>lsof -nP -iTCP:3306 -sTCP:LISTEN</p>
+
+<p><b>Listar redes</b></p>
+
+<p>docker network ls</p>
+
+<p><b>Remover redes n&atilde;o usadas</b></p>
+
+<p>docker network prune</p>
+
+<p><b>Remover todas as redes com filtro</b></p>
+
+<p>Remover todas as redes criadas h&aacute; mais de 1 hora</p>
+
+<p>docker network prune --filter &quot;until=1h&quot;</p>
+
+<p>
+ENV IP docker inspect -f &#39;{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; apache-container</p>
+
+<p>RUN echo $IP</p>
+
+<p><b>
+Checar a localiza&ccedil;&atilde;o dos volumes:</b></p>
+
+<p>docker inspect [container_name]</p>
+
+<p>Checar se a porta 3306 est&aacute; aberta no host</p>
+
+<p>netstat -vanp tcp | grep 3306</p>
+
+<p>netstat -plnt | grep &#39;:80&#39;</p>
+
+<p>netstat -plnt</p>
+
+<p><b>Para listar todas as portas que estão escutando, incluindo os serviços usando as portas e o estatus do socket use o comando:</b></p>
+
+<p>netstat -tunlp</p>
+
+<p>netstat -tnlp | grep :22</p>
+
+<p>ss -tunlp</p>
+
+<p>lsof -nP -iTCP -sTCP:LISTEN</p>
+
+<p>lsof -nP -iTCP:3306 -sTCP:LISTEN</p>
+
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/knight-free-bootstrap-theme/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

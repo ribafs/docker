@@ -1,0 +1,78 @@
+version: "3.3"
+networks:
+  web:
+    driver: bridge
+services:
+  web:
+    image: ubuntu
+    container_name: web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: # <Port exposed> : < MySQL Port running inside container>
+      - "8000:80" 
+    expose: # Opens port 3306 on the container
+      - "8000"
+    volumes:
+      - ".:/var/www/html/"
+    environment:
+      - APP_DEBUG=true
+    read_only: false
+    privileged: true
+    links:
+      - mariadb
+    networks:
+      - web
+    command: 'bash'
+  mariadb:
+    image: ubuntu
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: maria
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4306:3306"
+    command: --init-file ./setup.sql
+    expose: # Opens port 3306 on the container
+      - "4306" 
+    volumes:
+      - persistent:/var/lib/mysql/
+    read_only: false
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testes
+      MYSQL_USER: ribafs
+      MYSQL_PASSWORD: ribafs
+      MYSQL_PORT: 3306
+    networks:
+      - web
+    command: 'bash'
+    tty: true
+  postgres:
+    image: ubuntu
+    container_name: pg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6432:5432"
+    command: --init-file setup.sql
+    expose: # Opens port 5432 on the container
+      - "6432" 
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    read_only: false
+    privileged: true
+    restart: always
+    networks:
+      - web
+    command: 'bash'
+    tty: true
+volumes:
+  pgdata: {}
+  persistent:
+
+

@@ -1,0 +1,210 @@
+# Dicas sobre redes no docker
+
+Mudar o hostname do servidor do banco
+
+nano /etc/hosts
+
+
+392
+
+You just need to make sure that the containers you want to talk to each other are on the same network. Networks are a first-class docker construct, and not specific to compose.
+
+# front/docker-compose.yml
+version: '2'
+services:
+  front:
+    ...
+    networks:
+      - alpine-net
+networks:
+  alpine-net:
+    driver: bridge
+
+...
+
+# api/docker-compose.yml
+version: '2'
+services:
+  api:
+    ...
+    networks:
+      - front_some-net
+networks:
+  front_some-net:
+    external: true
+
+    Note: Your app’s network is given a name based on the “project name”, which is based on the name of the directory it lives in, in this case a prefix front_ was added
+
+They can then talk to each other using the service name. From front you can do ping api and vice versa.
+
+---------
+
+
+UPDATE: As of compose file version 3.5:
+
+This now works:
+
+version: "3.5"
+services:
+  proxy:
+    image: hello-world
+    ports:
+      - "80:80"
+    networks:
+      - proxynet
+
+networks:
+  proxynet:
+    name: custom_network
+
+docker-compose up -d will join a network called 'custom_network'. If it doesn't exist, it will be created!
+
+root@ubuntu-s-1vcpu-1gb-tor1-01:~# docker-compose up -d
+Creating network "custom_network" with the default driver
+Creating root_proxy_1 ... done
+
+Now, you can do this:
+
+version: "2"
+services:
+  web:
+    image: hello-world
+    networks:
+      - my-proxy-net
+networks:
+  my-proxy-net:
+    external:
+      name: custom_network
+
+This will create a container that will be on the external network.
+
+I can't find any reference in the docs yet but it works!
+
+---------
+
+
+85
+
+Just a small adittion to @johnharris85's great answer, when you are running a docker compose file, a "default" network is created so you can just add it to the other compose file as an external network:
+
+# front/docker-compose.yml 
+version: '2' 
+  services:   
+    front_service:
+    ...
+
+...
+
+# api/docker-compose.yml
+version: '2'
+services:
+  api_service:
+    ...
+    networks:
+      - front_default
+networks:
+  front_default:
+    external: true
+
+For me this approach was more suited because I did not own the first docker-compose file and wanted to communicate with it.
+
+-------------
+
+
+127.0.0.1   mariadb
+
+mariadb - nome do service no docker-compsoe.yml
+
+Na conexão com PDO
+
+host=mariadb
+
+    Criar uma rede externa para todos acessarem. Parece que foi o que fez quando, no segundo arquivo, declarou
+
+    networks:
+       mysql_net:
+         external: true
+
+Então provavelmente já tem uma rede criada com esse nome antes de executar o docker-compose up. Se ainda não criou, pode criar uma com
+
+    docker network create mysql_net
+
+
+apt install -y iputils-ping
+
+Pesquisar mysqld ou apache2 rodando
+
+ps -Af | grep mysqld
+
+ps -Af | grep apache2
+
+
+
+Tente com isso:
+
+version: '3.5'
+services:
+
+# MYSQL
+  db:
+    image: mysql
+    container_name: db_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment: 
+      MYSQL_ROOT_PASSWORD: "admin"
+    ports:
+      - 3306:3306
+    networks: 
+      - mysql_net
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    networks: 
+      - mysql_net
+
+
+# POSTGRES
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment: 
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    networks:
+      - mysql_net
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "15432:80"
+    networks:
+      - mysql_net
+networks: 
+  mysql_net:
+    driver: bridge
+
+--- (outro compose)
+
+version: '3.5'
+
+services:
+  nginx:
+    image: richarvey/nginx-php-fpm
+    ports: 
+      - "8080:80"
+    container_name: nginx
+    volumes:
+        - ./code:/var/www/html
+    networks:
+      - mysql_net
+networks:
+  mysql_net:
+    name: mysql_net
+
+

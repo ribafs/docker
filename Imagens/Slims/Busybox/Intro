@@ -1,0 +1,20 @@
+Busybox
+
+Uma imagem docker Busybox é útil se alguém está construindo um contêiner para o qual o busybox pode preencher sua cadeia de dependências sem precisar de uma distro Linux completa.
+
+Freqüentemente, um dispositivo embutido pode consistir em nada além de uma cópia vinculada estaticamente do busybox, um script de inicialização que monta procfs, sysfs, etc. com as ferramentas fornecidas pelo busybox e, em seguida, o aplicativo real sendo invocado. Com o docker configurando o namespace do sistema de arquivos, mesmo esse script de inicialização não é necessariamente necessário.
+
+Baixa a imagem, cria o container e já acessa
+docker run -it --rm busybox - 1.23MB
+
+FROM busybox
+COPY ./my-static-binary /my-static-binary
+CMD ["/my-static-binary"]
+
+glibc
+
+musl
+
+docker container run --rm -it --network [network_name] busybox
+
+and then all those utilities in BusyBox are available on that docker custom network and instantly destroyed when you exit the BusyBox CLI

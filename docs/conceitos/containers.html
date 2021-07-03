@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cantinho do Docker</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../assets/vendor/owl.carousel/../assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Knight - v2.1.0
+  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container">
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul class="nav-inner">
+          <li class="active"><a href="index.html">Início</a></li>
+          <li class="drop-down"><a href="#">Introdução</a>
+              <ul>
+                  <li><a href="../introducao/index.html">Introdução</a></li>
+                  <li><a href="../introducao/inst-linux.html">Instalação no Linux</a></li>
+                  <li><a href="../introducao/inst-win.html">Instalação no Windows</a></li>
+                  <li><a href="../introducao/linux.html">Comandos do Linux</a></li>
+                  <li><a href="../introducao/redes.html">Redes no Docker</a></li>
+                  <li><a href="../introducao/volumes.html">Volumes no Docker</a></li>
+              </ul>
+          </li>
+          <li class="drop-down"><a href="">Projeto</a>
+            <ul>
+              <li><a href="../projeto/index.html">Projeto</a></li>
+              <li><a href="../projeto/boas-praticas.html">Boas Práticas</a></li>
+              <li><a href="../projeto/estrutura.html">Estrutura</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Conceitos</a>
+            <ul>
+              <li><a href="index.html">Conceitos</a></li>
+              <li><a href="containers.html">Containers</a></li>
+              <li><a href="docker.html">Docker</a></li>
+              <li><a href="imagens.html">Imagens</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Comandos</a>
+            <ul>
+              <li><a href="../comandos/index.html">Comandos</a></li>
+              <li><a href="../comandos/comandos1.html">Comandos 1</a></li>
+              <li><a href="../comandos/comandos2.html">Comandos 2</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Imagens</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Tutoriais</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Containers</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+              <li><a href="ferramentas.html" target="_blank">Ferramentas</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Sobre</a>
+            <ul>
+              <li><a href="../livros">Meus livros</a></li>
+              <li><a href="https://github.com/ribafs/" target="_blank">Meus Projetos</a></li>
+              <li><a href="../curriculo.html">Currículo</a></li>
+              <li><a href="../contato.html">Contato</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section>
+      <div class="container">
+
+          <h2 class="text-center">Conceitos</h2>
+<div class="text-left">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+
+<p>A tecnologia est&aacute; em constante evolu&ccedil;&atilde;o e a todo momento surgem novas ideias que aprimoram os m&eacute;todos utilizados em TI. O container docker &eacute; uma delas e pode trazer v&aacute;rios benef&iacute;cios para a sua organiza&ccedil;&atilde;o.</p>
+
+<p>As empresas optam por essa modalidade porque os containers trazem diferentes possibilidades. Por serem ambientes isolados e port&aacute;veis, os desenvolvedores podem empacotar aplica&ccedil;&otilde;es com bibliotecas e links necess&aacute;rios. O resultado &eacute; mais efici&ecirc;ncia no trabalho e a simplifica&ccedil;&atilde;o da implanta&ccedil;&atilde;o.</p>
+
+<p>Por&eacute;m, essa descri&ccedil;&atilde;o ainda n&atilde;o diz todos os benef&iacute;cios do uso dessa tecnologia. Por isso, criamos este post. Aqui, vamos explicar os principais detalhes sobre o docker, passando pelos seguintes aspectos:</p>
+
+<p>&nbsp;&nbsp;&nbsp; conceito;<br />
+&nbsp;&nbsp;&nbsp; diferen&ccedil;as do sistema virtualiza&ccedil;&atilde;o dessa forma;<br />
+&nbsp;&nbsp;&nbsp; por que se tornou uma tend&ecirc;ncia do mercado;<br />
+&nbsp;&nbsp;&nbsp; benef&iacute;cios do uso.</p>
+
+<p>Ent&atilde;o, que tal entender melhor essa tecnologia? &Eacute; s&oacute; continuar lendo!</p>
+
+<p><b>O que &eacute; um container docker?</b></p>
+
+<p>Esse conceito precisa ser compreendido em partes. O container &eacute; um ambiente isolado. J&aacute; o docker &eacute; uma plataforma open source na linguagem de programa&ccedil;&atilde;o Go, que possui alto desempenho e &eacute; desenvolvida diretamente no Google.</p>
+
+<p>Assim, o docker agrupa partes de softwares de um sistema de arquivo completo e que abrange todos os recursos necess&aacute;rios para a sua execu&ccedil;&atilde;o. Por isso, &eacute; uma plataforma de containers.</p>
+
+<p>Isso significa que tudo pode ser instalado no servidor e &eacute; armazenado nos containers. Dessa forma, os mesmos softwares e as suas vers&otilde;es podem ter uma execu&ccedil;&atilde;o facilitada em qualquer ambiente de desenvolvimento.</p>
+
+<p>O que ocorre na pr&aacute;tica &eacute; que o docker destaca recursos e usa bibliotecas de kernel em comum. Os itens empacotados &mdash; ou at&eacute; mesmo um ambiente inteiro &mdash; s&atilde;o dispostos no container e se tornam port&aacute;veis, o que torna o trabalho conjunto mais eficiente. Ao mesmo tempo, a implanta&ccedil;&atilde;o pode ser feita em ambientes n&atilde;o heterog&ecirc;neos.</p>
+
+<p>Assim, o docker &eacute; uma implementa&ccedil;&atilde;o de virtualiza&ccedil;&atilde;o de containers que vem conquistando cada vez mais espa&ccedil;o devido &agrave; computa&ccedil;&atilde;o em nuvem. Anteriormente, o hypervisor dominava o ambiente, mas agora ele &eacute; exclu&iacute;do do processo.</p>
+
+<p>Devido a todas as facilidades que oferece, o container &eacute; uma das principais tend&ecirc;ncias de TI. Ele simplifica a aplica&ccedil;&atilde;o da metodologia DevOps e facilita o desenvolvimento &aacute;gil, tanto que o Google utiliza essa tecnologia h&aacute; mais de 10 anos.</p>
+
+<p>J&aacute; o docker, por ser open source, possibilita a execu&ccedil;&atilde;o de deploys e o escalonamento de aplica&ccedil;&otilde;es com mais facilidade. Al&eacute;m disso, devido &agrave; virtualiza&ccedil;&atilde;o por container, propicia um ambiente isolado e leve para rodar o programa.<br />
+
+<b>Quais as diferen&ccedil;as do sistema virtualizado com docker?</b></p>
+
+<p>O container exclui a virtualiza&ccedil;&atilde;o pelo hypervisor e muda o processo para o docker. Essa &eacute; a principal modifica&ccedil;&atilde;o. No entanto, h&aacute; v&aacute;rios detalhes intrincados que precisam ser compreendidos.</p>
+
+<p>Para facilitar, vamos apresentar o modelo tradicional de virtualiza&ccedil;&atilde;o e o novo, com o container:<br />
+Sistema virtualizado por VM</p>
+
+<p>O modelo mais comum conta com uma m&aacute;quina virtual (VM, do ingl&ecirc;s virtual machine), que trabalha com um sistema operacional (SO) completo, por&eacute;m separado do equipamento. A execu&ccedil;&atilde;o do software &eacute; feita em cima de um servidor f&iacute;sico com a finalidade de emular determinado sistema de hardware.</p>
+
+<p>Esse processo &eacute; possibilitado pelo hypervisor, software que cria e efetiva a VM. Basicamente, ele se localiza entre o hardware e o SO, sendo um elemento fundamental para a virtualiza&ccedil;&atilde;o do servidor. Um exemplo de hypervisor &eacute; o VMWare, Hyper-V e o VirtualBox.</p>
+
+<p>Uma mesma m&aacute;quina pode contar com diferentes VMs. Cada uma opera um SO exclusivo e possui seu pr&oacute;prio kernel, bin&aacute;rios, aplicativos e bibliotecas, o que significa que ocupam um espa&ccedil;o grande no servidor.</p>
+
+<p>Quando foi criada, essa tecnologia trouxe diversos benef&iacute;cios devido &agrave; capacidade de consolida&ccedil;&atilde;o de aplicativos em um sistema &uacute;nico. Com isso, &eacute; poss&iacute;vel alcan&ccedil;ar a redu&ccedil;&atilde;o de custos pelo r&aacute;pido provisionamento e obter o aprimoramento da possibilidade de recupera&ccedil;&atilde;o de desastres.</p>
+
+<p>Duas &aacute;reas muito fortalecidas e beneficiadas com essa medida foram a de QA e development, porque se tornou poss&iacute;vel testar os programas e usar os servidores liberados para montar esses ambientes.</p>
+
+<p>Assim, apesar de haver v&aacute;rios benef&iacute;cios com a virtualiza&ccedil;&atilde;o por VM, ainda era necess&aacute;rio criar uma alternativa mais simples e leve.<br />
+Sistema virtualizado com docker</p>
+
+<p>Esse &eacute; um sistema desenvolvido na linguagem de programa&ccedil;&atilde;o Go. Com ele, os desenvolvedores conseguem criar e administrar diferentes ambientes isolados, fazendo com que os dockers sejam um sistema de virtualiza&ccedil;&atilde;o diferente do tradicional.</p>
+
+<p>Isso acontece porque esse novo sistema de virtualiza&ccedil;&atilde;o usa o Linux Container (LXC) como backend. Ele n&atilde;o fornece uma VM, mas sim um ambiente virtual semelhante ao chroot, mas com um isolamento maior. Essa caracter&iacute;stica permite definir limita&ccedil;&otilde;es de recursos por container, por exemplo, CPU, mem&oacute;ria, I/O, entre outros.</p>
+
+<p>Na pr&aacute;tica, o SO convidado e o hypervisor s&atilde;o eliminados e o host entra em contato direto com as bibliotecas. Com essa liga&ccedil;&atilde;o, os itens ficam port&aacute;veis para qualquer outro host que tamb&eacute;m possua o sistema de virtualiza&ccedil;&atilde;o instalado. A consequ&ecirc;ncia &eacute; a redu&ccedil;&atilde;o do tempo de deploy de uma aplica&ccedil;&atilde;o ou infraestrutura.</p>
+
+<p>Assim, &eacute; desnecess&aacute;rio ajustar o ambiente para que o servi&ccedil;o funcione corretamente. Ou seja, ele &eacute; sempre igual e &eacute; configurado uma vez. A partir disso, basta replic&aacute;-lo.</p>
+
+<p>Outras possibilidades interessantes s&atilde;o criar os containers prontos para deploy (ou seja, imagens) a partir de dockerfiles, que s&atilde;o arquivos de defini&ccedil;&atilde;o.</p>
+
+<p>&Eacute; importante destacar que os containers se localizam em cima de um servidor f&iacute;sico e do SO hospedeiro. Cada um deles compartilha o kernel do SO host e costuma partilhar tamb&eacute;m as bibliotecas e bin&aacute;rios.</p>
+
+<p>A diferen&ccedil;a &eacute; que os itens compartilhados servem somente para leitura, o que torna o container muito leve, especialmente se comparado &agrave; VM. Para ter uma ideia, o tamanho do primeiro &eacute; de Mb e, por isso, ele &eacute; iniciado em poucos segundos. J&aacute; a m&aacute;quina virtual cont&eacute;m v&aacute;rios Gb e demora minutos para ser executada.</p>
+
+<p>Perceba que esse novo modelo de virtualiza&ccedil;&atilde;o prev&ecirc; o fornecimento do b&aacute;sico para que uma aplica&ccedil;&atilde;o seja executada em um SO hospedeiro.</p>
+
+<p>Assim, escolher entre uma VM e um docker depende do contexto do projeto que se pretende realizar. A principal diferen&ccedil;a &eacute; relativa ao consumo de recursos e espa&ccedil;o, porque a modalidade de virtualiza&ccedil;&atilde;o mais recente possui diferentes camadas, que s&atilde;o reunidas com o UnionFS.</p>
+
+<p>Essa caracter&iacute;stica traz mais agilidade ao processo, porque o rebuild &eacute; desnecess&aacute;rio para o update das imagens. De modo geral, os containers s&atilde;o mais interessantes devido a alguns fatores, como:</p>
+
+<p>&nbsp;&nbsp;&nbsp; velocidade;<br />
+&nbsp;&nbsp;&nbsp; rapidez no boot;<br />
+&nbsp;&nbsp;&nbsp; economia de recursos;<br />
+&nbsp;&nbsp;&nbsp; entendimento dos processos do container como sendo realizados dentro do sistema host;<br />
+&nbsp;&nbsp;&nbsp; possibilidade de fazer o upload de v&aacute;rios containers simultaneamente, o que consome menos recursos do hardware virtual ou f&iacute;sico.</p>
+
+<p>Assim, o container docker leva a um n&iacute;vel superior de virtualiza&ccedil;&atilde;o, o que traz diferentes vantagens para a organiza&ccedil;&atilde;o.<br />
+
+<b>Como o docker funciona?</b></p>
+
+<p>As m&eacute;dias e grandes empresas, principalmente, utilizam aplica&ccedil;&otilde;es como ERPs e CRMs, ou seja, conjuntos de software que iniciam como projetos simples, mas que se tornam ineficientes com o tempo e impedem o progresso por contarem com um c&oacute;digo-fonte monol&iacute;tico.</p>
+
+<p>O container surgiu para resolver esse problema. A solu&ccedil;&atilde;o passa por diferentes etapas. A primeira delas &eacute; a desagrega&ccedil;&atilde;o do aplicativo em componentes menores, os chamados microsservi&ccedil;os. A partir disso, os desenvolvedores conseguem adotar uma arquitetura que aumenta a efici&ecirc;ncia operacional.</p>
+
+<p>Isso acontece porque o c&oacute;digo-fonte &eacute; destinada para cada componente de aplica&ccedil;&atilde;o. Assim, o software passa por v&aacute;rios est&aacute;gios, por exemplo, vai para um ambiente de testes, para um virtual e, por &uacute;ltimo, de produ&ccedil;&atilde;o.</p>
+
+<p>Em cada um desses locais, a aplica&ccedil;&atilde;o deve ter uma performance consistente, que &eacute; garantida pelo container. Ele encapsula os componentes em um pacote &uacute;nico e leve, que permite executar os aplicativos com consist&ecirc;ncia independentemente do ambiente ser virtual ou f&iacute;sico.</p>
+
+<p>J&aacute; o docker faz a comunica&ccedil;&atilde;o entre cliente e servidor por meio de um API. Para realizar esse workflow, &eacute; necess&aacute;rio ter o servi&ccedil;o instalado em um local e apontar o cliente para esse servidor.</p>
+
+<p>A plataforma em si usa alguns conjuntos de recursos para criar e administrar os containers, inclusive limitar os recursos. Dentre eles est&aacute; a biblioteca libcontainer, que efetua a comunica&ccedil;&atilde;o entre o Docker Daemon e o backend.</p>
+
+<p>Vale a pena destacar que o docker est&aacute; embasado no conceito de layers. O container &eacute; constru&iacute;do por meio de chroot, namespaces, cgroups e outras funcionalidades do kernel a fim de isolar a &aacute;rea para a sua aplica&ccedil;&atilde;o.</p>
+
+<p>Desse modo, no docker, o kernel monta o rootfs na modalidade somente leitura. Logo em seguida, um arquivo do sistema &eacute; criado como read-write sobre o rootf. Depois, o kernel sobrep&otilde;e a parti&ccedil;&atilde;o ra&iacute;z como read-only e pega um novo file system para coloc&aacute;-lo sobre o rootfs.</p>
+
+<p>Observe que o container est&aacute; pronto para executar a imagem (layer somente leitura) ap&oacute;s o carregamento do rootfs. Ele tamb&eacute;m &eacute; uma camada read-write criada a partir de uma imagem somente leitura.</p>
+
+<p>Por isso, ele &eacute; uma ferramenta excelente para DevOps. No caso dos administradores de sistemas h&aacute; o benef&iacute;cio da flexibilidade, custos menores e menos &aacute;reas ocupadas. Para os desenvolvedores, &eacute; mais liberdade para que esses profissionais foquem a atividade principal.<br />
+Por que ele vem se tornando uma tend&ecirc;ncia no mercado?</p>
+
+<p>O docker tem se popularizado devido a diferentes facilidades proporcionadas pela plataforma. Em compara&ccedil;&atilde;o com a VM, a estrutura &eacute; menor, porque o hypervisor &eacute; substitu&iacute;do pelo docker engine e o SO hospedeiro &eacute; exclu&iacute;do.</p>
+
+<p>Ambos os modelos permitem o isolamento de recursos e incluem as bibliotecas, aplica&ccedil;&atilde;o e arquivos necess&aacute;rios. A diferen&ccedil;a &eacute; que a VM precisa do SO e, com isso, exige espa&ccedil;o e possui custo de manuten&ccedil;&atilde;o.</p>
+
+<p>Essa especifica&ccedil;&atilde;o evidencia que o docker tem uma estrutura mais port&aacute;til e leve. &Eacute; mais f&aacute;cil mant&ecirc;-la, porque os containers compartilham o mesmo SO da hospedagem. Apenas os processos s&atilde;o executados isoladamente e, portanto, o custo e a necessidade de espa&ccedil;o s&atilde;o menores.</p>
+
+<p>A portabilidade &eacute; outra vantagem do docker, o que traz ainda mais benef&iacute;cios para os ambientes de development. Assim, uma aplica&ccedil;&atilde;o &eacute; mais facilmente executada no ambiente de homologa&ccedil;&atilde;o e/ou de produ&ccedil;&atilde;o.</p>
+
+<p>Al&eacute;m disso, h&aacute; uma garantia maior de que n&atilde;o haver&aacute; erros ou imprevistos durante o deploy. Por fim, gasta-se menos tempo para configurar os ambientes e se perde menos tempo analisando e identificando as diferen&ccedil;as existentes. O resultado &eacute; a integra&ccedil;&atilde;o das equipes de desenvolvimento e SysAdmin, que aumentam a produtividade.</p>
+
+<p>Para entender melhor a import&acirc;ncia, basta observar um exemplo pr&aacute;tico. Imagine que a sua empresa realiza um projeto em WordPress com o PHP vers&atilde;o 5.*, mas deseja atualizar a linguagem para a s&eacute;tima.</p>
+
+<p>Esse processo de update da vers&atilde;o se torna mais simples com o docker. Voc&ecirc; pode realizar testes para definir a vers&atilde;o que permanecer&aacute; sendo utilizada e assinalar os ajustes necess&aacute;rios.</p>
+
+<p>Devido a todas essas peculiaridades, centenas de empresas utilizam o docker em todo o mundo. Alguns exemplos s&atilde;o Uber, The Washington Post, PayPal, General Electric, eBay, Spotify etc. Um dos motivos para isso &eacute; o fato de diversas solu&ccedil;&otilde;es de hospedagem adotaram a tecnologia.</p>
+
+<p>Outra justificativa &eacute; que, no come&ccedil;o, ele pode representar uma demanda muito grande de recursos, mas a recompensa s&atilde;o as vantagens em agilidade, j&aacute; que a velocidade de implanta&ccedil;&atilde;o de containers vai de milissegundos a alguns segundos.<br />
+
+<b>Quais s&atilde;o as vantagens de utilizar?</b></p>
+
+<p>O container docker &eacute; uma tecnologia que apresenta diferentes benef&iacute;cios &agrave;s empresas. As principais s&atilde;o:<br />
+Economia significativa de recursos</p>
+
+<p>Essa quest&atilde;o pode ser explicada pela contextualiza&ccedil;&atilde;o da diferen&ccedil;a existente entre imagens e containers. As primeiras s&atilde;o um ambiente read-only, enquanto os segundos s&atilde;o definidos como uma imagem em execu&ccedil;&atilde;o, na qual &eacute; gerada um layer extra que armazena os dados relativos &agrave; determinada opera&ccedil;&atilde;o.</p>
+
+<p>&Eacute; poss&iacute;vel configurar a depend&ecirc;ncia de uma imagem em rela&ccedil;&atilde;o a outra. Nessa situa&ccedil;&atilde;o &eacute; criada uma pilha de imagens, sendo que cada uma delas &eacute; somente leitura. Assim, pode-se montar um amontoado para diferentes containers, o que ocasiona uma economia de recursos sobre o disco, que &eacute; compartilhado entre os ambientes.</p>
+
+<p>Ainda &eacute; poss&iacute;vel exemplificar essa situa&ccedil;&atilde;o por um ambiente composto por uma imagem Apache, Debian e m&oacute;dulo PHP. Se forem necess&aacute;rios 20 containers da pilha de imagens, n&atilde;o &eacute; necess&aacute;rio utilizar o recurso multiplicado por 20.</p>
+
+<p>Isso porque a utiliza&ccedil;&atilde;o do espa&ccedil;o em disco se refere somente aos logs e arquivos tempor&aacute;rios de cada container. Desse modo, os dados s&atilde;o armazenados no layer extraindividual.<br />
+Disponibilidade maior do sistema</p>
+
+<p>Esse benef&iacute;cio &eacute; ocasionado pelo fato de o docker virtualizar o sistema de maneira diferente ao m&eacute;todo da VM. Por compartilhar o SO e outros componentes, h&aacute; mais espa&ccedil;o livre, o que deixa os processos mais &aacute;geis e oferece uma disponibilidade maior.</p>
+
+<p>Em termos bastante simples, a m&aacute;quina fica menos &ldquo;pesada&rdquo; e fica com mais espa&ccedil;o para rodar outros programas e aplica&ccedil;&otilde;es.<br />
+Possibilidade de compartilhamento</p>
+
+<p>Os arquivos podem ser compartilhados entre o host e o container ou at&eacute; mesmo um volume tem a possibilidade de ser distribu&iacute;do para outros. A pr&aacute;tica da segunda situa&ccedil;&atilde;o &eacute; mais indicada nos casos em que se deseja ter persist&ecirc;ncia de dados e quando n&atilde;o se atrela ao host que hospeda o container.</p>
+
+<p>Outro aspecto que precisa ser considerado &eacute; que o container est&aacute; em um n&iacute;vel de virtualiza&ccedil;&atilde;o operacional, ou seja, &eacute; um processo em execu&ccedil;&atilde;o em um kernel compartilhado entre outros containers.</p>
+
+<p>Por meio do namespace &eacute; feito o isolamento da mem&oacute;ria RAM, disco, processamento e acesso &agrave; rede. Ou seja, em um contexto isolado h&aacute; o compartilhamento do kernel, mas a impress&atilde;o &eacute; de que o SO &eacute; dedicado.</p>
+
+<p>Por fim, o compartilhamento pode ocorrer pela cloud. Essa tecnologia disponibiliza um reposit&oacute;rio de imagens e ambientes prontos, que podem ser compartilhados. Com a utiliza&ccedil;&atilde;o desse servi&ccedil;o, o docker chega a extrapolar o limite t&eacute;cnico e passa para quest&otilde;es de ger&ecirc;ncia, processo e update do ambiente.</p>
+
+<p>Com isso, torna-se mais f&aacute;cil compartilhar as modifica&ccedil;&otilde;es e oferecer uma gest&atilde;o centralizada em rela&ccedil;&atilde;o &agrave;s defini&ccedil;&otilde;es de ambiente. O espa&ccedil;o para testes tamb&eacute;m se torna mais leve, o que permite baixar uma solu&ccedil;&atilde;o durante uma reuni&atilde;o, por exemplo, ou fornecer um padr&atilde;o de melhores pr&aacute;ticas para todos os colaboradores.<br />
+
+<b>Gerenciamento facilitado</b></p>
+
+<p>Os containers s&atilde;o executados em m&aacute;quinas f&iacute;sicas ou virtuais e o grupo delas &eacute; chamado de cluster. Esse item precisa ser monitorado constantemente. Por isso, foram criadas ferramentas para fazer o gerenciamento, por exemplo, o Kubernetes e o OpenShift.</p>
+
+<p>Esses sistemas trabalham em conjunto com o docker e operam o equipamento que possibilita a execu&ccedil;&atilde;o dos containers. No entanto, os sistemas de arquivos tamb&eacute;m s&atilde;o gerenciados.</p>
+
+<p>Essas ferramentas de monitoramento geram uma abstra&ccedil;&atilde;o, denominada pod, no n&iacute;vel de um componente da aplica&ccedil;&atilde;o. Essa quest&atilde;o inclui um grupo de um ou mais containers, armazenamento compartilhado e alternativas de opera&ccedil;&atilde;o.<br />
+
+<b>Similaridade dos ambientes</b></p>
+
+<p>A transforma&ccedil;&atilde;o da aplica&ccedil;&atilde;o em uma imagem docker permite que ela seja instanciada como container em diferentes ambientes. Essa caracter&iacute;stica garante a sua utiliza&ccedil;&atilde;o, por exemplo, tanto no notebook do desenvolvedor quando no servidor de produ&ccedil;&atilde;o.</p>
+
+<p>Tenha em mente que a imagem aceita par&acirc;metros na inicia&ccedil;&atilde;o do container, situa&ccedil;&atilde;o que indica diferentes comportamentos conforme o ambiente. Por exemplo: ele pode se conectar ao banco de dados local para testes a partir da base de dados e credenciais, mas em produ&ccedil;&atilde;o acessar&aacute; um database com infraestrutura robusta, que possui as suas pr&oacute;prias credenciais.</p>
+
+<p>&Eacute; importante destacar que ambientes semelhantes impactam a an&aacute;lise de erros e a confiabilidade do processo de entrega cont&iacute;nua de forma positiva. No segundo caso, a base &eacute; a cria&ccedil;&atilde;o de um artefato &uacute;nico que faz a migra&ccedil;&atilde;o, que pode ser a pr&oacute;pria imagem do docker com as depend&ecirc;ncias necess&aacute;rias para a execu&ccedil;&atilde;o do c&oacute;digo din&acirc;mico ou compilado.<br />
+
+<b>Aplica&ccedil;&atilde;o como pacote completo</b></p>
+
+<p>As imagens do docker possibilitam o empacotamento da aplica&ccedil;&atilde;o e as suas depend&ecirc;ncias, o que simplifica o processo de distribui&ccedil;&atilde;o por n&atilde;o ser exigida ampla documenta&ccedil;&atilde;o sobre a configura&ccedil;&atilde;o da infraestrutura com a finalidade de execu&ccedil;&atilde;o. Para isso, basta disponibilizar o reposit&oacute;rio e permitir o acesso para o usu&aacute;rio.</p>
+
+<p>A partir disso &eacute; poss&iacute;vel fazer o download do pacote, que pode ser executado facilmente. O update tamb&eacute;m sofre impacto positivo, porque a estrutura de layers permite que, em caso de modifica&ccedil;&atilde;o, somente a altera&ccedil;&atilde;o seja transferida.</p>
+
+<p>Essa medida faz com que o ambiente possa ser mudado de maneira simples e r&aacute;pida. Com apenas um comando existe a capacidade de fazer o update da imagem da aplica&ccedil;&atilde;o, que &eacute; refletida no container em execu&ccedil;&atilde;o quando for desejado.</p>
+
+<p>As imagens podem ser categorizadas com tags, o que facilita o armazenamento de diferentes vers&otilde;es de uma aplica&ccedil;&atilde;o. Se houver algum problema na atualiza&ccedil;&atilde;o, &eacute; poss&iacute;vel retornar para a imagem com a tag anterior.<br />
+
+<b>Padroniza&ccedil;&atilde;o e replica&ccedil;&atilde;o</b></p>
+
+<p>As imagens do docker s&atilde;o constru&iacute;das por meio de arquivos de defini&ccedil;&atilde;o, o que assegura o seguimento de um determinado padr&atilde;o e eleva a confian&ccedil;a na replica&ccedil;&atilde;o. Dessa maneira, fica muito mais vi&aacute;vel escalar a estrutura.</p>
+
+<p>Com a chegada de um novo membro para a equipe de TI, por exemplo, ele pode se integrar e receber o ambiente de trabalho rapidamente, com apenas alguns comandos. Ele ainda pode desenvolver os c&oacute;digos de acordo com o padr&atilde;o adotado para a equipe.</p>
+
+<p>Por sua vez, na necessidade de testar uma vers&atilde;o com as imagens, &eacute; poss&iacute;vel mudar um ou mais par&acirc;metros de um arquivo de defini&ccedil;&atilde;o. Ou seja, &eacute; mais simples criar e mudar a infraestrutura.<br />
+
+<b>Possibilidade de acessar comunidade</b></p>
+
+<p>O reposit&oacute;rio de imagens docker pode ser acessado para conseguir modelos de infraestrutura de aplica&ccedil;&otilde;es e servi&ccedil;os prontos para integra&ccedil;&otilde;es complexas. Dois exemplos s&atilde;o o mysql como banco de dados e o nginx como proxy reverso.</p>
+
+<p>No caso de a aplica&ccedil;&atilde;o exigir esses recursos, voc&ecirc; pode apenas usar as imagens do reposit&oacute;rio e configurar os par&acirc;metros para adequa&ccedil;&atilde;o ao seu ambiente. Essa &eacute; uma vantagem principalmente porque as imagens oficiais costumam ser condizentes com as boas pr&aacute;ticas.</p>
+
+<p>Como voc&ecirc; p&ocirc;de perceber, a tecnologia do docker &eacute; um pouco complexa, mas vale a pena apostar nela. A sua empresa consegue economizar recursos, configurar par&acirc;metros e virtualizar em um n&iacute;vel muito mais alto que o permitido pelas VMs atualmente.</p>
+
+<p>Por isso, vale a pena apostar no container docker para ter todas essas vantagens.</p>
+
+<p><b>Cr&eacute;dito</b><br />
+https://www.meupositivo.com.br/panoramapositivo/container-docker/</p>
+
+<p><b>&nbsp;As camadas do Dockerfile</b></p>
+
+<p>O dockerfile &eacute; uma ferramenta poderosa para definir imagens, gra&ccedil;as &agrave; sua estrutura em camadas , que cont&eacute;m comandos, bibliotecas a serem usadas e depend&ecirc;ncias.<br />
+Algumas camadas podem estar em mais projetos, portanto, esse recurso garante a reutiliza&ccedil;&atilde;o do que j&aacute; foi baixado e, consequentemente, garante as performances e, n&atilde;o menos importante, a economia de tempo e espa&ccedil;o f&iacute;sico.</p>
+
+<p>Vamos supor, por exemplo, que precisamos usar imagens de dois RDBMS, como PostgreSQL e MySQL (ou MariaDB ).</p>
+
+<p>Primeiro, come&ccedil;amos a pesquisar, com o comando docker search , as imagens oficiais contidas no dockerhub para esses dois sistemas e, em seguida, captamos as imagens oficiais.</p>
+
+<p>Podemos observar que o status final indica o download correto das imagens (vers&atilde;o mais recente &ndash; identificada pela tag padr&atilde;o ) e que nos dois casos elas s&atilde;o compostas por 14 camadas distintas .<br />
+Observamos, no entanto, que no caso do MariaDB, as quatro primeiras camadas s&atilde;o indicadas com &ldquo;J&aacute; existe&rdquo; . Na verdade, eles j&aacute; haviam sido baixados em um pull anterior e, portanto, n&atilde;o &eacute; necess&aacute;rio fazer o download novamente.</p>
+
+<p>Um identificador distingue cada uma dessas camadas, enquanto a pen&uacute;ltima string &ldquo;Digest&rdquo; representa univocamente a imagem que acabou de ser baixada como um hash da pr&oacute;pria imagem.</p>
+
+<p>Para entender melhor esse aspecto das camadas do Docker, vamos explorar como criar um DockerFile .</p>
+
+<p><b>&nbsp;Criar um DockerFile</b></p>
+
+<p>Se necess&aacute;rio, &eacute; poss&iacute;vel criar seus pr&oacute;prios Dockerfiles, adicionando n&iacute;veis a uma imagem de base &ndash; uma que represente a base a partir da qual iniciar &ndash; ou a partir de uma imagem vazia, caso seja necess&aacute;rio ter a m&aacute;xima liberdade de gerenciamento.<br />
+Nos dois casos, a primeira linha conter&aacute; o comando FROM, que indicar&aacute; a imagem de base (zero no caso de uma imagem vazia).<br />
+Vamos dar o exemplo de um Dockerfile simples derivado de uma imagem oficial do ubuntu.<br />
+Criamos nosso Dockerfile com o editor preferido e adicionamos as seguintes linhas:</p>
+
+<code>FROM ubuntu<br>
+RUN apt-get update<br>
+RUN apt-get install --yes apache2<br>
+COPY index.html /var/www/html/index.html<br>
+</code>
+
+<p>No primeiro n&iacute;vel (do ubuntu ), adicionamos tr&ecirc;s n&iacute;veis que representam os comandos que queremos adicionar.<br />
+Executamos o comando build para criar a imagem conforme descrito no arquivo da seguinte maneira:</p>
+
+<p><b>docker build</b></p>
+
+<p>N&atilde;o se esque&ccedil;a do ponto (.) Que indica o diret&oacute;rio atual em que o docker pesquisa um arquivo docker, exatamente com esse nome.</p>
+
+<p>Como voc&ecirc; pode ver nas imagens abaixo, a opera&ccedil;&atilde;o de compila&ccedil;&atilde;o consiste em 4 etapas , que correspondem &agrave;s quatro camadas da nossa imagem.</p>
+
+<p>Para entender melhor, vamos tentar executar novamente o comando agora</p>
+
+<p>&Eacute; f&aacute;cil testar que agora a cria&ccedil;&atilde;o da imagem &eacute; muito mais r&aacute;pida e reutiliza imagens que j&aacute; est&atilde;o armazenadas em cache.<br />
+A imagem 46115e101915 , por exemplo, &eacute; a que &eacute; reutilizada na etapa 3/4.<br />
+
+<b>Containers</b></p>
+
+<p>At&eacute; agora, falamos sobre como fazer o download de uma imagem ou criar e implementar sua pr&oacute;pria.<br />
+Mas &eacute; com o comando &ldquo;docker run&rdquo; que tudo realmente toma forma.</p>
+
+<p><code>docker run --rm --name ubuntu_apache -it ubuntu</code></p>
+
+<p>De fato, este comando permite instanciar um cont&ecirc;iner na imagem rec&eacute;m-criada .<br />
+As op&ccedil;&otilde;es escolhidas neste caso s&atilde;o as referentes &agrave; interatividade (-i) , &agrave; aloca&ccedil;&atilde;o de um console TTY (-t) e &agrave; possibilidade de remover diretamente o cont&ecirc;iner ap&oacute;s sair (&ndash;rm) .</p>
+
+<p>A documenta&ccedil;&atilde;o oficial do Docker cont&eacute;m a lista de todas as op&ccedil;&otilde;es para o comando run.</p>
+
+<p>Enquanto a imagem consiste em uma s&eacute;rie de camadas, todas no modo somente leitura, o cont&ecirc;iner adiciona uma camada superior (tamb&eacute;m chamada camada de cont&ecirc;iner) no modo leitura/grava&ccedil;&atilde;o .</p>
+
+<p>E toda vez que um novo cont&ecirc;iner &eacute; instanciado na mesma imagem, uma nova camada &eacute; adicionada para criar novos cont&ecirc;ineres.</p>
+
+<p>Se quisermos ter uma lista de cont&ecirc;ineres ativos e inativos , podemos executar o comando:</p>
+
+<p><code>docker ps -a</code></p>
+
+<p>O uso de cont&ecirc;ineres &eacute; &uacute;til porque voc&ecirc; pode criar com facilidade e rapidez um ambiente de desenvolvimento ou teste quantas vezes quiser.</p>
+
+<p>Saindo do console com o comando exit , o cont&ecirc;iner, gra&ccedil;as &agrave; op&ccedil;&atilde;o &ndash;rm , n&atilde;o existir&aacute; mais.</p>
+
+<p>Agora vamos tentar usar o comando:</p>
+
+<p><code>docker run --name ubuntu_apache -it ubuntu</code></p>
+
+<p>sem a op&ccedil;&atilde;o de remo&ccedil;&atilde;o anterior.</p>
+
+<p><code>docker run</code></p>
+
+<p>Nesse ponto, se quis&eacute;ssemos remov&ecirc;-lo manualmente, ter&iacute;amos que usar o:</p>
+
+<p><code>docker rm</code></p>
+
+<p>comando seguido pelo id.</p>
+
+<p>Mas n&atilde;o antes de parar.</p>
+
+<p>Portanto, a sequ&ecirc;ncia correta dos comandos &eacute; a seguinte:</p>
+
+<p><code>docker stop rm</code></p>
+
+<p>Se, em vez disso, desejamos reiniciar o cont&ecirc;iner parado anteriormente , o comando a ser usado &eacute;:</p>
+
+<p><code>docker start</code></p>
+
+<p>e, no nosso exemplo, seria:</p>
+
+<p><code>docker start</code></p>
+
+<p><b>Cr&eacute;dito</b></p>
+
+<p>https://www.iperiusbackup.net/pt-br/qual-a-diferenca-entre-uma-imagem-docker-e-conteiner-como-criar-um-arquivo-docker-2/</p>
+
+<p>https://woliveiras.com.br/posts/imagem-docker-ou-um-container-docker/</p>
+
+<p>Na pr&aacute;tica um container pode ser definido como uma inst&acirc;ncia, que possui sistema operacional, processos, &aacute;rea de armazenamento e ambiente de rede (endere&ccedil;o IP, gateway, m&aacute;scara de rede, etc). No entanto, sabemos que um &uacute;nico host pode executar diversos containers, logo, cada container deve fornecer um ambiente isolado, tanto de outros containers quanto do pr&oacute;prio host.</p>
+
+<p>Esse isolamento garante que os processos de um determinado container n&atilde;o interfiram nos processos de outros, ou nos processos do host.</p>
+
+<p><b>Cr&eacute;dito</b></p>
+
+<p>https://www.mundotibrasil.com.br/marcador/conceitos-docker/</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/knight-free-bootstrap-theme/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  postgres-compose:
+    image: postgres:12.4-alpine
+    container_name: postgres-container
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - network
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    container_name: pgadmin-container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "example@example"
+      PGADMIN_DEFAULT_PASSWORD: "pgadmin"
+    ports:
+      - "15432:80"
+    depends_on:
+      - postgres-compose
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    external: true
+
+

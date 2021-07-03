@@ -1,0 +1,38 @@
+Busybox
+
+Imagem docker com 1.23 MB
+
+BusyBox: o canivete suíço do Linux embarcado
+
+BusyBox combina pequenas versões de muitos utilitários UNIX comuns em um único pequeno executável. Ele fornece substitutos para a maioria dos utilitários que você geralmente encontra em GNU fileutils, shellutils, etc. Os utilitários em BusyBox geralmente têm menos opções do que seus primos GNU completos; no entanto, as opções incluídas fornecem a funcionalidade esperada e se comportam de maneira muito semelhante a suas contrapartes GNU. BusyBox oferece um ambiente bastante completo para qualquer sistema pequeno ou embarcado.
+
+BusyBox foi escrito com otimização de tamanho e recursos limitados em mente. Também é extremamente modular para que você possa facilmente incluir ou excluir comandos (ou recursos) em tempo de compilação. Isso torna mais fácil personalizar seus sistemas embarcados. Para criar um sistema funcional, basta adicionar alguns nós de dispositivo em / dev, alguns arquivos de configuração em / etc e um kernel Linux.
+
+docker pull busybox
+
+docker run -dt bosybox
+
+docker ps
+
+docker exec -it busybox
+
+ls
+ls -la
+ls -lh
+
+Lista de comandos
+
+busybox | less
+
+Adicionar grupo
+
+
+Dockerfile
+
+FROM busybox
+COPY ./my-static-binary /my-static-binary
+CMD ["/my-static-binary"]
+
+https://busybox.net/
+
+

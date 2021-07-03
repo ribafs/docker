@@ -1,0 +1,71 @@
+MySQL docker
+
+mkdir -p ~/my-mysql/sql-scripts
+cd ~/my-mysql/sql-scripts
+
+CreateTable.sql
+
+CREATE TABLE employees (
+first_name varchar(25),
+last_name  varchar(25),
+department varchar(15),
+email  varchar(50)
+);
+
+InsertData.sql
+
+INSERT INTO employees (first_name, last_name, department, email) 
+VALUES ('Lorenz', 'Vanthillo', 'IT', 'lvthillo@mail.com');
+
+$ cd ~/my-mysql
+$ tree
+└── sql-scripts
+    ├── CreateTable.sql
+    └── InsertData.sql
+
+cd ~/my-mysql/
+nano Dockerfile
+
+# Derived from official mysql image (our base image)
+FROM mysql
+# Add a database
+ENV MYSQL_DATABASE company
+# Add the content of the sql-scripts/ directory to your image
+# All scripts in docker-entrypoint-initdb.d/ are automatically
+# executed during container startup
+COPY ./sql-scripts/ /docker-entrypoint-initdb.d/
+
+Criar imagem
+
+cd ~/my-mysql/
+$ docker build -t my-img .
+
+Criar container
+
+docker run -d -p 3306:3306 --name my-cont -e MYSQL_ROOT_PASSWORD=supersecret my-img
+
+Acessar
+
+docker exec -it my-cont bash
+root@c86ff80d7524:/# mysql -uroot -p
+
+Senha - supersecret
+
+show databases;
+
+use company;
+
+show tables;
+
+show columns from employees;
+
+select * from employees;
+
+docker run -d -p 3306:3306 --name my-mysql \
+-v ~/my-mysql/sql-scripts:/docker-entrypoint-initdb.d/ \
+-e MYSQL_ROOT_PASSWORD=supersecret \
+-e MYSQL_DATABASE=company \
+mysql
+
+https://morioh.com/p/d8d9e7732952
+

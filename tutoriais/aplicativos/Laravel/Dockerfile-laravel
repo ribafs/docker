@@ -1,0 +1,290 @@
+###
+# Ambientum
+#
+# Repository:    PHP
+# Image:         CLI/Base
+# Version:       7.3.x
+# Strategy:      PHP From PHP-Alpine Repository (CODECASTS) (https://php-alpine.codecasts.rocks)
+# Base distro:   Alpine 3.8
+#
+FROM alpine:3.8
+
+# Repository/Image Maintainer
+LABEL maintainer="Diego Hernandes <iamhernandev@gmail.com>"
+
+# Variables for enabling NewRelic
+ENV FRAMEWORK=laravel \
+    OPCACHE_MODE="normal" \
+    PHP_MEMORY_LIMIT=256M \
+    XDEBUG_ENABLED=false \
+    NR_ENABLED=false \
+    NR_APP_NAME="" \
+    NR_LICENSE_KEY="" \
+    TERM=xterm-256color \
+    COLORTERM=truecolor \
+    COMPOSER_PROCESS_TIMEOUT=1200
+
+# Add the ENTRYPOINT script
+ADD start.sh /scripts/start.sh
+ADD bashrc /home/ambientum/.bashrc
+
+# Install PHP From DotDeb, Common Extensions, Composer and then cleanup
+RUN echo "---> Enabling PHP-Alpine" && \
+    apk add --update wget && \
+    wget -O /etc/apk/keys/php-alpine.rsa.pub http://php.codecasts.rocks/php-alpine.rsa.pub && \
+    echo "@php http://php.codecasts.rocks/v3.8/php-7.3" >> /etc/apk/repositories && \
+    apk add --update \
+    curl \
+    bash \
+    fontconfig \
+    libxrender \
+    libxext \
+    imagemagick \
+    nano \
+    vim \
+    git \
+    unzip \
+    wget \
+    make \
+    sudo && \
+    echo "---> Preparing and Installing PHP" && \
+    apk add --update \
+    php7@php \
+    php7-apcu@php \
+    php7-bcmath@php \
+    php7-bz2@php \
+    php7-calendar@php \
+    php7-curl@php \
+    php7-ctype@php \
+    php7-exif@php \
+    php7-fpm@php \
+    php7-gd@php \
+    php7-gmp@php \
+    php7-iconv@php \
+    php7-imagick@php \
+    php7-imap@php \
+    php7-intl@php \
+    php7-json@php \
+    php7-mbstring@php \
+    php7-mysqlnd@php \
+    php7-pdo_mysql@php \
+    php7-mongodb@php \
+    php7-opcache@php \
+    php7-pdo_pgsql@php \
+    php7-pgsql@php \
+    php7-posix@php \
+    php7-redis@php \
+    php7-soap@php \
+    php7-sodium@php \
+    php7-sqlite3@php \
+    php7-pdo_sqlite@php \
+    php7-xdebug@php \
+    php7-xml@php \
+    php7-xmlreader@php \
+    php7-openssl@php \
+    php7-phar@php \
+    php7-xsl@php \
+    php7-zip@php \
+    php7-zlib@php \
+    php7-pcntl@php \
+    php7-cgi@php \
+    php7-phpdbg@php && \
+    sudo ln -s /usr/bin/php7 /usr/bin/php && \
+    sudo ln -s /usr/bin/php-cgi7 /usr/bin/php-cgi && \
+    sudo ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm && \
+    echo "---> Installing Composer" && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    echo "---> Cleaning up" && \
+    rm -rf /tmp/* && \
+    echo "---> Adding the ambientum user" && \
+    adduser -D -u 1000 ambientum && \
+    mkdir -p /var/www/app && \
+    chown -R ambientum:ambientum /var/www && \
+    wget -O /tini https://github.com/krallin/tini/releases/download/v0.16.1/tini-static && \
+    chmod +x /tini && \
+    echo "---> Configuring PHP" && \
+    echo "ambientum  ALL = ( ALL ) NOPASSWD: ALL" >> /etc/sudoers && \
+    sed -i "/user = .*/c\user = ambientum" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/^group = .*/c\group = ambientum" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/listen.owner = .*/c\listen.owner = ambientum" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/listen.group = .*/c\listen.group = ambientum" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/listen = .*/c\listen = [::]:9000" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/;access.log = .*/c\access.log = /proc/self/fd/2" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/;clear_env = .*/c\clear_env = no" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/;catch_workers_output = .*/c\catch_workers_output = yes" /etc/php7/php-fpm.d/www.conf && \
+    sed -i "/pid = .*/c\;pid = /run/php/php7.1-fpm.pid" /etc/php7/php-fpm.conf && \
+    sed -i "/;daemonize = .*/c\daemonize = yes" /etc/php7/php-fpm.conf && \
+    sed -i "/error_log = .*/c\error_log = /proc/self/fd/2" /etc/php7/php-fpm.conf && \
+    sed -i "/post_max_size = .*/c\post_max_size = 1000M" /etc/php7/php.ini && \
+    sed -i "/upload_max_filesize = .*/c\upload_max_filesize = 1000M" /etc/php7/php.ini && \
+    sed -i "/zend_extension=xdebug/c\;zend_extension=xdebug" /etc/php7/conf.d/00_xdebug.ini && \
+    echo "---> Adding Support for NewRelic" && \
+    mkdir /tmp/newrelic && \
+    cd /tmp/newrelic && \
+    wget -r -l1 -nd -A"linux-musl.tar.gz" https://download.newrelic.com/php_agent/release/ && \
+    gzip -dc newrelic*.tar.gz | tar xf - && \
+    cd newrelic-php5* && \
+    rm -f /usr/lib/php7/modules/newrelic.so && \
+    cp ./agent/x64/newrelic-20180731.so /usr/lib/php7/modules/newrelic.so && \
+    cp ./daemon/newrelic-daemon.x64 /usr/bin/newrelic-daemon && \
+    cp ./scripts/newrelic.ini.template /scripts/newrelic.ini && \
+    mkdir /var/log/newrelic && \
+    chown -R ambientum:ambientum /var/log/newrelic && \
+    chown -R ambientum:ambientum /home/ambientum && \
+    chmod +x /scripts/start.sh && \
+    rm -rf /tmp/*
+
+# Define the running user
+USER ambientum
+
+# Application directory
+WORKDIR "/var/www/app"
+
+# Environment variables
+ENV PATH=/home/ambientum/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Define the entry point that tries to enable newrelic
+ENTRYPOINT ["/tini", "--", "/scripts/start.sh"]
+
+# As non daemon and single base image, it may be used as cli container
+CMD ["/bin/bash"]
+-----------
+
+ARG PHP_VERSION="7.2.12-fpm-alpine"
+FROM php:${PHP_VERSION}
+ARG UID=root
+ARG GID=root
+ARG USER
+ARG XDEBUG_VERSION=2.6.1
+
+# Instalando extensões necessárias do PHP
+RUN apk add --update --no-cache \
+        alpine-sdk autoconf curl curl-dev freetds-dev \
+        libxml2-dev jpeg-dev openldap-dev libmcrypt-dev \
+        libpng-dev libxslt-dev postgresql-dev
+RUN docker-php-ext-configure ldap --with-ldap=/usr
+RUN docker-php-ext-configure xml --with-libxml-dir=/usr
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include --with-png-dir=/usr/include
+RUN docker-php-ext-install \
+    bcmath calendar curl dom fileinfo gd hash json ldap mbstring \
+    mysqli pgsql pdo pdo_dblib pdo_mysql pdo_pgsql sockets xml xsl zip
+
+# Instalando o XDebug
+RUN pecl install xdebug-${XDEBUG_VERSION}
+RUN docker-php-ext-enable xdebug
+
+# Configurando o XDebug
+RUN echo "xdebug.remote_enable = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_autostart = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.connect_back = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+# Instalando o Git (Composer usa para baixar alguns pacotes)
+RUN apk add --update --no-cache git
+
+# Instalando o Composer
+RUN php -r "copy('http://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /usr/local/bin/composer
+
+# Setando o user:group do conteiner para o user:group da máquina host (ver arquivo .env e docker-compose.yml)
+# Assim, o Composer passa a usar o mesmo user:group do usuário do host
+# Configura também as pastas para o novo usuário
+RUN chown -R ${UID}:${GID} /var/www/html
+RUN chown -R ${UID}:${GID} /root/.composer
+RUN mkdir -p /.composer && chown -R ${UID}:${GID} /.composer
+RUN mkdir -p /.config && chown -R ${UID}:${GID} /.config
+VOLUME /var/www/html
+VOLUME /root/.composer
+VOLUME /.composer
+VOLUME /.config
+USER ${UID}
+-------------
+FROM phusion/baseimage
+MAINTAINER Matthew Rayner <matt@mattrayner.co.uk>
+ENV REFRESHED_AT 2016-08-21
+
+# based on dgraziotin/lamp
+# MAINTAINER Daniel Graziotin <daniel@ineed.coffee>
+
+ENV DOCKER_USER_ID 501 
+ENV DOCKER_USER_GID 20
+
+ENV BOOT2DOCKER_ID 1000
+ENV BOOT2DOCKER_GID 50
+
+# Tweaks to give Apache/PHP write permissions to the app
+RUN usermod -u ${BOOT2DOCKER_ID} www-data && \
+    usermod -G staff www-data && \
+    useradd -r mysql && \
+    usermod -G staff mysql
+
+RUN groupmod -g $(($BOOT2DOCKER_GID + 10000)) $(getent group $BOOT2DOCKER_GID | cut -d: -f1)
+RUN groupmod -g ${BOOT2DOCKER_GID} staff
+
+# Install packages
+ENV DEBIAN_FRONTEND noninteractive
+RUN add-apt-repository -y ppa:ondrej/php && \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C && \
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get -y install supervisor wget git apache2 php-xdebug libapache2-mod-php5.6 mysql-server php5.6 php5.6-mysql pwgen php5.6-apc php5.6-mcrypt php5.6-gd php5.6-xml php5.6-mbstring php5.6-gettext zip unzip php5.6-zip  && \
+  apt-get -y autoremove && \
+  echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Update CLI PHP to use 5.6
+RUN ln -sfn /usr/bin/php5.6 /etc/alternatives/php
+
+# needed for phpMyAdmin
+RUN phpenmod mcrypt
+
+# Add image configuration and scripts
+ADD supporting_files/start-apache2.sh /start-apache2.sh
+ADD supporting_files/start-mysqld.sh /start-mysqld.sh
+ADD supporting_files/run.sh /run.sh
+RUN chmod 755 /*.sh
+ADD supporting_files/supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
+ADD supporting_files/supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+
+# Set PHP timezones to Europe/London
+RUN sed -i "s/;date.timezone =/date.timezone = Europe\/London/g" /etc/php/5.6/apache2/php.ini
+RUN sed -i "s/;date.timezone =/date.timezone = Europe\/London/g" /etc/php/5.6/cli/php.ini
+
+# Remove pre-installed database
+RUN rm -rf /var/lib/mysql
+
+# Add MySQL utils
+ADD supporting_files/create_mysql_users.sh /create_mysql_users.sh
+RUN chmod 755 /*.sh
+
+# Add phpmyadmin
+ENV PHPMYADMIN_VERSION=4.6.4
+RUN wget -O /tmp/phpmyadmin.tar.gz https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz
+RUN tar xfvz /tmp/phpmyadmin.tar.gz -C /var/www
+RUN ln -s /var/www/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages /var/www/phpmyadmin
+RUN mv /var/www/phpmyadmin/config.sample.inc.php /var/www/phpmyadmin/config.inc.php
+
+# Add composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    mv composer.phar /usr/local/bin/composer
+
+ENV MYSQL_PASS:-$(pwgen -s 12 1)
+# config to enable .htaccess
+ADD supporting_files/apache_default /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
+
+# Configure /app folder with sample app
+RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+ADD app/ /app
+
+#Environment variables to configure php
+ENV PHP_UPLOAD_MAX_FILESIZE 10M
+ENV PHP_POST_MAX_SIZE 10M
+
+# Add volumes for the app and MySql
+VOLUME  ["/etc/mysql", "/var/lib/mysql", "/app" ]
+
+EXPOSE 80 3306
+CMD ["/run.sh"]

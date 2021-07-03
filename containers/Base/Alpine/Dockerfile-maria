@@ -1,0 +1,7 @@
+FROM alpine:edge as maria-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+EXPOSE 3306
+
+

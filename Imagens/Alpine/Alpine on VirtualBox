@@ -1,0 +1,59 @@
+Install Alpine on VirtualBox
+
+This guide describes a standard install of Alpine within a virtual computer created by Virtual Box.
+
+Oracle VM VirtualBox runs one or more virtual x86 or AMD64/Intel64 computer (guest) within another computer (host). This allows you to install and test Alpine on your main computer almost as you would any other program.
+Contents
+
+    1 Preparation
+        1.1 Install Virtual Box on host
+        1.2 Download Alpine
+    2 Setting up virtual PC
+    3 Install Alpine on the virtual computer
+    4 Install drivers for Virtual Box
+
+Preparation
+Install Virtual Box on host
+
+First of all, you need to download and install Virtual Box on your host computer, either from the official homepage (for Windows, OS X or Solaris) or from your distribution’s repository (for Linux).
+
+Virtual Box consists of two components:
+
+    VirtualBox platform package
+    Oracle VM VirtualBox Extension Pack
+
+Install both and start VirtualBox, to see whether it works. If it does not, consult the VirtualBox user manual or one of the support sites for Virtual Box.
+Download Alpine
+
+Download the Virtual Alpine ISO, which is optimized for virtual systems, from the Alpine Download section. Save it in a folder where you can find it easily.
+Setting up virtual PC
+
+Start Virtual Box. You will see a mostly empty window with a couple symbols in the upper left corner. The leftmost icon is a multi jagged star, if you hold your mouse over it, the tooltip will say “New”.
+
+Press the multi-jagged star to create a new machine. A window will pop up, asking you some questions about the virtual (guest) computer you want to run.
+
+    Name: Choose any you like, for example “Alpine”.
+    Type: Linux
+    Version: Other Linux, either 64 bit or 32 bit. Choose 64 bit if you downloaded the x86_64 Alpine-ISO, or 32 bit if you downloaded the x86 Alpine-ISO.
+    Use the default values for the other questions, simply click “next” or “create” till the dialogue finishes.
+
+You will see a new entry in Virtual Box, called Alpine (or whatever name you chose during step 1 in the dialogue above). Click on it to see further information on your guest.
+
+One of the entries should read Mass storage, and offer an IDE controller with a primary master (the virtual hard disc) and a secondary master (the virtual optical drive).
+
+Click on the secondary master, a context menu will pop up. Choose the entry “choose image” and open the Alpine ISO you downloaded earlier.
+
+Once that is done, click on the green start arrow on the menu bar.
+Install Alpine on the virtual computer
+
+Follow the steps described in the Installation Handbook, just as if you installed Alpine on a real PC.
+Tip: Do not reboot your virtual box after the installation. Rather, shut the virtual machine down, remove the Alpine ISO from the virtual optical drive, and then restart the virtual machine.
+Install drivers for Virtual Box
+
+Once you successfully rebooted into the installed Alpine, there are two steps left:
+
+    Enable the Community Respository
+    Enable VirtualBox shared folders
+
+These two steps install all drivers that other programs might request, and also activate several comfort functions.
+Note: The Virtualbox webcam driver is not present in the kernel provided with the Virtual Alpine ISO. To use the webcam whilst keeping the installation footprint small, install the linux-firmware-none package using apk, and then install the linux-vanilla package to download a kernel with the appropriate drivers, without pulling in 100s of MB of firmware files too. Uninstall the linux-virt package and reboot to use the new kernel.

@@ -1,0 +1,11 @@
+#!/bin/sh
+# sudo adduser ribafs www-data
+clear;
+echo "Aguarde enquanto configuro as permissões do /app/public/$1";
+echo "";
+find /app/public/$1/ -type d -exec chmod 755 {} \;
+find /app/public/$1/ -type d -exec chmod u+s {} \;
+find /app/public/$1/ -type f -exec chmod 644 {} \;
+chown -R apache:apache /app/public/$1/
+echo "";
+echo "Concluído!";

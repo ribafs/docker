@@ -1,0 +1,69 @@
+Configurar o /etc/hosts
+
+nano /etc/hosts
+
+127.0.0.1   maria
+
+maria é o serviço em docker-compose.yml
+
+
+Na conexão usar:
+
+<?php
+try {
+    $dbh = new PDO('mysql:host=maria;dbname=testes', 'root', 'root');
+    print 'Conectou';
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+Banco - criado ao acessar o container
+MYSQL_ROOT_PASSWORD: "root"
+user - por padrão root
+
+
+class NPDO {
+    private $pdo;
+    private $params;
+
+    public function __construct() {
+        $this->params = func_get_args();
+        $this->init();
+    }
+
+    public function __call($name, array $args) {
+        return call_user_func_array(array($this->pdo, $name), $args);
+    }
+
+    // The ping() will try to reconnect once if connection lost.
+    public function ping() {
+        try {
+            $this->pdo->query('SELECT 1');
+        } catch (PDOException $e) {
+            $this->init();            // Don't catch exception here, so that re-connect fail will throw exception
+        }
+
+        return true;
+    }
+
+    private function init() {
+        $class = new ReflectionClass('PDO');
+        $this->pdo = $class->newInstanceArgs($this->params);
+    }
+}
+
+
+
+try {
+  $DBH = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+  $DBH->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+}
+catch(PDOException $e) {
+    echo "Connection error " . $e->getMessage() . "\n";
+    exit;
+}
+
+
+

@@ -1,0 +1,32 @@
+cp /etc/skel/.cshrc /etc/skel/.profile
+
+adduser -D --home /opt/remote --shell /bin/ash remote
+
+echo "secret_new_remote_user_password" | chpasswd
+
+adduser -D --shell /bin/bash general
+
+echo "secret_new_general_user_password" | chpasswd
+
+cat > /etc/apk/repositories << EOF; $(echo)
+http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/main
+http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/community
+http://mirror.math.princeton.edu/pub/alpinelinux/edge/testing/
+EOF
+
+apk update
+
+apk add libuser
+
+cat > /etc/apk/repositories << EOF; $(echo)
+http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/main
+http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/community
+EOF
+
+apk update
+
+touch /etc/login.defs
+
+touch /etc/default/useradd
+
+

@@ -1,0 +1,229 @@
+Awesome(wm) Setup
+Screenshot
+Contents
+
+    1 Initial setup
+    2 Enable Community Repository
+    3 Install packages
+        3.1 Optional packages
+            3.1.1 Video and Input packages
+            3.1.2 acpid
+    4 Configure xorg-server
+    5 Create user accounts
+    6 Start your desktop
+    7 Troubleshooting
+    8
+
+Initial setup
+
+Start by booting up Alpine (see these instructions on how to do that)
+When Alpine is up and running, do the initial setup.
+
+# setup-alpine
+Enable Community Repository
+
+In order to install the awesome package (see "Install packages" below), you need to enable the community repository for your version. Uncomment http://<url>/alpine/<version>/community in /etc/apk/repositories. For example:
+
+Contents of /etc/apk/repositories
+# /etc/apk/repositories
+
+#/media/sdb/apks
+http://mirror.csclub.uwaterloo.ca/alpine/v3.8/main
+http://mirror.csclub.uwaterloo.ca/alpine/v3.8/community
+#http://mirror.csclub.uwaterloo.ca/alpine/v3.8/testing
+
+Install packages
+
+Install awesome, feh, aterm as basic desktop system.
+This might take a few minutes depending on your network speed.
+
+# apk add awesome feh aterm
+
+If aterm is not recognized by apk (Alpinelinux 3.2.x or above) instead of it you can install lxterminal.
+On the same version of Alpinelinux (3.2.x or above) you have to install the package lua otherwise awesome will not start
+
+# apk add lua
+
+Also, you may need to add packages for the Adwaita theme.
+
+# apk add adwaita-gtk2-theme adwaita-icon-theme
+
+Add other apps on need, eg. firefox, gnumeric, xchat, gimp, pidgin, geany, vim, etc.
+For Alpinelinux 2.6.x add additional pkgs
+
+# apk add cairo-gobject pango
+Optional packages
+Video and Input packages
+
+You might also want to install a package suitable for your video chipset and input devices.
+For example, if you have an Sis video chipset install 'xf86-video-sis', for Intel video chipset install 'xf86-video-intel'.
+
+# apk add xf86-video-sis
+
+and / or
+
+# apk add xf86-input-synaptics
+
+Run 'apk search xf86-video*' to see available xf86-video packages.
+Run 'apk search xf86-input*' to see available xf86-input packages.
+acpid
+
+If you installed your Alpine Linux as a VirtualBox or VMWare guest you might find it handy to be able send ACPI shutdown.
+
+# rc-update add acpid
+Configure xorg-server
+
+On most systems, xorg should be able to autodetect all devices. However you can still configure xorg-server by hand by launching:
+
+# setup-xorg-base
+Create user accounts
+
+Create a normal user account.
+
+# adduser <user>
+
+Optionally, give that user sudo permissions in /etc/sudoers. When doing so, it is important to use the command:
+
+# visudo
+
+This ensures that only one user is changing the file at any given time. Visudo has two modes: Command mode and Insert mode. To edit the file, use the arrows to navigate to the appropriate line and enter Insert mode by pressing the 'i' key. To save and exit, enter Command mode by pressing the 'Esc' key, then ':w' + 'enter' to save, and finally ':q' + 'enter' to quit.
+
+Logout from root and login into new created account.
+Start your desktop
+
+$ echo 'awesome' >> /home/<newuser>/.xinitrc
+
+$ mkdir /home/<newuser>/.config
+
+$ cp -r /etc/xdg/awesome  /home/<newuser>/.config
+
+$ vi /home/<newuser>/.config/awesome/rc.lua
+
+Replace instances of xterm with aterm or (if 3.2.x or above use lxterminal instead)
+
+Start awesome.
+
+$ startx
+Troubleshooting
+
+D-Bus problems:
+
+D-Bus library appears to be incorrectly set up; failed to read machine uuid: Failed to open "/var/lib/dbus/machine-id": No such file or directory
+
+If startx fails and returns an error about D-Bus failed to read machine uuid, as shown above, proceed as follow:
+
+Install dbus from apk (you must be logged in as root, as for the step below)
+
+# apk add dbus
+
+Login or su to root account then launch the follow command (Note: sudo is not working for this step):
+
+# dbus-uuidgen > /var/lib/dbus/machine-id
+
+Now if startx is launched it should load correctly the desktop
+
+    Dwm
+
+https://wiki.alpinelinux.org/wiki/Dwm
+
+https://wiki.alpinelinux.org/wiki/EyeOS
+
+https://wiki.alpinelinux.org/wiki/MATE
+
+https://wiki.alpinelinux.org/wiki/Sound_Setup
+
+AlpineGnome Setup
+Contents
+
+    1 Initial setup
+    2 Enable Community Repository
+    3 Installing packages
+        3.1 Setting up udev
+        3.2 Setting up Xorg
+            3.2.1 Video packages
+            3.2.2 Input packages
+    4 Starting your desktop
+    5 Enabling terminal apps
+    6 Troubleshooting
+
+Initial setup
+
+Start by booting up Alpine (see these instructions on how to do that)
+When you Alpine is up and running, do the initial setup.
+
+# setup-alpine
+
+# setup-xorg-base
+
+
+Enable Community Repository
+
+How to Enable the Community Repository
+Installing packages
+
+Install basic desktop system and gnome packages. As of right now, these are in the testing repo.
+This might take a few minutes depending on your network speed.
+
+# apk add gnome
+
+
+If you want to you can also install additional GNOME apps for a more complete GNOME experience with:
+
+# apk add gnome-apps
+
+
+Setting up udev
+
+You'll have to enable udev in order for GNOME to function properly.
+
+# apk add udev 
+
+# rc-update add udev 
+
+# rc-update add udev-trigger 
+
+# rc-update add udev-settle 
+Setting up Xorg
+
+Even when using GNOME Wayland you'll still need a setup Xorg for XWayland.
+Video packages
+
+$ apk search xf86-video
+
+Then install the driver matching to your card, e.g. if you have an Intel iGPU:
+
+# apk add xf86-video-intel
+
+Also add the mesa-dri-swrast package:
+
+# apk add mesa-dri-swrast
+Input packages
+
+Usually libinput is the best choice, as it's integrated best with GNOME and offers advanced functionality (e.g. palm rejection for touchpads).
+
+# apk add xf86-input-libinput
+Starting your desktop
+
+Start GDM and login with your user. You need a user other than root for this to succeed, since GDM will refuse starting if no user accounts (meaning accounts with a UID >= 1000) are available.
+
+rc-service gdm start
+
+Once you have verified that it actually works you can make gdm start up at boot:
+
+rc-update add gdm
+Enabling terminal apps
+
+If you want to use the gnome-terminal/other terminal applications you will need to install bash. If you want a typical bash setup also enable bash completion:
+
+# apk add bash
+
+# apk add bash-completion
+Troubleshooting
+
+If you are unable to login, check /var/log/gdm/greeter.log, there may be output there from X to indicate failed modules, etc.
+
+If logging in from GDM returns to logging screen, try
+
+# apk add bash
+
+(bug report: #10953 sorry cannot link yet) 

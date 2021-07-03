@@ -1,0 +1,10 @@
+#!/bin/sh
+clear;
+echo "Aguarde enquanto configuro as permissões do /var/www/localhost/htdocs/$1";
+echo "";
+find /var/www/localhost/htdocs/$1/ -type d -exec chmod 755 {} \;
+find /var/www/localhost/htdocs/$1/ -type d -exec chmod u+s {} \;
+find /var/www/localhost/htdocs/$1/ -type f -exec chmod 644 {} \;
+chown -R apache:apache /var/www/localhost/htdocs/$1/
+echo "";
+echo "Concluído!";

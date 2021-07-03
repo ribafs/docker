@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Cantinho do Docker</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="../assets/vendor/owl.carousel/../assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Knight - v2.1.0
+  * Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container">
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul class="nav-inner">
+          <li class="active"><a href="index.html">Início</a></li>
+          <li class="drop-down"><a href="#">Introdução</a>
+              <ul>
+                  <li><a href="index.html">Introdução</a></li>
+                  <li><a href="inst-linux.html">Instalação no Linux</a></li>
+                  <li><a href="inst-win.html">Instalação no Windows</a></li>
+                  <li><a href="linux.html">Comandos do Linux</a></li>
+                  <li><a href="redes.html">Redes no Docker</a></li>
+                  <li><a href="volumes.html">Volumes no Docker</a></li>
+              </ul>
+          </li>
+          <li class="drop-down"><a href="">Projeto</a>
+            <ul>
+              <li><a href="../projeto/index.html">Projeto</a></li>
+              <li><a href="../projeto/boas-praticas.html">Boas Práticas</a></li>
+              <li><a href="../projeto/estrutura.html">Estrutura</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Conceitos</a>
+            <ul>
+              <li><a href="../conceitos/index.html">Conceitos</a></li>
+              <li><a href="../conceitos/containers.html">Containers</a></li>
+              <li><a href="../conceitos/docker.html">Docker</a></li>
+              <li><a href="../conceitos/imagens.html">Imagens</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Comandos</a>
+            <ul>
+              <li><a href="../comandos/index.html">Comandos</a></li>
+              <li><a href="../comandos/comandos1.html">Comandos 1</a></li>
+              <li><a href="../comandos/comandos2.html">Comandos 2</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Imagens</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#">Tutoriais</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Containers</a>
+            <ul>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/CMS/Simples" target="_blank">CMS simples</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Git" target="_blank">Git</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/GitHub" target="_blank">GitHub</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/Matematica" target="_blank">Matemática</a></li>
+              <li><a href="ttps://github.com/ribafs/prog-web/tree/main/Ferramentas/VSCode" target="_blank">VSCode</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas/faker2" target="_blank">Faker</a></li>
+              <li><a href="https://github.com/ribafs/web-share" target="_blank" title="Compartilhar seu servidor web">Web Share</a></li>
+              <li><a href="https://github.com/ribafs/prog-web/tree/main/Ferramentas" target="_blank">Outras</a></li>
+              <li><a href="ferramentas.html" target="_blank">Ferramentas</a></li>
+            </ul>
+          </li>
+
+          <li class="drop-down"><a href="#">Sobre</a>
+            <ul>
+              <li><a href="../livros">Meus livros</a></li>
+              <li><a href="https://github.com/ribafs/" target="_blank">Meus Projetos</a></li>
+              <li><a href="../curriculo.html">Currículo</a></li>
+              <li><a href="../contato.html">Contato</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section>
+      <div class="container">
+          <!-- Conteúdo -->
+<h2 class="text-center">Introdução</h2>
+<div class="text-left">
+<p><b>Pr&eacute;-requisitos</b></p>
+
+<p>Ter um m&aacute;quina com Linux ou com outro SO mas com uma VM com Linux, assim vai facilitar o aprendizado. Para windows prepfira o windows 10 e instale o ubuntu da loja</p>
+
+<p>Requer pr&aacute;tica com a linha de comando, especialmente com terminais linux, assim como tamb&eacute;m noção de redes.</p>
+
+<p>Embora voc&ecirc; possa fazer o download da imagem que quiser a qualquer momento, &eacute; muito mais pr&aacute;tico manter as imagens locais.</p>
+
+<p>Desta forma voc&ecirc; economiza banda e tempo, por&eacute;m perde em disco. Fica a seu crit&eacute;rio manter ou baixar novamente as imagens.</p>
+
+<p>N&atilde;o s&atilde;o recomenda&ccedil;&otilde;es oficiais, mas preferencialmente tenha pelo menos um processador Dual Core, e 8GB de Ram.</p>
+
+<p>Quanto mais disco voc&ecirc; tiver melhor, em casos de discos de 128GB, com pouco espa&ccedil;o, voc&ecirc; pode excluir as imagens sempre que n&atilde;o estiver mais utilizando.</p>
+
+<p>A instala&ccedil;&atilde;o inicial do Docker vai tomar por volta de 2GB de disco.</p>
+
+<p>A primeira coisa que precisamos fazer &eacute; criar uma conta no Docker Hub, ela vai ser utilizada tanto para ativa&ccedil;&atilde;o do Docker em nossa m&aacute;quina quanto para gerenciar nossas imagens.</p>
+
+<p>Preencha todas as informa&ccedil;&otilde;es necess&aacute;rias e pronto. &Eacute; importante lembrar que eles verificar&atilde;o sua conta via E-mail, ent&atilde;o n&atilde;o esque&ccedil;a este passo tamb&eacute;m.</p>
+
+<p>https://balta.io/artigos/docker-instalacao-configuracao-e-primeiros-passos</p>
+
+<p><b>Para Windows</b></p>
+
+<p>O Docker &eacute; baseado na tecnologia LXC (Linux Containers) mas existem atualmente vers&otilde;es para Windows e Mac.</p>
+
+<p>Caso esteja utilizando sistema operacional Windows, recomendamos fortemente o uso do Windows 10 pois ele possui suporte a subsistemas Linux, que s&atilde;o a base do Docker.</p>
+
+<p>Voc&ecirc; deve ter o suporte a virtualiza&ccedil;&atilde;o habilitado em seu computador</p>
+
+<p>Voc&ecirc; deve habilitar o recurso do hyper-v;</p>
+
+<p><b>Alpine</b></p>
+
+<p>O destaque aqui fica para a distribui&ccedil;&atilde;o linux Alpine, cuja imagem &eacute; menor que 6MB e a cria&ccedil;&atilde;o de containers com ela fica com melhor desempenho e mais r&aacute;pida de criar. Realmente &eacute; um pouco mais complexo criar um container com Alpine que com Ubuntu, mas para os que estiverem dispostos a pagar o pre&ccedil;o a recompensa vir&aacute;.</p>
+
+<p><b>Sobre o docker</b></p>
+
+<p>Existe uma recomenda&ccedil;&atilde;o de que o docker n&atilde;o &eacute; para usu&aacute;rios iniciantes. Realmente &eacute; um assunto que exige alguns pr&eacute;-requisitos: conhecimentos de linux, de redes e infra-estrutura, al&eacute;m de uma boa determina&ccedil;&atilde;o para enfrentar uma estrutura complexa.</p>
+
+Em um ambiente de produção, o Docker facilita a criação, o deployment e a execução de aplicações dentro de containers. Os containers permitem que os desenvolvedores reúnam aplicações e todas as suas principais necessidades e dependências em um único pacote que você pode transformar em uma imagem Docker e replicar. As imagens Docker são construídas a partir de Dockerfiles. O Dockerfile é um arquivo onde você define como será a imagem, qual sistema operacional básico ela terá e quais pacotes serão instalados dentro dela.
+<br>
+Imagens Docker muito grandes podem aumentar o tempo necessário para criar e enviar imagens entre clusters e provedores de nuvem. Se, por exemplo, você tem uma imagem do tamanho de um gigabyte para enviar toda vez que um de seus desenvolvedores aciona uma compilação, a taxa de transferência que você cria em sua rede aumentará durante o processo de CI/CD, tornando sua aplicação lenta e, consequentemente, custando seus recursos. Por causa disso, as imagens Docker adequadas para produção devem ter apenas as necessidades básicas instaladas. Uma imagem básica do Alpine fica em torno de 6MB.
+<br>
+Existem várias maneiras de diminuir o tamanho das imagens Docker para otimizá-las em produção. Em primeiro lugar, essas imagens geralmente não precisam de ferramentas de compilação para executar suas aplicações e, portanto, não há necessidade de adicioná-las. Através do uso de um processo de construção multi-stage, você pode usar imagens intermediárias para compilar e construir o código, instalar dependências e empacotar tudo no menor tamanho possível, depois copiar a versão final da sua aplicação para uma imagem vazia sem ferramentas de compilação. Além disso, você pode usar uma imagem com uma base pequena, como o Alpine Linux. O Alpine é uma distribuição Linux adequada para produção, pois possui apenas as necessidades básicas que sua aplicação precisa para executar.
+<br>
+Uma imagem nada mais é do que uma representação imutável de como será efetivamente construído um container. Por conta disso, nós não rodamos ou inicializamos imagens, nós fazemos isso com os containers.
+<br>
+Uma imagem Docker consiste em camadas somente leitura, cada uma das quais representa uma instrução Dockerfile. As camadas são empilhadas e cada uma é um delta das alterações da camada anterior.
+<br>
+Ao executar uma imagem e gerar um contêiner, você adiciona uma nova camada gravável (a “camada do contêiner”) no topo das camadas subjacentes. Todas as alterações feitas no contêiner em execução, como gravar novos arquivos, modificar arquivos existentes e excluir arquivos, são gravadas nesta camada de contêiner gravável.
+<br>
+<b>O que é Docker?</b>
+<br>
+Docker é um software livre desenvolvido pela Docker Inc. Foi apresentado ao público em 13 de março de 2013 e desde então se tornou uma referência no mundo do desenvolvimento de TI.
+<br>
+Ele permite que os usuários criem ambientes independentes e isolados para iniciar e implantar seus aplicativos. Esses ambientes são chamados de contêineres.
+<br>
+Isso permitirá que o desenvolvedor execute um contêiner em qualquer computador, com qualquer sistema oepracional.
+<br>
+Como você pode ver, com o Docker, não há mais problemas de dependência ou compilação. Tudo o que você precisa fazer é iniciar seu contêiner e seu aplicativo será iniciado imediatamente.
+<br>
+<b>Mas, o Docker é uma máquina virtual?</b>
+<br>
+Aqui está uma das perguntas mais frequentes sobre o Docker. A resposta é: na verdade, não exatamente.
+<br>
+Pode parecer uma máquina virtual no início, mas a funcionalidade não é a mesma.
+<br>
+Ao contrário do Docker, uma máquina virtual incluirá um sistema operacional completo. Ele funcionará de forma independente e atuará como um computador.
+<br>
+O Docker só compartilhará os recursos da máquina host para executar seus ambientes.
+<br>
+<b>Por que usar o Docker como desenvolvedor?</b>
+<br>
+Esta ferramenta pode realmente mudar a vida diária de um desenvolvedor. Para melhor responder a esta pergunta, escrevi uma lista não exaustiva dos benefícios que você encontrará:
+     - Docker é rápido. Ao contrário de uma máquina virtual, seu aplicativo pode iniciar em alguns segundos e parar com a mesma rapidez.
+     - Docker é multiplataforma. Você pode iniciar seu contêiner em qualquer sistema.
+     - Os contêineres podem ser construídos e destruídos mais rápido do que uma máquina virtual.
+     - Não há mais dificuldades em configurar seu ambiente de trabalho. Depois que seu Docker estiver configurado, você nunca mais terá que reinstalar suas dependências manualmente. Se você mudar de computador ou se um funcionário ingressar na sua empresa, você só precisa fornecer sua configuração.
+     - Você mantém seu espaço de trabalho limpo, pois cada um de seus ambientes será isolado e você pode excluí-los a qualquer momento sem afetar o resto.
+     - Será mais fácil implantar seu projeto em seu servidor para colocá-lo online.
+<br><br>
+<b>Referências:</b><br>
+<a href="https://www.digitalocean.com/community/tutorials/como-otimizar-imagens-docker-para-producao-pt" targ="_blank">DigitalOcean</a>
+<br>
+<a href="https://www.meupositivo.com.br/panoramapositivo/container-docker/"  targ="_blank">MeuPositivo</a>
+<br>
+<h3 class="text-left">Camadas mínimas</h3>
+<br>
+<div class="text-left">
+Idealmente dividir na maior quantidade possível de containers, para não acontecer de ter um container com mais do que for precisar e não precisar criar um outro. Exemplificando: temos um container com apache e php e então precisaremos trabalhar com nginx. Neste caso ou criamos um container com nginx mais php, ou criaremos um container com nginx e outro com php. Se nosso container com apache e php fosse dividido em dois, um com apache e outro com php, agora nós apenas criariamos um com nginx e proveitariamos o do php. Claro que precisa de ajustes no de php, mas isso podemos fazer para que possa suportar tanto apache quanto nginx.
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Knight</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/knight-free-bootstrap-theme/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="../assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

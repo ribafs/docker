@@ -1,0 +1,19 @@
+docker exec -it postgres-container psql -U postgres
+
+version: '3'
+services:
+  postgres-service:
+    image: postgres:latest
+    container_name: postgres-container
+    ports:
+      - 55432:5432/tcp
+    environment:
+      POSTGRES_DB: pg_db
+      POSTGRES_PASSWORD: appdbpassword
+    volumes:
+      - /var/lib/postgres
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+
+

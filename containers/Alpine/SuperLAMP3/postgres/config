@@ -1,0 +1,36 @@
+rc-service postgresql start
+
+su - postgres
+
+psql < /setup.sql
+
+psql -U super testes
+
+select * from clients;
+\q
+exit
+
+nano /etc/postgresql/postgresql.conf
+
+Adicionar a linha
+
+listen_addresses = '*'                  # what IP address(es) to listen on;
+
+Abaixo da
+
+#listen_addresses = 'localhost'         # what IP address(es) to listen on;
+
+nano /etc/postgresql/pg_hba.conf
+
+Adicionar a linha
+
+host    all             all             172.20.0.0/24            trust
+
+Verificar se a rede atual é - 172.20.0.0
+
+Abaixo da
+
+#host    all             all             127.0.0.1/32            trust
+
+rc-service postgresql restart
+

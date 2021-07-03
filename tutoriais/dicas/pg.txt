@@ -1,0 +1,38 @@
+# replace pg_hba.conf entirely.
+
+cat > "$PGDATA/pg_hba.conf" <<'__END__'
+# note that the container runs on a private network so we don't do
+# address filtering here. If you wanted you could detect the subnet
+# and add it instead, or pass a --env to Docker to substitute, but
+# it's pretty pointless to do so.
+#
+# 
+# TYPE      DATABASE       USER           ADDRESS              METHOD
+local       all            all                                 peer
+host        all            all            0.0.0.0/0            md5
+host        all            all            ::0/0                md5
+__END__
+
+# Append to postgresql.conf
+
+cat >> "$PGDATA/postgresql.conf" <<'__END__'
+# For logical rep protocol tests
+wal_level = 'logical'
+max_replication_slots = 8
+max_wal_senders = 8
+ssl = on
+ssl_cert_file = 'server.crt'
+ssl_key_file = 'server.key'
+ssl_ca_file = 'root.crt'
+__END__
+
+# create regression test user
+psql -c "create user test with password 'test'"
+psql -c "create database test with owner 'test';"
+
+# install SSL certs
+for f in root.crt server.crt server.key; do
+  cp "/docker-entrypoint-initdb-resources/$f" "${PGDATA}"
+  chmod 0600 "${PGDATA}/$f"
+  chown postgres:postgres "${PGDATA}/$f"
+done

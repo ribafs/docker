@@ -1,0 +1,69 @@
+version: "3.6" 
+services:
+    pg:
+      container_name: pg-container
+      restart: always
+      build:
+        context: .
+        dockerfile: ./Dockerfile-pg
+      ports:
+        - "6432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      command: 'bash'
+      tty: true
+    my:
+      container_name: my-container
+      restart: always
+      build:
+        context: .
+        dockerfile: Dockerfile-my
+      volumes: 
+        - my:/var/lib/mysql:rw
+      ports:
+        - "3333:3306"
+      environment:
+        TZ: "America/Fortaleza"
+        MYSQL_DATABASE: "testes"
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      tty: true
+    web:
+      container_name: web-container
+      build:
+        context: .
+        dockerfile: Dockerfile-web
+      volumes:
+        - ./web:/var/www/html
+      ports:
+        - "8888:80"
+      links:
+        - my
+        - pg
+    sqlite:
+      container_name: sq-container
+      restart: always
+      build:
+        context: .
+        dockerfile: ./Dockerfile-sq
+      volumes:
+        - ./sq:/var/lib/sqlite
+      tty: true
+    adminer:
+      container_name: ad-container
+      build:
+        context: .
+        dockerfile: Dockerfile-ad
+      volumes:
+        - ./sq:/var/www/html
+      links:
+        - my
+        - pg
+volumes:
+  pgdata: {}
+  my:
+  web:
+  sq:
+# Executar: composer: 
+# docker-compose down -v
+# docker-compose up -d 
+

@@ -1,0 +1,96 @@
+1st step : Create a Dockerfile
+-------------------------------
+
+> touch Dockerfile
+> notepad Dockerfile
+
+'''
+# Start from argon (latest long term supported version of node)
+# - argon : Full node dev env (640 MB)
+# - argon-slim : Full node dev env (200 MB)
+FROM node:argon-slim
+
+# install sails
+RUN npm -g install sails
+
+# create user node
+RUN useradd -c 'Node.js user' -m -d /home/node -s /bin/bash node
+USER node
+
+## expose port for future sails lift
+EXPOSE 1337
+'''
+
+
+2nd step : Build your image 
+---------------------------
+
+> docker build -t ssfartz/sails-slim .
+... see outputs ...
+
+> docker images
+REPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+ssfartz/sails-slim    latest                  9c744e85fd2b        About an hour ago   299.6 MB
+node                  argon               f27d7e53a0f1        7 days ago          641.8 MB
+node                  argon-slim          48d1423a3d00        12 days ago         204.9 MB
+
+
+3rd step : Play with sailsjs
+----------------------------
+
+# TODO : give a name to the contains
+> docker run -it --name demo -p 8080:1337 --rm ssfartz/sails-slim:v1 /bin/bash
+
+# interact with sails...
+node@docker$ sails new demo
+node@docker$ cd demo
+node@docker$ sails generate api user
+node@docker$ sails lift
+node@docker$ CTRL-Z          // detach from process
+node@docker$ bg
+node@docker$ CTRL-P, CTRL-Q  // detach container
+
+# Open a Web browser, see the results
+>  start 192.168.99.101:8080
+
+> docker logs -f demo       // -f to see logs in streaming mode
+
+
+Annexe 1 - Outputs 
+------------------
+
+Sending build context to Docker daemon 2.048 kB
+Step 1 : FROM node:argon
+ ---> f27d7e53a0f1
+Step 2 : RUN npm install -g node
+ ---> Running in 00ff8f224b53
+npm info it worked if it ends with ok
+npm info using npm@2.14.7
+npm info using node@v4.2.2
+npm info attempt registry request try #1 at 10:10:38 AM
+npm http request GET https://registry.npmjs.org/node
+npm http 200 https://registry.npmjs.org/node
+npm WARN deprecated node@0.0.0: To update or install node, go to http://nodejs.org/
+npm info retry fetch attempt 1 at 10:10:39 AM
+npm info attempt registry request try #1 at 10:10:39 AM
+npm http fetch GET https://registry.npmjs.org/node/-/node-0.0.0.tgz
+npm http fetch 200 https://registry.npmjs.org/node/-/node-0.0.0.tgz
+npm info install node@0.0.0 into /usr/local/lib
+npm info installOne node@0.0.0
+npm info preinstall node@0.0.0
+npm info build /usr/local/lib/node_modules/node
+npm info linkStuff node@0.0.0
+npm info install node@0.0.0
+npm info postinstall node@0.0.0
+node@0.0.0 /usr/local/lib/node_modules/node
+npm info ok
+ ---> 9a7948dbd2fb
+Removing intermediate container 00ff8f224b53
+Step 3 : EXPOSE 1337
+ ---> Running in fa36ace62a9b
+ ---> 6c70a8d8c3b9
+Removing intermediate container fa36ace62a9b
+Successfully built 6c70a8d8c3b9
+SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended
+ to double check and reset permissions for sensitive files and directories.
+

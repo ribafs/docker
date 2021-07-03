@@ -1,0 +1,10 @@
+iniciar um projeto com o Laravel?
+
+Bem mais fácil e prático do que utilizar o composer ou o laravel/installer
+
+Basta ter o docker rodando e utilizar o comando (Mac):
+curl -s https://laravel.build/nome-do-projeto| bash
+
+Ele já prepara uma nova aplicação utilizando o Sails com o php 8, curti muito ;)
+
+https://laravel.com/docs/8.x#getting-started-on-macos

@@ -1,0 +1,32 @@
+Erro de permissão negada/Permission denied
+
+Quando havia um problema de permissão numa pasta interna (db), ao executar
+
+docker-compose up -d
+
+Building adminer
+Traceback (most recent call last):
+  File "bin/docker-compose", line 6, in <module>
+  File "compose/cli/main.py", line 71, in main
+  File "compose/cli/main.py", line 127, in perform_command
+  File "compose/cli/main.py", line 1052, in up
+  File "compose/cli/main.py", line 1048, in up
+  File "compose/project.py", line 466, in up
+  File "compose/service.py", line 345, in ensure_image_exists
+  File "compose/service.py", line 1047, in build
+  File "site-packages/docker/api/build.py", line 154, in build
+  File "site-packages/docker/utils/build.py", line 30, in tar
+  File "site-packages/docker/utils/build.py", line 82, in exclude_paths
+  File "site-packages/docker/utils/build.py", line 124, in walk
+  File "site-packages/docker/utils/build.py", line 124, in <genexpr>
+  File "site-packages/docker/utils/build.py", line 124, in walk
+  File "site-packages/docker/utils/build.py", line 124, in <genexpr>
+  File "site-packages/docker/utils/build.py", line 100, in walk
+PermissionError: [Errno 13] Permission denied: '/home/ribafs/testes/ma/performance_schema'
+[29772] Failed to execute script docker-compose
+
+No desktop, estando na pasta do projeto
+
+sudo chown -R ribafs ma
+
+Resolvido

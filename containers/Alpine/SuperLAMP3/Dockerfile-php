@@ -1,0 +1,18 @@
+FROM alpine:edge as php-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+RUN apk add php7 php7-pdo_mysql
+
+# Ativar exibição de erros
+RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php7/php.ini
+
+# Add basics first
+RUN apk update && apk add tzdata nano
+
+VOLUME [ “/sys/fs/cgroup” ]
+

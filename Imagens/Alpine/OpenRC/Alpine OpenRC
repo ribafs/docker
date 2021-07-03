@@ -1,0 +1,114 @@
+Working with OpenRC
+
+OpenRC is the init system used in alpine. The init system manages the services, startup and shutdown of your computer.
+	
+
+In this section, the canonical names of utilities are used. For instance, rc-service instead of service. For many of these, the traditional name (e.g service) is also available, but that is not the case for all of them. If in doubt, use the canonical name, as is shown in this document.
+Normal Usage
+Manipulating Services
+Runtime Service Manipulation
+
+You manipulate services on a running system using the rc-service command. This allows you to start, stop, and check the status of a given service, amongst other things. See the following basic examples:
+
+rc-service networking stop 
+rc-service sshd start 
+rc-service chronyd status 
+
+	Stop the networking service.
+	Start the sshd service.
+	See the status of the chronyd service.
+
+rc-service also supports a few flags, which are primarily useful for scripting. You can see the full list in the rc-service(8) manual page. Of particular interest are the following:
+
+-c | --ifcrashed
+
+    Only run the specified command if the service has crashed.
+-N | --ifnotstarted
+
+    Only run the specified command if the service is not currently started.
+-s | --ifstarted
+
+    Only run the specified command if the service is currently started.
+
+	Services may define additional commands you can use. See more on this in Custom Service Commands.
+On-Boot Service Manipulation
+
+OpenRC operates under a system called "runlevels". More on that in Switching Runlevels and Custom Runlevels. Enabling a service means putting it in a runlevel, usually one that will get loaded automatically (but not necessarily so!). Disabling a service involves removing it from one or more runlevels. This is all done using the rc-update utility, which updates various runlevels. It may be used as such:
+
+rc-update show -v 
+rc-update add sshd default 
+rc-update add sshd 
+rc-update delete sshd 
+rc-update delete chronyd -a 
+
+	View the current services in any runlevel. The -v flag will also show various services that are not in any runlevel.
+	Add the sshd service to the default runlevel.
+	If you do not specify a runlevel, your current one will be used. This is equivalent to the 2nd example under normal operation.
+	Remove the sshd service from the current runlevel, as with add.
+	Remove the chronyd service from all runlevels.
+Configuring Services
+
+Various services may need additional configuration. Most will have dedicated configuration files in /etc - you can see documentation on the specific service for more details. However, some services need configuration applied to them as part of the launch procedure - such as passing a flag to the binary when first started. This can be done in the /etc/conf.d directory, under the name of the service in question. For example, for a service named "base", the configuration file would be /etc/conf.d/base.
+System Status
+
+The rc-status utility is a fast way to view the current state of your system’s services. By default, it will list all the services in the current runlevel. You can select a different runlevel by specifying it, for instance, rc-status boot will list all the services in the boot runlevel. It also accepts various flags that change what it does. As per usual, the full list is available in the rc-status(8) manual page. Here are the more interesting ones:
+
+-c | --crashed
+
+    Show a list of all the crashed services.
+-l | --list
+
+    List all the available runlevels.
+-s | --servicelist
+
+    Show a list of all the services.
+
+Advanced Usage
+Custom Runlevels
+Creating
+
+Most users will be happy with just the default runlevel. Other users will want more. A runlevel is simply a directory in /etc/runlevels, and an enabled service is a symlink to the init.d file. For example, adding the sshd service to the default runlevel is creating a symlink to /etc/init.d/sshd in /etc/runlevels/default. Creating a new runlevel thus involves creating a new directory under /etc/runlevels.
+Runlevel Stacking
+
+Most of the time, you do not want to shut down all of your default services if you’re switching to the office runlevel. Runlevel "inheritance" is acheived through runlevel stacking. If you pass the -s flag to rc-update, you can actually add a runlevel to a runlevel. For example, if you wanted to have an office runlevel that would be the same as default, but with the myvpn service started, you would do the following to set that up:
+
+mkdir /etc/runlevels/office
+rc-update -s add default office
+rc-update add myvpn office
+
+Switching Runlevels
+
+Once you have a custom runlevel you want to switch to, you can do so using the openrc command. As per the above example, you would use openrc office to switch to your new runlevel, and openrc default to switch back.
+System Configuration
+
+System-wide configuration of OpenRC happens in /etc/rc.conf.
+Multi-Services
+
+In some cases, you may want the same bit of code to do different things under different circumstances. For example, normally, the difference between various instances of agetty are just the tty they run on. In these cases, you can use symlinks to manage dynamic configuration differences.
+
+Consider agetty - it determines what port (tty) to run on by calculating ${RC_SVCNAME#*.}. This means that if your service name is agetty.foo, the port variable will have "foo" as its value. The intended way to use this is by symlinking the "base" service (agetty) to the desired target (agetty.foo).
+
+This mechanism also allows you to specify custom configuration for that service, for more details, see Extended conf.d Names.
+Custom Service Commands
+
+Commands other than start, stop and status may be available. A common example is save, used by iptables. Their usage is identical to that of the built-in ones. You can look inside the init.d script at various extra*commands variables which give a listing of the available ones.
+	extra_started_commands are extra commands that are only valid when the service is started. Similar logic applies to the rest of them.
+Extended conf.d Names
+
+There are 4 total files that may play a role in the configuration of a service. Assume that base stands for the name of the base server, ext is the extension (as per Multi-Services) and runlevel is the runlevel it’s in. Under those conditions, the files involved are:
+
+/etc/conf.d/base.runlevel
+
+    OpenRC will try loading this file if the full name of the service is not the same as the base name of the service.
+/etc/conf.d/base
+
+    If OpenRC tried loading /etc/conf.d/base.runlevel and failed, it will try loading this file.
+/etc/conf.d/base.ext.runlevel
+
+    OpenRC will always try loading this file, but only after the above two have happened.
+/etc/conf.d/base.ext
+
+    If loading /etc/conf.d/base.ext.runlevel failed, OpenRC will try to load this file.
+
+As far as most people are concerned, OpenRC will first load /etc/conf.d/base and then overlay /etc/conf.d/base.ext on top of it.
+

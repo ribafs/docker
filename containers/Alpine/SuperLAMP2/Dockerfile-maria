@@ -1,0 +1,26 @@
+FROM alpine:edge as maria-img
+
+LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>"
+
+# OpenRC
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+RUN apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen nano && \
+    rm -f /var/cache/apk/*
+
+COPY maria/setup.sql /
+#COPY maria/my.cnf /etc/mysql/my.cnf
+
+#ADD maria/run.sh /scripts/run.sh
+#RUN mkdir /docker-entrypoint-initdb.d && \
+#    mkdir /scripts/pre-exec.d && \
+#    mkdir /scripts/pre-init.d && \
+#    chmod -R 755 /scripts
+
+EXPOSE 3306
+
+VOLUME ["/var/lib/mysql"]
+
+#ENTRYPOINT ["/scripts/run.sh"]

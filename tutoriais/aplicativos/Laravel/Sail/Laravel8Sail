@@ -1,0 +1,42 @@
+Laravel Sail
+December 09, 2020 / Paul Redmond
+
+Taylor Otwell released Laravel Sail this week—a lightweight CLI for interacting with Laravel’s default docker environment. It provides a simple interface the helps you get started on your next big idea in no time. This new development environment option is now documented in the installation guide.
+
+The fasted way to get started with Sail is running the following command (referenced from the installation docs) after you have Docker installed:
+
+curl -s https://laravel.build/my-inspiring-app | bash
+
+New installations of Laravel will automatically include a vendor/bin/sail CLI script you can use to start, stop, and manage your Laravel application in an easy-to-use Docker environment. Here are a few example commands for managing your development environment with Sail:
+
+alias sail='bash vendor/bin/sail'
+
+# Run docker containers `docker-compose up`
+sail up
+# Run docker containers in the background
+# `docker-compose up -d`
+sail up -d
+
+# Stop containers and remove containers, networks, etc.
+sail down
+
+Sail comes with NPM, composer, and all the tools you’re used to using locally, all packaged up neatly inside Docker containers. Here are some examples you’d typically use:
+
+# Runs php artisan queue:work in the container
+sail artisan queue:work
+
+# Run PHP CLI commands and return output
+sail php --version
+
+# Require a composer package
+sail composer require laravel/sanctum
+
+# Node and NPM
+sail node --version
+sail npm install
+
+To get started, check out the official Laravel Sail documentation!
+
+Taylor also did a live stream demonstrating Laravel Sail and gives some background on the project:
+https://www.youtube.com/watch?v=mgyo0kfV7Vg&feature=emb_logo
+

@@ -1,0 +1,35 @@
+Criar usuário para acesso externo
+
+mysql -uroot
+
+Toda a intenet
+'username'@'%' - % acesso para toda a internet
+
+'username'@'192.168.1.100' - acesso somente a um IP
+
+CREATE USER 'ribafs'@'%' IDENTIFIED BY 'ribafs';
+
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'ribafs'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+\q
+
+service mysql restart
+
+Liberar o acesso à porta no firewall para o referido ip
+
+ufw allow from 172.17.0.2 to any port 3306
+
+Para liberar a porta para qualquer IP
+
+ufw allow 3306
+
+
+Acessar este servidor remotamente via terminal
+
+mysql -u user -h 172.26.0.3 -p
+
+exit
+
+https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql
+

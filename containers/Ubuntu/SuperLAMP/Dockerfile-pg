@@ -1,0 +1,20 @@
+FROM debian:stable-slim as deb-pg-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+RUN apt-get update && apt-get install -y postgresql
+# Nunca usar o apt-get install como primeiro comando. Sempre usar apt-get update e depois apt-gegt install .... 
+# Como também nunc usar: apt install, mas sempre apt-get ...
+
+COPY pg/setup.sql /root
+
+# Add repos
+#RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+# Add basics first
+RUN apt-get update && apt-get install -y curl nano
+# Veja que novamente precisamos usar antes apt-get update, senão não encotnra os pacotes
+
+EXPOSE 5432
+
+

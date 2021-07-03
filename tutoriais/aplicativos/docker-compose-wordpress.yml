@@ -1,0 +1,41 @@
+version: '2'
+services:
+  wordpress:
+    image: wordpress:latest
+    networks:
+      - front
+      - back
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: wordpress_db
+    volumes:
+      - ./wordpress-data:/var/www/html
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+  wordpress_db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepass
+    volumes:
+      - wordpress-db-data:/var/lib/mysql
+    networks:
+      - back
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    networks:
+      - back
+    ports:
+      - 8181:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: examplepass
+      PMA_HOST: wordpress_db
+volumes:
+    wordpress-db-data:
+      driver: local
+networks:
+  front:
+  back:

@@ -1,0 +1,34 @@
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+
+version: '3'
+
+services:
+  database:
+    image: postgres
+    container_name: pg_container
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: node_container
+    links:
+     - database
+        environment:
+      - PGPASSWORD=newpassword
+      - PGUSER=postgres
+      - PGDATABASE=nodejs
+      - PGHOST=database
+      - PGPORT=5432
+    depends_on:
+      - database
+
+volumes:
+  pgdata: {}
+
+

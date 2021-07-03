@@ -1,0 +1,128 @@
+Instalar Docker no Alpine
+
+Contents
+
+    1 Installation
+        1.1 Docker Compose
+    2 Isolate containers with a user namespace
+    3 Example: How to install docker from Arch
+    4 "WARNING: No {swap,memory} limit support"
+        4.1 Alpine 3.8
+        4.2 Grub
+        4.3 Extlinux
+    5 How to use docker
+    6 See also
+
+Installation
+
+The Docker package is in the 'Community' repository. See Alpine_Linux_package_management how to add a repository.
+
+apk add docker
+
+Connecting to the Docker daemon through its socket requires you to add yourself to the `docker` group.
+
+addgroup username docker
+
+To start the Docker daemon at boot, see Alpine_Linux_Init_System.
+
+rc-update add docker boot
+service docker start
+
+Note: On older version of Alpine Linux with older version of docker you'll also need to disable some kernel security flags in order to build images:
+
+sysctl -w kernel.grsecurity.chroot_deny_chmod=0
+sysctl -w kernel.grsecurity.chroot_deny_mknod=0
+
+For more information, have a look at the corresponding Github issue.
+
+Anyway, this weakening of security is not necessary to do with Alpine 3.4.x and Docker 1.12 as of August 2016 anymore.
+Docker Compose
+
+'docker-compose' is in 'Community' repository since Alpine Linux >= 3.10.
+
+apk add docker-compose
+
+For older releases, do:
+
+To install docker-compose, first install pip:
+
+apk add py-pip python3-dev libffi-dev openssl-dev gcc libc-dev make
+pip3 install docker-compose
+
+Isolate containers with a user namespace
+
+adduser -SDHs /sbin/nologin dockremap
+addgroup -S dockremap
+echo dockremap:$(cat /etc/passwd|grep dockremap|cut -d: -f3):65536 >> /etc/subuid
+echo dockremap:$(cat /etc/passwd|grep dockremap|cut -d: -f4):65536 >> /etc/subgid
+
+and add in /etc/docker/daemon.json
+
+{  
+        "userns-remap": "dockremap"
+}
+
+You may also consider these options : '
+
+       "experimental": false,
+       "live-restore": true,
+       "ipv6": false,
+       "icc": false,
+       "no-new-privileges": false
+
+You will find all possible configurations here[1].
+Example: How to install docker from Arch
+
+https://wiki.archlinux.org/index.php/Docker
+"WARNING: No {swap,memory} limit support"
+
+You may, probably, encounter this message by executing docker info. To correct this situation we have to enable the cgroup_enable=memory swapaccount=1
+Alpine 3.8
+
+Well I'm not sure it wasn't the case before but for sure with Alpine 3.8 you must config cgroups properly
+
+Warning: This seems not to work with Alpine 3.9 and Docker 18.06. Follow the instructions for grub or extlinux below instead.
+
+echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
+
+cat >> /etc/cgconfig.conf <<EOF
+mount {
+cpuacct = /cgroup/cpuacct;
+memory = /cgroup/memory;
+devices = /cgroup/devices;
+freezer = /cgroup/freezer;
+net_cls = /cgroup/net_cls;
+blkio = /cgroup/blkio;
+cpuset = /cgroup/cpuset;
+cpu = /cgroup/cpu;
+}
+EOF
+
+Grub
+
+Well; if you use Grub it is like any other linux and you just have to add the cgroup condition into /etc/default/grub, then upgrade your grub
+
+GRUB_CMDLINE_LINUX_DEFAULT="... e=memory swapaccount=1"
+
+Extlinux
+
+With Extlinux you also add the cgroup condition but inside /etc/update-extlinux.conf
+
+default_kernel_opts="... cgroup_enable=memory swapaccount=1"
+
+than update the config and reboot
+
+update-extlinux
+How to use docker
+
+The best documentation for how to use Docker and create containers is at the main docker site. Adding anything more to it here would be redundant.
+
+http://docs.docker.com/
+
+if you create an account at docker.com you can browse through other user's images and learn from the syntax in contributor's dockerfiles.
+
+Official Docker image files are denoted by a blue ribon on the website.
+See also
+
+    Creating & Hosting an Alpine Linux Package Repository for Docker Packages
+    Running Alpine in a Docker Container
