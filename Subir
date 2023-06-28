@@ -1,0 +1,15 @@
+Enviar uma imagem para o Docker Hub
+
+docker images
+
+debian-lampp_lampp
+
+docker image tag debian-lampp_lampp ribafs/debian-lampp:latest
+
+docker image tag ribafs/debian-lampp ribafs/debian-slim-lampp:latest
+
+docker login
+
+docker push ribafs/debian-slim-lampp:latest
+
+

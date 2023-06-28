@@ -1,0 +1,75 @@
+## Salvar as alterações em outra images
+
+Após criar um container, adicionar e/ou remover pacotes e realizar customizações, podemos salvar o estado atual para enviar ao hub e ser usado por outros e mesmo por nós depois de algum tempo
+
+Com o container rodando, sem executar o start.sh, abrir outro terminal e executar:
+docker ps
+docker stop IDContainer
+
+docker commit -a "Ribamar FS" -m "Imagem LAMPP com Debian Slim para PHP 5.6" IDContainer ribafs/lamp-5.6
+
+docker commit -a "Ribamar FS" -m "Imagem LAMPP com Debian Slim para PHP 7.4" IDContainer ribafs/lamp-7.4
+
+docker commit -a "Ribamar FS" -m "Imagem LAMPP com Debian Slim para PHP 8.1" IDContainer ribafs/lamp-8.1
+
+docker images
+lamp-5.6:latest
+
+docker login
+
+docker push ribafs/lamp-5.6:1.0
+docker push ribafs/lamp-7.4:1.0
+docker push ribafs/lamp-8.1:1.0
+
+Boas práticas:
+- Não usar latest, mas o nr da versão
+- Usar distros populares: CentOS, Debian, Ubuntu
+- Usar as imagens oficiais
+- Não criar imagens grandes (uso a versão slim)
+- Testar o uso do Alpine com mariadb e PostgreSQL
+- Cada comando do dockerfile cria uma camada da imagem
+- Usar .dockerignore para que não sejam enviados alguns arquivos e pastas
+- Criar user comum e add ao grupo do sudo para usar no container e melhorar a segurança
+	RUN groupadd -r ribafs && useradd -g ribafs ribafs && useradd -g sudo ribafs
+	RUN chown -R ribafs:www-data /var/www/html
+	USER ribafs
+- Algumas imagens já vem com um usuário	
+	
+
+docker history imagem
+
+docker commit IDContainer nomeImagem
+
+docker commit -m "LAMP com Alpine, Apache, PHP, MySQL" IDContainer nomeImagem:versao
+
+:versao - TAG
+
+docker images
+
+Docker ps -a
+
+Loc 8.1 docker commit 1bfba1f77fd0 docker-desk
+sha256:c420fa017bf4297da23fcbb3fbaa636a018aa75bfc1c9a1786c09acbeae6d27e
+
+Loc 8.1 di
+REPOSITORY    TAG        IMAGE ID       CREATED          SIZE
+docker-desk   latest     c420fa017bf4   5 seconds ago    1.07GB
+81_web        latest     2c0cf2b9a76e   13 minutes ago   1.07GB
+debian        unstable   d2079f622528   2 weeks ago      126MB
+
+Exportar imagem docker-desk
+
+docker save <image> > imagem.tar
+
+docker save docker-desk > docker-desk.tar
+
+Carregar em outro servidor ou após ter removido a imagem existente
+
+docker load < docker-desk.tar
+
+ls -lh
+
+1.1 GB, idêntico ao tamanho da imagem
+
+
+

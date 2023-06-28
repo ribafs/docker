@@ -1,0 +1,180 @@
+
+Boas Práticas
+
+É uma boa prática comentar o Dockerfile
+
+Algumas isntruções do Dockerfile
+
+FROM - imagem
+
+FROM alpine:3.11 AS alp-img
+
+Ajuda a criação de um alias para o nome da imagem, como acima
+
+Evite adicionar pacotes desnecessários
+
+LABEL - documentar o projeto
+
+Use um ou mais instruções LABEL
+LABEL com.example.version="0.0.1-beta"
+LABEL vendor1="ACME Incorporated"
+
+LABEL vendor=ACME\ Incorporated \
+      com.example.is-beta= \
+      com.example.is-production="" \
+      com.example.version="0.0.1-beta" \
+      com.example.release-date="2015-02-12"
+
+RUN - executar um ou mais comandos durante a criação do container
+
+Debian e derivadas usar apt-get ao invés de apenas apt.
+Também precisa usar -y para evitar a interatividade
+
+RUN apt-get update && apt-get install -y \
+  bzr \
+  cvs \
+  git \
+  mercurial \
+  subversion \
+  && rm -rf /var/lib/apt/lists/*
+
+Quebre linhas grandes em pequenas com \
+
+Contatenar dois comandos numa mesma linha usando && como abaixo
+
+RUN apt-get update && apt-get install -y \
+    package-bar \
+    package-baz \
+    package-foo  \
+    && rm -rf /var/lib/apt/lists/*
+
+Usando pipes
+
+RUN wget -O - https://some.site | wc -l > /number
+
+CMD - executar um comando mas já estando no ambiente do container.
+
+Diferente do RUN que executa comandos durante a criação do container.
+
+Só podemos executar um único CMD. Se usarmos vários, somente o último funcionará.
+
+Iniciar o apache numa distro tipo Debian
+
+CMD ["apache2","-DFOREGROUND"]
+
+EXPOSE - indica em queal porta o container está escutando por conexões.
+
+EXPOSE 80
+
+ENV - cria variáveis de ambiente
+
+ENV PATH=/usr/local/bin:$PATH
+
+ENV PG_MAJOR=9.3
+ENV PG_VERSION=9.3.4
+RUN curl -SL https://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress && …
+ENV PATH=/usr/local/postgres-$PG_MAJOR/bin:$PATH
+
+ENV ADMIN_USER="mark"
+RUN echo $ADMIN_USER > ./mark
+RUN unset ADMIN_USER
+
+ADD ou COPY
+
+Similares mas o COPY é o preferido
+
+COPY requirements.txt /tmp/
+RUN pip install --requirement /tmp/requirements.txt
+COPY . /tmp/
+
+ENTRYPOINT - O melhor uso para ENTRYPOINT é definir o comando principal da imagem, permitindo que a imagem seja executada como se fosse esse comando (e então usar CMD como sinalizadores padrão).
+Vamos começar com um exemplo de imagem para a ferramenta de linha de comando s3cmd:
+
+ENTRYPOINT ["s3cmd"]
+CMD ["--help"]
+
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["postgres"]
+
+VOLUME - A instrução VOLUME deve ser usada para expor qualquer área de armazenamento de banco de dados, armazenamento de configuração ou arquivos/pastas criados por seu contêiner docker. É altamente recomendável usar VOLUME para quaisquer partes mutáveis e/ou reparáveis pelo usuário de sua imagem.
+
+USER - Se um serviço puder ser executado sem privilégios, use USER para mudar para um usuário não root. Comece criando o usuário e o grupo no Dockerfile com algo como RUN groupadd -r postgres && useradd --no-log-init -r -g postgres postgres.
+
+WORKDIR - Para maior clareza e confiabilidade, você deve sempre usar caminhos absolutos para o seu WORKDIR. Além disso, você deve usar o WORKDIR em vez de proliferar instruções como RUN cd ... && do-something, que são difíceis de ler, solucionar problemas e manter.
+
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+
+Boas práticas com docker
+
+Criando containers com docker-compose.yml
+
+Supondo a estrutura abaixo
+
+raiz
+    db
+        setup.sql
+    web
+        index.php
+    docker-compose.yml
+    Dockerfile-db
+    Dockerfile-web
+
+Idealmente não deixar os Dockerfile dentro das pastas db e web, pois serão enviados para a imagem do container, sem necessidade.
+Como os volumes db e web são serializados, todos os seus arquivos são enviados
+
+Algumas boaos práticas
+
+- Não instale pacotes extras sem uma boa razão
+
+- Evite configurações não justificadas. Quanto mais limpos os arquivos Dockerfile e docker-composer.yml melhor.
+
+- Não mantenha arquivos temporários na imagem. Arquivos baixados com wget e instalados devem ser removidos.
+
+- Limpar/remover pacotes desnecessários e remover cache
+
+- Organize os comandos por grupos
+
+- Combine comandos
+
+- Evite repetições nos arquivos de instalação
+
+- Evite usar ID de containers. Ao invés dê um nome na criação e chame com seu nome, pois fica mais prático e menos susceptível a erros
+
+- Evite adicionar para a imagem algo que não é genérico, como ceros scripts sql, certas informações pessoais, etc.
+
+- Adotar um padrão para os nomes de imagens e dos containers, de forma a evitar erros e a facilitar o trabalho, especialmente em equipe.
+
+Eu adoto assim:
+
+apache-image
+php-image
+apache-container
+php-container
+
+O importante é que se use um padrão e isso vai ajudar na hora de nomear.
+
+https://jonathan.bergknoff.com/journal/building-good-docker-images/
+
+Crie contêineres efêmeros
+
+A imagem definida por seu Dockerfile deve gerar contêineres que sejam os mais efêmeros possíveis. Por "efêmero", queremos dizer que o contêiner pode ser interrompido e destruído e, em seguida, reconstruído e substituído com um mínimo absoluto de instalação e configuração.
+Consulte Processos sob a metodologia do aplicativo de doze fatores para ter uma ideia das motivações de executar contêineres de maneira sem estado.
+
+Compreenda o contexto de construção
+
+Quando você emite um comando docker build, o diretório de trabalho atual é chamado de contexto de construção. Por padrão, presume-se que o Dockerfile esteja localizado aqui, mas você pode especificar um local diferente com o sinalizador de arquivo (-f). Independentemente de onde o Dockerfile realmente resida, todos os conteúdos recursivos de arquivos e diretórios no diretório atual são enviados para o daemon do Docker como o contexto de construção.
+
+Não inclua arquivos desnecessários
+
+Nem configurações desnecessárias
+
+Excluir com .dockerignore
+Para excluir arquivos não relevantes para a compilação (sem reestruturar seu repositório de origem), use um arquivo .dockerignore. Este arquivo oferece suporte a padrões de exclusão semelhantes aos arquivos .gitignore. Para obter informações sobre como criar um, consulte o arquivo .dockerignore.
+
+Desacople as aplicações, as camadas
+
+Reduza o número de camadas
+
+Abandone cache. Use quando puder --no-cache=true
+

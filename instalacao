@@ -1,0 +1,91 @@
+Instalação do Docker no Linux Mint 20
+
+Primeiramente iremos instalar as dependências necessárias, para isso execute os comandos abaixo:
+
+sudo apt update
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
+
+Agora importaremos a chave do pacote docker:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+Agora iremos adicionar o repositório do docker ao nosso sistema:
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(. /etc/os-release; echo "$UBUNTU_CODENAME") stable"
+
+Em seguida iremos atualizar a lista de pacotes:
+sudo apt update
+
+Por fim, instalaremos o docker e o docker-compose:
+sudo apt -y install docker-ce docker-compose
+
+Será necessário adicionar nosso usuário ao grupo do docker para não haver necessidade de utilização do "sudo".
+sudo usermod -aG docker $USER
+su - $USER
+senha
+exit
+
+reiniciar
+
+Verificando a versão do docker instalado:
+
+docker -v
+Docker version 20.10.18
+
+Reiniciar o computador para poder usar o docker
+
+FONTE: https://computingforgeeks.com/
+
+
+Debian 11
+
+sudo apt update
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+    sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+And now if you do: docker-compose --version
+
+You'll see that docker-compose is now on the PATH
+
+
+sudo apt -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+   
+sudo apt update
+
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+
+sudo systemctl enable --now docker
+
+sudo usermod -aG docker $USER
+
+docker version
+
+docker-compose ps
+
+https://computingforgeeks.com/install-docker-and-docker-compose-on-debian/
+
+   
+
+https://download.docker.com/linux/debian/dists/bullseye/pool/stable/amd64/
+
+sudo dpkg -i /path/to/package.deb
+
+curl -sSL https://get.docker.com/ | sh
+
+Testar
+
+sudo service docker status
+
+sudo docker run hello-world
+
+
