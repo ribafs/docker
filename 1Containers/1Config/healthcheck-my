@@ -1,0 +1,290 @@
+Solution
+
+Check for some word in last lines of mysql log which indicates me something like "Im ready".
+
+This is my compose file:
+
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    command: mysqld --general-log=1 --general-log-file=/var/log/mysql/general-log.log
+    container_name: mysql
+    ports:
+     - "3306:3306"
+    volumes:
+     - ./install_dump:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_USER: jane
+      MYSQL_PASSWORD: changeme
+      MYSQL_DATABASE: blindspot
+    healthcheck:
+          test: "cat /var/log/mysql/general-log.log | grep \"root@localhost on  using Socket\""
+          interval: 1s
+          retries: 120
+
+  some_web:
+    image: some_web
+    container_name: some_web
+    ports:
+     - "80:80"
+    depends_on:
+        mysql:
+            condition: service_healthy
+
+Explanation
+
+After several checks I was able to get the entire mysql log of the container.
+
+docker logs mysql could be enough but I was not able to access to the docker log inside of healthcheck, so I had to dump the query log of mysql into a file with:
+
+command: mysqld --general-log=1 --general-log-file=/var/log/mysql/general-log.log
+
+After that I ran several times my mysql container to determine if log is the same. I found that last lines were always the same:
+
+Finally, after some attempts, this grep return just one match which corresponds to the end of mysql log after the execution of dumps in /docker-entrypoint-initdb.d:
+
+cat /var/log/mysql/general-log.log | grep \"root@localhost on  using Socket\"
+
+Words like started with or Tcp port: returned several matches (start, middle and at the end of log) so are not options to detect the end of starting mysql success log.
+
+healthcheck
+
+Happily, when grep found at least one match, it returns a success exist code (0). So use it in healthcheck was easy:
+
+healthcheck:
+  test: "cat /var/log/mysql/general-log.log | grep \"root@localhost on  using Socket\""
+  interval: 1s
+  retries: 120
+
+Improvements
+
+    If someone knows how to get the docker logs mysql inside of healthchek it will be better than enable the query log
+    Handle when sql scripts returns an error.
+
+
+version: '3'
+
+services:
+
+  john:
+    build:
+      context: .
+      dockerfile: containers/cowboys/john/Dockerfile
+      args:
+        - SERVICE_NAME_JOHN
+        - CONTAINER_PORT_JOHN
+    ports:
+      - "8081:8081" # Forward the exposed port on the container to port on the host machine
+    restart: unless-stopped
+    networks:
+      - fullstack
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+
+ db:
+    build:
+      context: containers/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: docker_user
+      MYSQL_PASSWORD: docker_pass
+      MYSQL_DATABASE: cowboys
+    container_name: golang_db
+    restart: on-failure
+    networks:
+      - fullstack
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+networks:
+  fullstack:
+    driver: bridge
+
+version: "2.1"
+services:
+    api:
+        build: .
+        container_name: api
+        ports:
+            - "8080:8080"
+        depends_on:
+            db:
+                condition: service_healthy
+    db:
+        container_name: db
+        image: mysql
+        ports:
+            - "3306"
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_USER: "user"
+            MYSQL_PASSWORD: "password"
+            MYSQL_DATABASE: "database"
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+
+
+version: '2.1'
+services:
+  mysql:
+    image: mysql
+    ports: ['3306:3306']
+    environment:
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+
+Hi for a simple healthcheck using docker-compose v2.1, I used:
+
+/usr/bin/mysql --user=root --password=rootpasswd --execute \"SHOW DATABASES;\"
+
+
+version: '2.1'
+
+  services:
+    db:
+      ... # Other db configuration (image, port, volumes, ...)
+      healthcheck:
+        test: "/usr/bin/mysql --user=root --password=rootpasswd --execute \"SHOW DATABASES;\""
+        interval: 2s
+        timeout: 20s
+        retries: 10
+
+     app:
+       ... # Other app configuration
+       depends_on:
+         db:
+         condition: service_healthy
+
+version: "3.8"
+services:
+  db:
+    image: linuxserver/mariadb
+    environment:
+      - FILE__MYSQL_ROOT_PASSWORD=/run/secrets/mysql_root_password
+      - FILE__MYSQL_PASSWORD=/run/secrets/mysql_password
+    secrets:
+      - mysql_root_password
+      - mysql_password
+    healthcheck:
+      test: out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=$$(cat $${FILE__MYSQL_ROOT_PASSWORD}) 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }
+
+secrets:
+  mysql_root_password:
+    file: ${SECRETSDIR}/mysql_root_password
+  mysql_password:
+    file: ${SECRETSDIR}/mysql_password
+
+
+version: "3"
+
+services:
+
+    app:
+      ...
+      depends_on:
+        - db:
+      restart: on-failure
+
+mysql:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    volumes:       
+      # Preload files for data
+      - ../schemaAndSeedData:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPass
+      MYSQL_DATABASE: DefaultDB
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: usr
+    healthcheck:
+      test:  mysql --user=root --password=rootPass -e 'Design your own check script ' LastSchema
+
+
+content-db:
+    image: mysql:5.6
+    restart: on-failure
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./internal/db/content/sql:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: content
+      MYSQL_TCP_PORT: 5306
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    healthcheck:
+      test: "mysql -uroot -p$MYSQL_ROOT_PASSWORD content -e 'select 1'"
+      interval: 1s
+      retries: 120
+
+version: "3"
+
+services:
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.26
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: "mysql $$MYSQL_DATABASE -u$$MYSQL_USER -p$$MYSQL_PASSWORD -e 'SELECT 1;'"
+      interval: 20s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mysql-data:
+
+version : '3'
+
+services:
+
+database: 
+    build: DatabaseScripts
+    ports:
+        - "3306:3306"
+    container_name: "database-container"
+    restart: always
+
+backend:
+    build: backend
+    ports: 
+        - "3000:3000"
+    container_name: back-container
+    restart: always
+    links:
+        - database
+    command : ["./wait-for-it.sh", "-t", "40", "database:3306", "--", "node", "app.js"]
+    # above line does the following:
+        # check periodically for 40 seconds if (host:port) = database:3306 is ready
+        # if it is, run 'node app.js'
+        # app.js is the file that is connecting with the db
+
+frontend: 
+    build: quiz-app
+    ports:
+        - "4200:4200"
+    container_name: front-container
+    restart: always
+
+
+https://stackoverflow.com/questions/42567475/docker-compose-check-if-mysql-connection-is-ready

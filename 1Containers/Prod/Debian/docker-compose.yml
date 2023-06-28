@@ -1,0 +1,54 @@
+version: "3.6" 
+
+services:
+    web:
+      container_name: docker-web
+      build:
+        context: .
+        dockerfile: php/${PHPVERSION}/Dockerfile
+      environment:
+        APACHE_RUN_USER: www-data
+        APACHE_RUN_GROUP: www-data
+        WEB_DOCUMENT_ROOT: /var/www/html
+      volumes:
+        - ./web:/var/www/html
+      ports:
+        - "8888:80"
+      depends_on:
+      - maria
+      - postgres
+
+    maria:
+      container_name: docker-maria
+      build:
+        context: .
+        dockerfile: Dockerfile-ma
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: crud
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: admin
+      volumes:
+        - ./maria:/var/lib/mysql
+      ports:
+        - "3333:3306"
+
+    postgres:
+      container_name: docker-postgres
+      build:
+        context: .
+        dockerfile: Dockerfile-pg
+      environment:
+        POSTGRES_ROOT_PASSWORD: postgres
+        POSTGRES_DATABASE: crud
+        POSTGRES_USER: crudu
+        POSTGRES_PASSWORD: crudu
+      volumes:
+        - ./pg:/var/lib/postgresql
+      ports:
+        - "5555:5432"
+
+volumes:
+  web:
+  maria:
+  pg:

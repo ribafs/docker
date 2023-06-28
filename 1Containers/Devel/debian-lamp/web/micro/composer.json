@@ -1,0 +1,26 @@
+{
+    "name": "ribafs/mini-framework-ribafs",
+    "description": "Mini framework PHP with MVC and routers",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ribamar FS",
+            "email": "ribafs@gmail.com"
+        }
+    ],
+	"minimum-stability": "stable",
+    "autoload":
+    {
+        "psr-4":
+        {
+            "App\\" : "App/",
+            "Core\\" : "Core/"
+        }
+    },
+    "require": {
+        "fakerphp/faker": "^1.20",
+        "robmorgan/phinx": "^0.12.12",
+        "filp/whoops": "^2.14"
+    }
+}

@@ -1,0 +1,15 @@
+Postgres
+
+
+
+MariaDb/MySQL
+
+[mysqld]
+bind-address            = 0.0.0.0
+skip-grant-tables
+
+
+
+Apache
+
+

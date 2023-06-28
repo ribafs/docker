@@ -1,0 +1,18 @@
+FROM debian:stable-slim as postgres-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN mkdir -p /usr/share/man/man1
+RUN mkdir -p /usr/share/man/man7
+RUN apt-get update
+RUN apt-get install -y postgresql-client
+RUN apt-get install -y postgresql nano curl
+
+ADD pg/ /
+COPY pg.sh /pg.sh
+
+EXPOSE 5432

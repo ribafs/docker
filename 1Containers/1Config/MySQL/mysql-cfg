@@ -1,0 +1,15 @@
+Alpine
+/etc/my.cnf
+nano /etc/my.cnf.d/mariadb-server.cnf
+
+Debian e Ubuntu
+nano /etc/mysql/mariadb.conf.d/50-server.cnf
+ou
+nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+[mysqld]
+bind-address = 0.0.0.0
+skip-grant-tables
+
+FROM mysql:8
+RUN echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/my.cnf

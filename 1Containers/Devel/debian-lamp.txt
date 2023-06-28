@@ -1,0 +1,9 @@
+di
+REPOSITORY         TAG       IMAGE ID       CREATED         SIZE
+debian-lamp_lamp   latest    e6210f2e602e   5 minutes ago   421MB (5.6)
+
+debian-lamp_lamp   latest    40e6ac2b23b2   About a minute ago   606MB (7.4)
+
+debian-lamp_lamp   latest    c6b55f875239   15 minutes ago   638MB (8.1)
+
+

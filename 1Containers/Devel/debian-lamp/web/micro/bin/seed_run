@@ -1,0 +1,3 @@
+<?php
+Exec('php vendor/bin/phinx seed:run -e development');
+print 'Seed executado'.PHP_EOL;

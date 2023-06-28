@@ -1,0 +1,21 @@
+Ideia
+
+Criar um servidor na nuvem/VPS
+
+No servidor instalar Apache e PHP
+
+Instalar o cocker e cocker-compose
+
+Criar um docker-compose com dois Dockerfiles:
+- postgres
+- maria
+
+No servidor
+
+nano /etc/hosts
+
+172.17.0.2	postgres
+172.17.0.3	maria
+
+
+

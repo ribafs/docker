@@ -1,0 +1,27 @@
+FROM alpine:3.15 as maria-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+CMD ["/bin/sh"]
+VOLUME [ "/sys/fs/cgroup" ]
+
+RUN apk update && apk add util-linux openrc
+RUN apk add apache2 nano
+RUN apk add mariadb mariadb-client mariadb-openrc
+
+RUN rc-update add mariadb default\
+  && mkdir /run/openrc\
+  && touch /run/openrc/softlevel  
+
+RUN apk add curl
+
+# No docker-compose.yml montar um volume maria:/var/lib/mysql
+ADD maria/ /
+
+COPY config/ma/entrypoint.sh /usr/local/bin/
+RUN chmod u+x,g+x /usr/local/bin/entrypoint.sh\
+  && ln -s /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+EXPOSE 3306
+

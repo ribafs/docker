@@ -1,0 +1,164 @@
+
+APT
+apt-cache search nomePacote
+
+Compactar pasta recursivamente
+zip -r documentos.zip pasta
+
+Descompactar para o /tmp
+unzip nome.zip -d /tmp
+
+Compactar pasta com tgz
+tar -czpvf pacote.tar.gz pasta
+
+Descompactar
+tar -zxpvf pacote.tar.gz -C /tmp
+
+
+Listar maiores arquivos de diretório
+
+du --human-readable * | sort --human-numeric-sort
+ou
+du -h | egrep -v "\./.+/" | sort -hr
+
+Baixar arquivo grande. Caso o download seja interrompido, repetir o comando para que continue
+wget -c https://site/arquivo.zip
+
+Baixar arquivo com wget em certo diretório
+wget "http://www.adminer.org/latest.php" -O /home/ribafs/backup
+
+
+SSH
+
+ssh ribafs@IP
+
+ssh -p porta ribafs@IP
+
+SCP
+Copiar arquivos do desktop para o container
+
+scp arquivo.zip ribafs@IP:/home/ribafs
+
+scp -P 2222 arquivo.zip ribafs@IP:/home/ribafs
+
+
+Gerenciador de arquivos em modo texto. Traz embutido o editor modo texto mcedit
+apt install mc
+
+Calendário em modo texto
+
+cal 1956
+cal -d 2022-01-13
+
+
+ls - listar arquivos/diretórios
+ls -la (lista inclusive ocultos)
+ls -lh (lista mostrando o tamanho de cada um)
+
+Criar diretórios recursivamente
+mkdir -p /home/ribafs/dir1/dir2/dir3 - cria todos, mesmo que dir1 e dir2 não existam ainda
+
+Criar 100 diretórios de uma ve só
+mkdir -p diretorio/{1..100}
+
+Copiar recursivamente com todo o conteúdo
+cp -Ra origem destino
+
+Para copiar arquivos ou diretórios preservando suas permissões, atributos, links, basta utilizar o comando "cp" com a opção "-p":
+
+Exemplo de comando (Copiando Arquivos):
+cp -p /home/User/teste.txt /etc
+
+Exemplo de comando (Copiando Diretórios recursivamente):
+cp -rp /home/User/ /etc
+
+Obs: A opção "-r" copia recursivamente os diretórios, arquivos, links
+
+Cria arquivo vazio (Linux e BSD)
+
+touch arquivo.txt
+
+Nome da distribuição atual
+lsb_release -a
+ou cat /etc/issue
+
+Comandos do editor modo texto nano:
+
+Ctrl+O - salvar
+Ctrl+X - sair
+
+Busca interna - F6
+Shift + Insert - colar texto que está na memória
+
+Ctrl+K - apagar a linha atual
+
+
+df - mostra informações das patições
+df -h - informações e espaço em MB
+
+
+free - informações sobre memória RAM e swap
+free -m - mostrando em MB
+
+
+du - mostra arquivos e diretórios com seus respectivos tamanhos
+du -sh - mostra o tamanho total do diretório atual ou indicado de forma silenciosa, sem listar
+
+Mostrar processos
+ps ax
+
+Matar processos
+kill -9 nrprocesso	# Número da esquerda
+
+Restartar serviço sem desrrubá-lo
+sudo killall -HUP apache2
+
+Nome do usuário atual
+whoami
+
+Listagem de arquivos texto:
+more - lista todo o arquivo de uma vez
+
+less - lista pro página, podendo passar com pgdn e voltar com pgup
+
+cat - mostrar conteúdo de arquivo texto
+
+pstree | less - mostra os processos do sistema em árvore
+
+Comandos do Apache
+
+a2enmod nome_modulo => habilita módulo
+a2dismod nome_modulo => desabilita módulo
+a2ensite nome_site (existentes no diretório /etc/apache2/sites-available) => habiltia site
+a2dissite
+a2enconf => habiltia configuração
+a2disconf
+
+Gerenciamento do serviço
+systemctl start apache2
+systemctl status apache2.service
+journalctl -xn
+
+Verificar sintaxe da configuração
+apachectl -t
+
+pwd - mostra diretório atual
+
+
+
+http://comandoslinux.com/
+Referências
+
+http://comandoslinux.com/
+https://www.infowester.com/comandoslinux.php
+https://www.vivaolinux.com.br/dicas/impressora.php?codigo=6935
+http://www.linuxdevcenter.com/cmd/
+https://linuxconfig.org/linux-commands
+https://www.mediacollege.com/linux/command/linux-command.html
+https://sempreupdate.com.br/5-administracao-de-sistemas-linux-comandos-uteis/
+https://sempreupdate.com.br/6-administracao-de-sistemas-linux-comandos-uteis-parte-2/
+https://sempreupdate.com.br/7-administracao-de-sistemas-linux-comandos-uteis-parte-3/
+https://sempreupdate.com.br/8-administracao-de-sistemas-linux-comandos-uteis-parte-4/
+https://sempreupdate.com.br/9-administracao-de-sistemas-linux-comandos-uteis-parte-5/
+https://sempreupdate.com.br/10-administracao-de-sistemas-linux-comandos-uteis-parte-6/
+

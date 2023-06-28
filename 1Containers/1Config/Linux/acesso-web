@@ -1,0 +1,4 @@
+Acessar site do terminal:
+
+curl -I http://localhost:8080
+

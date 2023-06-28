@@ -1,0 +1,15 @@
+Conexão entre containers diferentes
+
+Alpine
+
+127.0.0.1/32 por 172.17.0.3/32
+
+sed -i "s/c/" /etc/postgresql/pg_hba.conf
+
+#listen_addresses = 'localhost' por listen_addresses = '*'
+
+sed -i "s/#listen_addresses\ =\ 'localhost'/listen_addresses\ =\ '*'/" /etc/postgresql/postgresql.conf
+
+rc-service postgresql restart
+
+

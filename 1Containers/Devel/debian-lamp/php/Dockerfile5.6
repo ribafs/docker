@@ -1,0 +1,56 @@
+FROM debian:jessie-slim as lampp-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y apache2 nano unzip wget
+
+RUN apt-get update
+RUN apt-get install -y software-properties-common dirmngr
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -yq install mysql-server
+
+RUN apt-get install -y php5 libapache2-mod-php5 \
+    php5 \
+    php5-common \
+    php5-fpm \
+    php5-cli \
+    php5-curl \
+    php5-json \
+    php5-xsl \
+    php5-xdebug \
+    php5-gd \
+    php-pear \
+    php5-mysql \
+    php5-sqlite
+
+RUN apt-get install -y curl
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh 
+RUN bash nodesource_setup.sh
+RUN apt-get install -y nodejs
+
+# No docker-compose.yml montar um volume mysql:/var/lib/mysql
+ADD mysql/ /var/www/html/
+ADD web/ /var/www/html/
+RUN rm /var/www/html/index.html
+
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+COPY perms /usr/local/bin/perms
+RUN chmod +x /usr/local/bin/perms
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# install apache to run and configure
+RUN sed -i "s/AllowOverride\ None/AllowOverride\ All/" /etc/apache2/apache2.conf
+
+RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php/5.6/apache2/php.ini
+
+WORKDIR /var/www/html/
+
+EXPOSE 80
+EXPOSE 3306
+

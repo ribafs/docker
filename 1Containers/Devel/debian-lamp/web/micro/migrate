@@ -1,0 +1,10 @@
+#!/bin/bash
+# Sintaxe: migrate
+if [[ $0 == 'migrate' ]];
+ then
+     php bin/migrate
+else     
+    echo 'Erro de sintaxe. Only'
+    echo 'migrate'
+    exit
+fi

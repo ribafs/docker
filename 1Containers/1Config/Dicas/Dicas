@@ -1,0 +1,19 @@
+PHP
+
+RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php7/php.ini 
+
+# Add Composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/bin --filename=composer && chmod +x /usr/bin/composer 
+RUN echo "### Installing Composer is completed. ###" 
+
+Alpine
+RUN curl -sS https://getcomposer.org/installer | php7 -- --install-dir=/usr/bin --filename=composer 
+
+CMD /usr/sbin/apachectl  -D   FOREGROUND
+
+Postgres
+Criar user via shell
+
+psql -c "create user admin with password 'admin'"
+

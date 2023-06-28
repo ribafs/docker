@@ -1,0 +1,27 @@
+version: "3.6" 
+
+services:
+    lamp:
+      container_name: docker-lamp
+      build:
+        context: .
+        dockerfile: php/Dockerfile${PHPVERSION}
+      environment:
+        APACHE_RUN_USER: www-data
+        APACHE_RUN_GROUP: www-data
+        WEB_DOCUMENT_ROOT: /var/www/html
+        MYSQL_DATABASE: ${DB_DATABASE}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+        MYSQL_USER: ${DB_USERNAME}
+        restart: unless-stopped
+      volumes:
+        - ./web:/var/www/html
+        - ./mysql:/var/lib/mysql
+      ports:
+        - "8888:80"
+        - "3333:3306"
+
+volumes:
+  web:
+  mysql:
+

@@ -1,0 +1,25 @@
+    sqlite:
+      container_name: sqlite-container
+      restart: always
+      build:
+        context: .
+        dockerfile: ./Dockerfile-sqlite
+      volumes:
+        - ./sqlite:/var/lib/sqlite
+      tty: true
+    networks:
+      - alpine-net
+
+
+    adminer:
+      container_name: adminer-container
+      build:
+        context: .
+        dockerfile: Dockerfile-adminer
+      volumes:
+        - ./adminer:/var/www/html
+      links:
+        - maria
+        - postgres
+
+

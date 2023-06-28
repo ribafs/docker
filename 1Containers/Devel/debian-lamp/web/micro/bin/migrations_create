@@ -1,0 +1,10 @@
+<?php
+if($argv[1] == ''){
+	print 'Sintaxe errada. Digite'.PHP_EOL;
+	print 'migration_create NomeMigration';
+	exit;
+}else{
+	exec("vendor/robmorgan/phinx/bin/phinx create ". $argv[1]);
+	print 'Migration criada'.PHP_EOL;		
+}	
+

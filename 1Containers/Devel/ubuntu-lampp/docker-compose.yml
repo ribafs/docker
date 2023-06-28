@@ -1,0 +1,31 @@
+version: "3.6" 
+
+services:
+    lampp:
+      container_name: docker-lampp
+      build:
+        context: .
+        dockerfile: php/${PHPVERSION}/Dockerfile
+      environment:
+        APACHE_RUN_USER: www-data
+        APACHE_RUN_GROUP: www-data
+        WEB_DOCUMENT_ROOT: /var/www/html
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: crud
+        MYSQL_USER: crudu
+        MYSQL_PASSWORD: crudu
+
+      volumes:
+        - ./web:/var/www/html
+        - ./mysql:/var/lib/mysql
+        - ./pg:/var/lib/postgresql/data
+      ports:
+        - "8888:80"
+        - "3333:3306"
+        - "5555:5432"
+
+volumes:
+  web:
+  pg:
+  mysql:
+

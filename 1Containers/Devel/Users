@@ -1,0 +1,26 @@
+Try the following lines in Dockerfile:
+
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1001 ubuntu
+USER ubuntu
+WORKDIR /home/ubuntu
+
+useradd options (see: man useradd):
+
+    -r, --system Create a system account. see: Implications creating system accounts
+    -m, --create-home Create the user's home directory.
+    -d, --home-dir HOME_DIR Home directory of the new account.
+    -s, --shell SHELL Login shell of the new account.
+    -g, --gid GROUP Name or ID of the primary group.
+    -G, --groups GROUPS List of supplementary groups.
+    -u, --uid UID Specify user ID. see: Understanding how uid and gid work in Docker containers
+    -p, --password PASSWORD Encrypted password of the new account (e.g. ubuntu).
+
+Setting default user's password
+
+To set the user password, add -p "$(openssl passwd -1 ubuntu)" to useradd command.
+
+Alternatively add the following lines to your Dockerfile:
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN echo 'ubuntu:ubuntu' | chpasswd
+

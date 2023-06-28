@@ -1,0 +1,4 @@
+<?php
+// Executar todas as migrations criando as tabelas
+exec('php vendor/robmorgan/phinx/bin/phinx migrate -e development');
+print 'Migrate executada'.PHP_EOL;

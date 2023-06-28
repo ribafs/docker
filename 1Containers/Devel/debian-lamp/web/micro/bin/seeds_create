@@ -1,0 +1,11 @@
+<?php
+
+if($argv[1] == ''){
+	print 'Sintaxe errada. Exemplo'.PHP_EOL;
+	print 'seeds_create Products';
+	exit;
+}else{
+	exec("php vendor/bin/phinx seed:create ". $argv[1]);
+	print 'Seed criada'.PHP_EOL;
+}	
+

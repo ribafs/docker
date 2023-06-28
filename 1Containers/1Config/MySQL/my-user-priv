@@ -1,0 +1,7 @@
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON joomla.* TO 'admin'@'localhost';
+
+
+CREATE USER 'admin'@'172.17.0.3' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON crud.* TO 'admin'@'172.17.0.3';
+

@@ -1,0 +1,23 @@
+qgMysqlData:
+  image: busybox
+  volumes:
+    - ./mysql-data:/var/lib/mysql
+
+qgMySQLServer:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: *******
+    MYSQL_USER: *****
+    MYSQL_PASSWORD: ******
+    MYSQL_DATABASE: ****
+  ports:
+    - "3306:3306"
+  volumes_from:
+    - "qgMysqlData"
+
+qgPhpMyAdmin:
+  image: nazarpc/phpmyadmin
+  ports:
+    - "8090:80"
+  links:
+    - qgMySQLServer:mysql

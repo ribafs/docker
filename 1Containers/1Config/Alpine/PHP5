@@ -1,0 +1,32 @@
+RUN apk add --no-cache php5-apache2 \
+    php5 \
+    php5-common \
+    php5-fpm \
+    php5-pdo \
+    php5-opcache \
+    php5-zip \
+    php5-phar \
+    php5-iconv \
+    php5-cli \
+    php5-curl \
+    php5-openssl \
+    php5-mbstring \
+    php5-tokenizer \
+    php5-fileinfo \
+    php5-json \
+    php5-xml \
+    php5-xmlwriter \
+    php5-simplexml \
+    php5-dom \
+    php5-pdo_mysql \
+    php5-pdo_sqlite \
+    php5-tokenizer \
+    php5-pecl-redis
+
+RUN ln -s /usr/bin/php5 /usr/bin/php
+
+# Installing composer
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN rm -rf composer-setup.php
+

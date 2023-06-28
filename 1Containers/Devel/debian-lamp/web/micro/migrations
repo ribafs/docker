@@ -1,0 +1,10 @@
+#!/bin/bash
+# Sintaxe: migrations
+if [[ $0 == 'migrations' ]];
+ then
+     php bin/migrations_create
+else     
+    echo 'Erro de sintaxe. Only'
+    echo 'migrations'
+    exit
+fi

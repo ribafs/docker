@@ -1,0 +1,14 @@
+FROM debian:stable-slim as maria-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get install -y mariadb-server nano curl
+
+ADD maria/ /
+COPY ma.sh /ma.sh
+
+EXPOSE 3306

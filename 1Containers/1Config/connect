@@ -1,0 +1,8 @@
+Usar o nome do serviço do SGBD no lugar de localhost na conexão do pdo
+
+Adicionar ao /etc/hosts do serviço web?
+
+/etc/hosts
+IP  nomeServico
+
+

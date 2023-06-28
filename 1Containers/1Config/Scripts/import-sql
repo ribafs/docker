@@ -1,0 +1,74 @@
+# needed for intialization
+ENV MYSQL_ROOT_PASSWORD=root
+
+COPY setup.sql /docker-entrypoint-initdb.d/
+
+# Need to change the datadir to something else that /var/lib/mysql because the parent docker file defines it as a volume.
+# https://docs.docker.com/engine/reference/builder/#volume :
+#       Changing the volume from within the Dockerfile: If any build steps change the data within the volume after
+#       it has been declared, those changes will be discarded.
+RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db", "--aria-log-dir-path", "/initialized-db"]
+
+
+
+Create an executable script init_db.sh:
+
+#!/bin/bash
+/usr/bin/mysqld_safe --skip-grant-tables &
+sleep 5
+mysql -u root -e "CREATE DATABASE mydb"
+mysql -u root mydb < /tmp/dump.sql
+
+Add these lines to your Dockerfile:
+
+ADD init_db.sh /tmp/init_db.sh
+RUN /tmp/init_db.sh
+
+
+
+42
+
+What I did was download my sql dump in a "db-dump" folder, and mounted it:
+
+mysql:
+ image: mysql:5.6
+ environment:
+   MYSQL_ROOT_PASSWORD: pass
+ ports:
+   - 3306:3306
+ volumes:
+   - ./db-dump:/docker-entrypoint-initdb.d
+
+When I run docker-compose up for the first time, the dump is restored in the db.
+
+
+
+Here is a working version using v3 of docker-compose.yml. The key is the volumes directive:
+
+mysql:
+  image: mysql:5.6
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: theusername
+    MYSQL_PASSWORD: thepw
+    MYSQL_DATABASE: mydb
+  volumes:
+    - ./data:/docker-entrypoint-initdb.d
+
+In the directory that I have my docker-compose.yml I have a data dir that contains .sql dump files. This is nice because you can have a .sql dump file per table.
+
+I simply run docker-compose up and I'm good to go. Data automatically persists between stops. If you want remove the data and "suck in" new .sql files run docker-compose down then docker-compose up.
+
+If anyone knows how to get the mysql docker to re-process files in /docker-entrypoint-initdb.d without removing the volume, please leave a comment and I will update this answer.
+
+
+mysqldump -h <server name> -u<user> -p <db name> > data.sql
+
+RUN /bin/bash -c "/usr/bin/mysqld_safe --skip-grant-tables &" && \
+  while ! mysqladmin ping --silent; do sleep 1; echo "wait 1 second"; done && \
+  mysql -u root -e "CREATE DATABASE mydb" && \
+  mysql -u root mydb < /tmp/dump.sql
+
+

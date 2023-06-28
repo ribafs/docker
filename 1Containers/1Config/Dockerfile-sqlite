@@ -1,0 +1,9 @@
+FROM alpine:edge as sqlite-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+COPY sqlite/setup.sql /root
+
+RUN apk update && apk add curl nano sqlite3
+
+

@@ -1,0 +1,50 @@
+Comandos de redes
+
+Checar se a porta 3306 está aberta no host
+
+netstat -vanp tcp | grep 3306
+
+netstat -plnt | grep ':80'
+
+netstat -plnt
+
+To list all TCP or UDP ports that are being listened on, including the services using the ports and the socket status use the following command:
+
+netstat -tunlp
+
+netstat -tnlp | grep :22
+
+ss -tunlp
+
+lsof -nP -iTCP -sTCP:LISTEN
+
+lsof -nP -iTCP:3306 -sTCP:LISTEN
+
+ip a
+
+ip a | grep IPAddress
+
+Checar a localização dos volumes:
+
+docker inspect [container_name]
+
+Checar se a porta 3306 está aberta no host
+
+netstat -vanp tcp | grep 3306
+
+netstat -plnt | grep ':80'
+
+netstat -plnt
+
+Para listar todas as portas que estão escutando, incluindo os serviços usando as portas e o estatus do socket use o comando:
+
+netstat -tunlp
+
+netstat -tnlp | grep :22
+
+ss -tunlp
+
+lsof -nP -iTCP -sTCP:LISTEN
+
+lsof -nP -iTCP:3306 -sTCP:LISTEN
+

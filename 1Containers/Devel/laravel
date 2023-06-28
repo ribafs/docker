@@ -1,0 +1,37 @@
+Parar no desktop o apache e o mysql
+
+curl -s https://laravel.build/laravel8 | bash
+
+cd laravel8
+
+./vendor/bin/sail up
+
+No desktop
+
+http://localhost
+
+Escolhendo os serviços
+
+Available services include:
+mysql, pgsql, mariadb, redis, memcached, meilisearch, minio, selenium, and mailhog:
+
+curl -s "https://laravel.build/laravel8?with=mysql,redis" | bash
+
+
+Instalação via composer:
+
+composer create-project laravel/laravel:^8.0 example-app
+ 
+cd example-app
+ 
+php artisan serve
+
+
+Guilherme Renata Rodrigues Moraes
+
+entra no container e roda o comando ifconfig e saia do conteiner. Depois vc dá um docker -it -p 127.0.0.1:8080 172.17.0.2:8080 -v /home/DirFísico/laravel8 /laravel8NoContainer
+
+docker run -it -p 8888:80 -v /home/ribafs/laravel8:/var/www/html/laravel8 debian-lamp_lamp
+
+Guilherme Renata Rodrigues Moraes
+(onde este último ip é o que o container retornou).

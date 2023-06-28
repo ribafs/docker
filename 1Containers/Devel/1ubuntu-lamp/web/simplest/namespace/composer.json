@@ -1,0 +1,23 @@
+{
+    "name": "ribafs/simple-router",
+    "description": "Simple Router PHP MVC",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ribamar FS",
+            "email": "ribafs@gmail.com"
+        }
+    ],
+	"minimum-stability": "stable",
+    "autoload":
+    {
+        "psr-4":
+        {
+            "App\\" : "App/",
+            "Core\\" : "Core/"
+        }
+    },
+    "require": {
+    }
+}

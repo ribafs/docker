@@ -1,0 +1,25 @@
+Comunicação via SSH entre desktop e container
+
+Instlar SSH no contaienr
+
+docker run -it imagem
+
+apt update
+apt install ssh sudo
+service ssh start
+
+ip a
+
+Tentar com o root
+
+adduser ribafs
+adduser ribafs sudo
+
+No desktop
+
+ssh ribafs@172.17.0.2
+
+Enviando arquivos via scp
+scp arquivo.zip ribafs@172.17.0.2:/home/ribafs
+
+

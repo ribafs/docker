@@ -1,0 +1,41 @@
+version: '3.6'
+services:
+  mysql:
+    image: "mysql:5.7"
+    container_name: mysql
+    restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=your_password
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=your_password
+      - MYSQL_DATABASE=wordpress
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+
+  my_super_app:
+    build: ./my_super_app
+    image: "my_super_app:latest"
+    container_name: my_supper_app
+    depends_on:
+      - mysql
+    command: sh -c "/wait && /sayhello"
+    environment:
+      - WAIT_HOSTS=mysql:3306
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+
+Additional configuration options. The behavior of the wait utility can be configured with the following environment variables:
+
+    WAIT_HOSTS: comma separated list of pairs host:port for which you want to wait.
+    WAIT_HOSTS_TIMEOUT: max number of seconds to wait for all the hosts to be available before failure. The default is 30 seconds.
+    WAIT_HOST_CONNECT_TIMEOUT: The timeout of a single TCP connection to a remote host before attempting a new connection. The default is 5 seconds.
+    WAIT_BEFORE_HOSTS: number of seconds to wait (sleep) before start checking for the hosts availability
+    WAIT_AFTER_HOSTS: number of seconds to wait (sleep) once all the hosts are available
+    WAIT_SLEEP_INTERVAL: number of seconds to sleep between retries. The default is 1 second.
+https://www.datanovia.com/en/lessons/docker-compose-wait-for-container-using-wait-tool/docker-compose-wait-for-mysql-container-to-be-ready/
+

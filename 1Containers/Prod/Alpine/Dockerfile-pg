@@ -1,0 +1,30 @@
+FROM alpine:3.15 as pg-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+CMD ["/bin/sh"]
+VOLUME [ "/sys/fs/cgroup" ]
+
+#But since July 8th, 2015, if all you need is to create a user and database, it is easier to just make use to the POSTGRES_USER, #POSTGRES_PASSWORD and POSTGRES_DB environment variables:
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD postgres
+ENV POSTGRES_DB crud
+# The official postgres docker image will run .sql scripts found in the /docker-entrypoint-initdb.d/ folder. 
+#COPY pg/pg.sql /docker-entrypoint-initdb.d/
+
+RUN apk update && apk add util-linux openrc
+RUN apk add postgresql14-jit postgresql14-openrc nano
+
+RUN rc-update add postgresql default\
+  && mkdir /run/openrc\
+  && touch /run/openrc/softlevel  
+
+COPY config/pg/entrypoint.sh /usr/local/bin/
+RUN chmod u+x,g+x /usr/local/bin/entrypoint.sh\
+  && ln -s /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+# No docker-compose.yml montar um volume pg:/var/lib/postgresql/data
+ADD pg/ /
+
+EXPOSE 5432
+

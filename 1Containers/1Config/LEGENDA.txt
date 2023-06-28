@@ -1,0 +1,4 @@
+lamp - Linux Apache MySQL PHP
+lampp - Linux Apache MySQL PHP POSTGRESQL
+
+lapp - Linux Apache PHP POSTGRESQL

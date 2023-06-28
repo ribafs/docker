@@ -1,0 +1,28 @@
+version: "3.6" 
+
+services:
+    lampp:
+      container_name: lampp
+      build:
+        context: .
+        dockerfile: ./php/${PHPVERSION}/Dockerfile
+      environment:
+        APACHE_RUN_USER: apache
+        APACHE_RUN_GROUP: apache
+        WEB_DOCUMENT_ROOT: /var/www/localhost/htdocs
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - ./web:/var/www/localhost/htdocs
+        - ./maria:/var/lib/mysql
+        - ./pg:/var/lib/postgresql
+      ports:
+        - "8888:80"
+        - "4444:443"
+        - "3333:3306"
+        - "5555:5432"
+
+volumes:
+  web:
+  maria:
+  pg:
+

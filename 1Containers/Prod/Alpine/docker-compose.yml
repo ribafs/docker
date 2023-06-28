@@ -1,0 +1,70 @@
+version: "3.6" 
+
+services:
+    web:
+      container_name: docker-web
+      build:
+        context: .
+        dockerfile: php/${PHPVERSION}/Dockerfile
+      restart: always
+      environment:
+        APACHE_RUN_USER: apache
+        APACHE_RUN_GROUP: apache
+        WEB_DOCUMENT_ROOT: /var/www/localhost/htdocs
+      volumes:
+        - ./web:/var/www/localhost/htdocs
+      ports:
+        - "8888:80"
+      depends_on:
+        - maria
+        - postgres
+
+    maria:
+      container_name: docker-maria
+      build:
+        context: .
+        dockerfile: Dockerfile-ma
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: admin
+      volumes:
+        - ./maria:/var/lib/mysql
+      ports:
+        - "3333:3306"
+
+    postgres:
+      container_name: docker-postgres
+      build:
+        context: .
+        dockerfile: Dockerfile-pg
+      healthcheck:
+        test:
+          [
+            "CMD",
+            "pg_isready",
+            "-q",
+            "-d",
+            "postgres",
+            "-U",
+            "postgres"
+          ]
+        timeout: 45s
+        interval: 10s
+        retries: 10
+      restart: always
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: crud
+        POSTGRES_PASSWORD: postgres
+      volumes:
+        - ./pg:/var/lib/postgresql/data
+      ports:
+        - "5555:5432"
+
+volumes:
+  web:
+  pg:
+  maria:
+

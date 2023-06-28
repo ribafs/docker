@@ -1,0 +1,14 @@
+FROM ubuntu:20.04 as maria-img
+
+LABEL maintainer="Ribamar FS <ribafs@gmail.com>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get install -y mariadb-server nano
+
+RUN apt-get install -y curl
+
+ADD maria/ /
+
+EXPOSE 3306
