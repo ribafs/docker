@@ -1,0 +1,15 @@
+RUN chmod +x /usr/bin/docker-compose
+
+ENV WORKD /var/www/localhost/htdocs
+WORKDIR $WORKD
+RUN chown -R apache:apache $WORKD
+RUN chmod -R 755 $WORKD
+
+ADD files/run.sh /scripts/run.sh
+RUN mkdir /docker-entrypoint-initdb.d && \
+    mkdir /scripts/pre-exec.d && \
+    mkdir /scripts/pre-init.d && \
+    chmod -R 755 /scripts
+ENTRYPOINT ["/scripts/run.sh"]
+
+VOLUME ["/var/lib/mysql"]

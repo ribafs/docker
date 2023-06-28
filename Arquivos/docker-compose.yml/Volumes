@@ -1,0 +1,170 @@
+Criando volumes no Docker
+
+Volume é o jeito utilizado no Docker para criar uma armazenamento persistente de dados, ou seja, ao desligar o contêiner os dados continuam existindo.
+Para criar um volume utilize o comando abaixo, neste caso será criando um volume chamado postgres-data:
+
+docker volume create --name=postgres-data
+
+Para listar todos volumes existentes em sua máquina utilize o comando:
+
+docker volume ls
+
+docker build -t alp-img .
+
+docker volume create --driver local --name alp-vol --opt type=none --opt device=/web --opt o=uid=root,gid=root --opt o=bind
+
+docker run -dtv alp-cont:/web --name alp-cont alp-img sh
+
+docker exec -it alp-cont sh
+
+
+
+Volumes são pastas locais que são montadas no container
+
+Exemplo:
+
+Temos a pasta de arquivos de um contaienr.
+Nesta pasta temos a pasta db, que contém um script setup.sql
+
+O Dockerfile:
+
+FROM ribafs/sqlite
+
+LABEL maintainer="ribafs@gmail.com"
+
+COPY db/setup.sql /
+
+
+O docker-compose.yml
+
+version: "3.6" 
+
+services:
+    sqlite:
+
+      container_name: sqlite-container
+
+      restart: always
+
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+
+      volumes:
+        - ./db:/var/lib/sqlite
+
+      tty: true
+
+volumes:
+  db:
+
+Criar o contaienr
+docker ps
+docker run -it sqlite_sqlite sh
+
+ls
+Aparece o script setup.sql no raiz
+
+Agora volto ao desktop, acesso a pasta db e crio o arquivo
+teste
+
+No container após executar
+ls
+Aparece nosso arquivo teste
+
+Ou seja o que colocarmos na pasta db será visto no raiz do conteiner
+Ao remover o arquivo teste do raiz do container o teste do db no desktop permanece
+
+
+VOLUME
+
+VOLUME ["/data"]
+
+The VOLUME instruction creates a mount point with the specified name and marks it as holding externally mounted volumes from native host or other containers. The value can be a JSON array, VOLUME ["/var/log/"], or a plain string with multiple arguments, such as VOLUME /var/log or VOLUME /var/log /var/db. For more information/examples and mounting instructions via the Docker client, refer to Share Directories via Volumes documentation.
+
+The docker run command initializes the newly created volume with any data that exists at the specified location within the base image. For example, consider the following Dockerfile snippet:
+
+FROM ubuntu
+RUN mkdir /myvol
+RUN echo "hello world" > /myvol/greeting
+VOLUME /myvol
+
+This Dockerfile results in an image that causes docker run to create a new mount point at /myvol and copy the greeting file into the newly created volume.
+Notes about specifying volumes
+
+Keep the following things in mind about volumes in the Dockerfile.
+
+    Volumes on Windows-based containers: When using Windows-based containers, the destination of a volume inside the container must be one of:
+        a non-existing or empty directory
+        a drive other than C:
+
+    Changing the volume from within the Dockerfile: If any build steps change the data within the volume after it has been declared, those changes will be discarded.
+
+    JSON formatting: The list is parsed as a JSON array. You must enclose words with double quotes (") rather than single quotes (').
+
+    The host directory is declared at container run-time: The host directory (the mountpoint) is, by its nature, host-dependent. This is to preserve image portability, since a given host directory can’t be guaranteed to be available on all hosts. For this reason, you can’t mount a host directory from within the Dockerfile. The VOLUME instruction does not support specifying a host-dir parameter. You must specify the mountpoint when you create or run the container.
+
+version: '3'
+services:
+  
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: your_mysql_root_password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

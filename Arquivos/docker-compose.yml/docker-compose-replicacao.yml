@@ -1,0 +1,41 @@
+services:
+  mysql-slave:
+    image: 'bitnami/mysql:5.7.21'
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+    networks:
+      - network
+    environment:
+      - MYSQL_REPLICATION_MODE=*****
+      - MYSQL_REPLICATION_USER=*****
+      - MYSQL_REPLICATION_PASSWORD=*****
+      - MYSQL_MASTER_HOST=*****
+      - MYSQL_MASTER_PORT_NUMBER=*****
+      - MYSQL_MASTER_ROOT_PASSWORD=*****
+    volumes:
+      - slave-storage:/bitnami/mysql/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 1m
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: '7.5G'
+        reservations:
+          cpus: '0.15'
+          memory: '1G'
+      placement:
+        constraints: [node.role == worker]
+    stop_grace_period: 5m
+
+networks:
+  network:
+
+volumes:
+  slave-storage:

@@ -1,0 +1,6 @@
+services:
+    apache:
+        image: sanjaysrikakulam/alpine-apache:latest
+        # container name should be the hostname if possible
+        container_name: hostname
+

@@ -1,0 +1,160 @@
+ENTRYPOINT
+
+ENTRYPOINT has two forms:
+
+The exec form, which is the preferred form:
+
+ENTRYPOINT ["executable", "param1", "param2"]
+
+The shell form:
+
+ENTRYPOINT command param1 param2
+
+An ENTRYPOINT allows you to configure a container that will run as an executable.
+
+For example, the following starts nginx with its default content, listening on port 80:
+
+ docker run -i -t --rm -p 80:80 nginx
+
+Command line arguments to docker run <image> will be appended after all elements in an exec form ENTRYPOINT, and will override all elements specified using CMD. This allows arguments to be passed to the entry point, i.e., docker run <image> -d will pass the -d argument to the entry point. You can override the ENTRYPOINT instruction using the docker run --entrypoint flag.
+
+The shell form prevents any CMD or run command line arguments from being used, but has the disadvantage that your ENTRYPOINT will be started as a subcommand of /bin/sh -c, which does not pass signals. This means that the executable will not be the container’s PID 1 - and will not receive Unix signals - so your executable will not receive a SIGTERM from docker stop <container>.
+
+Only the last ENTRYPOINT instruction in the Dockerfile will have an effect.
+Exec form ENTRYPOINT example
+
+You can use the exec form of ENTRYPOINT to set fairly stable default commands and arguments and then use either form of CMD to set additional defaults that are more likely to be changed.
+
+FROM ubuntu
+ENTRYPOINT ["top", "-b"]
+CMD ["-c"]
+
+When you run the container, you can see that top is the only process:
+
+ docker run -it --rm --name test  top -H
+
+To examine the result further, you can use docker exec:
+
+ docker exec -it test ps aux
+
+And you can gracefully request top to shut down using docker stop test.
+
+The following Dockerfile shows using the ENTRYPOINT to run Apache in the foreground (i.e., as PID 1):
+
+FROM debian:stable
+RUN apt-get update && apt-get install -y --force-yes apache2
+EXPOSE 80 443
+VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
+ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+If you need to write a starter script for a single executable, you can ensure that the final executable receives the Unix signals by using exec and gosu commands:
+
+#!/usr/bin/env bash
+set -e
+
+if [ "$1" = 'postgres' ]; then
+    chown -R postgres "$PGDATA"
+
+    if [ -z "$(ls -A "$PGDATA")" ]; then
+        gosu postgres initdb
+    fi
+
+    exec gosu postgres "$@"
+fi
+
+exec "$@"
+
+Lastly, if you need to do some extra cleanup (or communicate with other containers) on shutdown, or are co-ordinating more than one executable, you may need to ensure that the ENTRYPOINT script receives the Unix signals, passes them on, and then does some more work:
+
+#!/bin/sh
+# Note: I've written this using sh so it works in the busybox container too
+
+# USE the trap if you need to also do manual cleanup after the service is stopped,
+#     or need to start multiple services in the one container
+trap "echo TRAPed signal" HUP INT QUIT TERM
+
+# start service in background here
+/usr/sbin/apachectl start
+
+echo "[hit enter key to exit] or run 'docker stop <container>'"
+read
+
+# stop service and clean up here
+echo "stopping apache"
+/usr/sbin/apachectl stop
+
+echo "exited $0"
+
+If you run this image with docker run -it --rm -p 80:80 --name test apache, you can then examine the container’s processes with docker exec, or docker top, and then ask the script to stop Apache:
+
+ docker exec -it test ps aux
+
+ docker top test
+
+ /usr/bin/time docker stop test
+
+    Note
+
+    You can override the ENTRYPOINT setting using --entrypoint, but this can only set the binary to exec (no sh -c will be used).
+
+    Note
+
+    The exec form is parsed as a JSON array, which means that you must use double-quotes (“) around words not single-quotes (‘).
+
+Unlike the shell form, the exec form does not invoke a command shell. This means that normal shell processing does not happen. For example, ENTRYPOINT [ "echo", "$HOME" ] will not do variable substitution on $HOME. If you want shell processing then either use the shell form or execute a shell directly, for example: ENTRYPOINT [ "sh", "-c", "echo $HOME" ]. When using the exec form and executing a shell directly, as in the case for the shell form, it is the shell that is doing the environment variable expansion, not docker.
+Shell form ENTRYPOINT example
+
+You can specify a plain string for the ENTRYPOINT and it will execute in /bin/sh -c. This form will use shell processing to substitute shell environment variables, and will ignore any CMD or docker run command line arguments. To ensure that docker stop will signal any long running ENTRYPOINT executable correctly, you need to remember to start it with exec:
+
+FROM ubuntu
+ENTRYPOINT exec top -b
+
+When you run this image, you’ll see the single PID 1 process:
+
+ docker run -it --rm --name test top
+
+Which exits cleanly on docker stop:
+
+ /usr/bin/time docker stop test
+
+If you forget to add exec to the beginning of your ENTRYPOINT:
+
+FROM ubuntu
+ENTRYPOINT top -b
+CMD --ignored-param1
+
+You can then run it (giving it a name for the next step):
+
+ docker run -it --name test top --ignored-param2
+
+You can see from the output of top that the specified ENTRYPOINT is not PID 1.
+
+If you then run docker stop test, the container will not exit cleanly - the stop command will be forced to send a SIGKILL after the timeout:
+
+ docker exec -it test ps aux
+
+ /usr/bin/time docker stop test
+
+Understand how CMD and ENTRYPOINT interact
+
+Both CMD and ENTRYPOINT instructions define what command gets executed when running a container. There are few rules that describe their co-operation.
+
+    Dockerfile should specify at least one of CMD or ENTRYPOINT commands.
+
+    ENTRYPOINT should be defined when using the container as an executable.
+
+    CMD should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
+
+    CMD will be overridden when running the container with alternative arguments.
+
+The table below shows what command is executed for different ENTRYPOINT / CMD combinations:
+  	No ENTRYPOINT 	ENTRYPOINT exec_entry p1_entry 	ENTRYPOINT [“exec_entry”, “p1_entry”]
+No CMD 	error, not allowed 	/bin/sh -c exec_entry p1_entry 	exec_entry p1_entry
+CMD [“exec_cmd”, “p1_cmd”] 	exec_cmd p1_cmd 	/bin/sh -c exec_entry p1_entry 	exec_entry p1_entry exec_cmd p1_cmd
+CMD [“p1_cmd”, “p2_cmd”] 	p1_cmd p2_cmd 	/bin/sh -c exec_entry p1_entry 	exec_entry p1_entry p1_cmd p2_cmd
+CMD exec_cmd p1_cmd 	/bin/sh -c exec_cmd p1_cmd 	/bin/sh -c exec_entry p1_entry 	exec_entry p1_entry /bin/sh -c exec_cmd p1_cmd
+
+    Note
+
+    If CMD is defined from the base image, setting ENTRYPOINT will reset CMD to an empty value. In this scenario, CMD must be defined in the current image to have a value.
+

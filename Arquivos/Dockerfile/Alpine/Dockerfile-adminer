@@ -1,0 +1,37 @@
+FROM alpine:edge as adminer-img
+
+LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
+
+# OpenRC
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+ENV ADMINER_DG_VERION=1.21.0
+ENV MEMORY=256M
+ENV UPLOAD=2048M
+ENV WDIR=/app/public
+
+RUN echo 'http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+    echo 'http://nl.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
+
+RUN apk update && apk add wget ca-certificates apache2 php7-apache2 php7 php7-session php7-pdo_mysql php7-json
+
+RUN	wget https://github.com/dg/adminer-custom/archive/v$ADMINER_DG_VERION.tar.gz -O $WDIR/adminer.tgz && \
+    tar zxvf $WDIR/adminer.tgz --strip-components=1 -C $WDIR && \
+    rm $WDIR/adminer.tgz && \
+    apk del wget ca-certificates && \
+    rm -rf /var/cache/apk/*
+
+WORKDIR $WDIR
+EXPOSE 80
+
+CMD /usr/bin/php \
+    -d memory_limit=$MEMORY \
+    -d upload_max_filesize=$UPLOAD \
+    -d post_max_size=$UPLOAD \
+    -S 0.0.0.0:80
+
+COPY adminer/perms /usr/local/bin
+RUN chmod +x /usr/local/bin/perms
+

@@ -1,0 +1,71 @@
+command: >
+    bash -c "python manage.py migrate
+    && python manage.py runserver 0.0.0.0:8000"
+
+Or:
+
+command: bash -c "
+    python manage.py migrate
+    && python manage.py runserver 0.0.0.0:8000
+  "
+
+  web:
+    build: .
+    command:
+      - /bin/bash
+      - -c
+      - |
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000
+
+    command:
+      - /bin/bash
+      - -c
+      - |
+        var=$$(echo 'foo')
+        echo $$var # prints foo
+
+---
+version: "2"
+services:
+  test:
+    image: alpine
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+       echo a
+       echo b
+       echo c
+
+
+command: sh /deploy/local/start_mongod.sh
+
+
+
+To run multiple commands in the docker-compose file by using bash -c.
+
+command: >
+    bash -c "python manage.py makemigrations
+    && python manage.py migrate
+    && python manage.py runserver 0.0.0.0:8000"
+
+Source: https://intellipaat.com/community/19590/docker-run-multiple-commands-using-docker-compose-at-once?show=19597#a19597
+
+
+ mongo1:
+    container_name: mongo1
+    image: mongo:4.4.4
+    restart: always
+#    OPTION 01:
+#    command: >
+#      bash -c "chmod +x /scripts/rs-init.sh
+#      && sh /scripts/rs-init.sh"
+#    OPTION 02:
+    entrypoint: [ "bash", "-c", "chmod +x /scripts/rs-init.sh && sh /scripts/rs-init.sh"]
+
+services:
+  app:
+    image: node:12-alpine
+    command: sh -c "yarn install && yarn run dev"
+
+

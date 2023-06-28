@@ -1,0 +1,455 @@
+Rede no Docker
+
+Suportada (network) apenas da versão 2 do compose em diante.
+
+Por default o docker-compose cria e configura uma rede padrão para todos os containers nele e de forma transparente, não precisamos fazer nada para isso. Cada container enxerga os demais e também são vistos pelo host/desktop. Adiciona cada container de serviço para a rede default. Cada container pode encotrar todos os demais containers.
+
+Por default uma rede é criada para permitir a comunicação entre os containers de um docker-compose.yml e também com o host/desktop.
+
+Ligar a container Dickerfile que está no mesmo diretório do docker-compose.yml, usando build: .:
+
+services:
+  web:
+    build: .
+
+O nome da rede criada por default ao rodar o comando 
+dockercompose up
+
+É formado pelo nome do diretório em que se encotnra o docker-compose.yml e _default:
+
+nomeDir_default
+
+Todos os containers criados no docker-compose.yml são ligados a rede *_default. Esta rede é criada sem que se especifique nenhum comando para isso.
+
+Cada nome de serviço do docker-compose.yml é um hostname, que pode inclusive ser acessado pelo host/desktop.
+
+http://IP
+ou
+http://nomeContainer
+
+
+imagem://servico:porta
+
+postgres://db:5432
+
+Variáveis de ambiente:
+
+COMPOSE_PROJECT_NAME
+HOST_PORT
+CONTAINER_PORT
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
+       WORDPRESS_DB_NAME: wordpress
+
+
+Links
+
+Os links permitem que você defina aliases extras pelos quais um serviço pode ser acessado a partir de outro serviço. Eles não são obrigatórios para permitir que os serviços se comuniquem - por padrão, qualquer serviço pode acessar qualquer outro serviço em nome desse serviço.
+
+Exemplo:
+
+services:
+
+  web:
+    build: .
+    links:
+      - "db:database"
+  db:
+    image: postgres
+
+Redes customizadas
+
+Podemos especificar nossas próprias redes no docker-compose.yml. Podemos usá-la para comunicar com em redes esternas que não são gerenciadas pelo compose. Cada serviço pode especificar sua própria rede usando a palavra-chave network. Um exemplo:
+
+services:
+  proxy:
+    build: ./proxy
+    networks:
+      - frontend
+  app:
+    build: ./app
+    networks:
+      - frontend
+      - backend
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: custom-driver-1
+  backend:
+    driver: custom-driver-2
+
+Rede default
+
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+
+networks:
+  default:
+    driver: custom-driver-1
+
+
+Usando uma rede existente
+
+Para isso usa-se a palavra chave external
+
+services:
+  # ...
+networks:
+  default:
+    external:
+      name: my-pre-existing-network
+
+Listar redes
+
+docker network ls
+
+Como funciona
+
+Quando executamos o comando docker-compose up para atualizar os containers sob um docker-conpose.yml, todos os container antigos serão removidos e insere os novos. Os novos containers tem IPs diferentes dos antigos, mas têm o mesmo nome.
+
+Podemos adicionar outros aliases para facilitar que containers encontrem outros (links). Serviços em uma mesma rede, podem encontrar cada um dos demais.
+
+Rede default
+
+Podemos especificar uma rede default para os serviços, especificando apenas ao final do docker-compose, sem precisar especificar em cada serviço:
+
+verision: '2'
+
+services:
+    web:
+        build: . 
+        ports:
+            - "8000:8000"
+    db:
+        image: postgres
+
+networks:
+    default:
+        driver: custom-driver-1
+
+Rede customizada
+
+version: '2'
+
+services:
+    proxy:
+        build: ./proxy
+        networks: 
+            - front
+    app:
+        build: ./app
+        networks:
+            # you may set custom IP addresses
+            front:
+                ipv4_address: 172.16.238.10 
+                ipv6_address: "2001:3984:3989::10"
+            - back
+    db:
+        image: postgres
+        networks:
+            - back
+
+networks:
+    front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24
+                gateway: 172.16.238.1
+                - subnet: "2001:3984:3989::/64"
+                gateway: "2001:3984:3989::1"
+    back:
+        # use a custom driver, with no options
+        driver: custom-driver-1
+
+Driver de rede Bridge
+
+O driver de rede bridge é o primeiro driver na nossa lista. É simples de entender, simples de usar e simples de solucionar problemas, o que o torna uma boa opção de rede para os desenvolvedores e os novos no Docker. O driver bridge cria uma rede privada interna para o host para que os containers dessa rede possam se comunicar. O acesso externo é concedido pela exposição de portas a containers. O Docker protege a rede gerenciando regras que bloqueiam a conectividade entre diferentes redes Docker.
+
+Nos bastidores, o Docker Engine cria as pontes Linux necessárias, interfaces internas, regras iptables e rotas de host para tornar possível essa conectividade. No exemplo destacado abaixo, uma rede bridge Docker é criada e dois containers são anexados a ela. Sem configuração extra, o Docker Engine faz a fiação necessária, fornece descoberta de serviço para os containers e configura regras de segurança para evitar a comunicação com outras redes. Um driver IPAM interno fornece as interfaces de container com endereços IP privados da sub-rede da rede de bridge.
+
+ docker network create -d bridge mybridge
+ docker run -d --net mybridge --name db redis
+ docker run -d --net mybridge -e DB=db -p 8000:5000 --name web chrch/web
+
+host
+  db                  web
+
+  eth0:172.17.0.2     eth0:172.17.0.3
+        |               |     |
+        |             5000    |
+        |                     |
+        --------mybridge-------
+                    |
+                Desktop/Host
+                192.168.1.2
+                    |  |
+                    | 8000
+              Rede externa
+
+Nosso aplicativo agora está sendo servido no nosso host na porta 8000. O bridge Docker está permitindo que web se comunique com db pelo seu nome de container. O driver bridge faz a descoberta do serviço para nós automaticamente, porque eles estão na mesma rede. Todos os mapeamentos de portas, regras de segurança e pipework entre bridges Linux são tratados para nós pelo driver de rede, já que os containers estão agendados e remarcados em um cluster.
+
+O driver bridge é um driver de escopo local, o que significa que ele só fornece descoberta de serviço, IPAM e conectividade em um único host.
+
+https://imasters.com.br/devsecops/compreendendo-os-drivers-do-docker-networking-e-seus-casos-de-uso
+
+Chame os containers pelo nome sempre que possível, ao invés do IP.
+
+Mostrar detalhes da rede
+
+docker network inspect bridge | grep IPv4Address
+"IPv4Address": "172.17.0.2/16",
+
+Por default containers são conectados a network bridge quando criamos um novo container.
+
+Para definir uma rede customizada no lugar da default:
+
+version: '3.6'services:
+  api-gateway:
+    container_name: api-gateway
+    image: api-gateway
+    networks:
+      - gateway
+    ports:
+      - 9090:8080
+    restart:
+      on-failure
+  api-gateway-replica:
+    container_name: api-gateway-replica
+    image: api-gateway
+    networks:
+      - gateway
+    ports:
+      - 9092:8080
+    restart:
+      on-failure      
+networks:
+  gateway: {}
+
+docker-compose up -d
+
+ping api-gateway
+
+Podemos alcançar outros containers pelo nome do serviço.
+
+Se criamos duas redes, os containers em uma não poderão acessar os containers da outra.
+
+version: '3.6'services:
+  api-gateway:
+    container_name: api-gateway
+    image: api-gateway
+    networks:
+      - gateway
+    ports:
+      - 9090:8080
+    restart:
+      on-failure
+  api-gateway-replica:
+    container_name: api-gateway-replica
+    image: api-gateway
+    networks:
+      - gateway-replica
+    ports:
+      - 9092:8080
+    restart:
+      on-failure      
+networks:
+  gateway: {}
+  gateway-replica: {}
+
+docker-compose exec api-gateway-replica /bin/sh
+ping api-gateway
+ping: bad address 'api-gateway'
+
+Compose was traditionally focused on development and testing but can now be used to deploy and manage a whole deployment of containers on a single host system.
+
+Compose provides a convenient way to create and destroy isolated testing environments that are close to your production environment.
+
+version: '3.3'
+services:
+    app:
+        container_name: website
+        restart: always
+        build: .
+        ports:
+            - '3000:3000'
+    command:
+        - 'npm run start'
+In this example, we define our images using the build tag which takes the destination of our Dockerfile as a parameter.
+
+expose:
+ - "3000"
+ - "8000"
+Here we publish the ports to the linked services of the container and not to the host system.
+
+ports:
+  - "8000:80"  # host:container
+In this example, we define which port we want to expose and the host port it should be exposed to.
+
+Volumes:
+Volumes são a maneira preferida do Docker de persistir dados que são gerados e usados pelos contêineres do Docker. Eles são totalmente gerenciados pelo Docker e podem ser usados para compartilhar dados entre contêineres e o sistema Host.
+Eles não aumentam o tamanho dos contêineres que o utilizam e seu contexto é independente do ciclo de vida do contêiner fornecido.
+
+Mapeamento de path:
+Você também pode definir o mapeamento de path absoluto de seus volumes definindo o caminho no sistema host e mapeando-o para um destino de contêiner usando o operador:.
+
+volumes:
+  - /opt/data:/var/lib/mysql
+
+Exemplo com duas redes
+
+services:
+  proxy:
+    build: ./proxy
+    networks:
+      - frontend
+  app:
+    build: ./app
+    networks:
+      - frontend
+      - backend
+  db:
+    image: postgres
+    networks:
+      - backend
+
+proxy e app - frontend
+app e db - backend
+
+db não acessa frontend
+proxy nao acessa backend
+
+Ligando containers
+
+You may also define extra aliases for your containers that services can use to communicate with each other. Services in the same network can already reach one another. Links then only define other names under which the container can be reached.
+version: "3"
+services:
+    web:
+        build: . 
+        links: 
+            - "db:database"
+    db:
+        image: mongo
+
+In this example, the web container can reach the database using one of the two hostnames (db or database).
+
+Podemoso configurar todos os serviços que queremos um um único dockcer-compose.yml e um único servidor.
+
+Cada container deve cuidar de apenas um único serviço se em produção. Num desktop, ambiente de desenvolvimento e testes podemos usar vários serviços em um único container/Dockerfile.
+
+    • docker run -d 
+    --network todo-app --network-alias mysql 
+    -v todo-mysql-data:/var/lib/mysql 
+    -e MYSQL_ROOT_PASSWORD=<your-password> 
+    -e MYSQL_DATABASE=todos 
+    mysql:5.7
+
+Alias para rede
+
+Cocker permite criar três tipos de drivers de rede:
+- bridge (default)
+- host
+- none
+
+Bridge
+
+This is the default. Whenever you start Docker, a bridge network gets created and all newly started containers will connect automatically to the default bridge network.
+You can use this whenever you want your containers running in isolation to connect and communicate with each other. Since containers run in isolation, the bridge network solves the port conflict problem. Containers running in the same bridge network can communicate with each other, and Docker uses iptables on the host machine to prevent access outside of the bridge
+
+Usa-se none para isolar um container.
+
+Remover uma rede
+
+docker network rm nome
+
+Criar
+
+docker network create nome
+
+Executando ping
+
+docker exec busybox2 ping www.google.com
+
+
+docker-compose down remove também as redes
+
+docker-compose.yml.
+version: "2"
+
+services:
+  voting-app:
+    build: ./voting-app/.
+    volumes:
+     - ./voting-app:/app
+    ports:
+      - "5000:80"
+    links:
+      - redis
+    networks:
+      - front-tier
+      - back-tier
+
+  result-app:
+    build: ./result-app/.
+    volumes:
+      - ./result-app:/app
+    ports:
+      - "5001:80"
+    links:
+      - db
+    networks:
+      - front-tier
+      - back-tier
+
+  worker:
+    build: ./worker
+    links:
+      - db
+      - redis
+    networks:
+      - back-tier
+
+  redis:
+    image: redis
+    ports: ["6379"]
+    networks:
+      - back-tier
+
+  db:
+    image: postgres:9.4
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    networks:
+      - back-tier
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
+
+Após criar os containers com docker-compose up, usar
+
+docker network inspect bridge | grep IPv4Address

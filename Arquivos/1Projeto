@@ -1,0 +1,14 @@
+Criar dois arquivos contendo todos os comandos e variáveis conhecidas
+
+docker-compose.yml
+
+Dockerfile
+
+Criar um exemplo de projeto
+
+com um docker-compose e 3 Dockerfiles: 
+- apache e php
+- mariadb
+- postgresql
+
+

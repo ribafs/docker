@@ -1,0 +1,17 @@
+FROM ubuntu as postgres-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+RUN apt-get update && apt-get install -y postgresql
+# Nunca usar o apt-get install como primeiro comando. Sempre usar apt-get update e depois apt-gegt install .... 
+# Como também nunc usar: apt install, mas sempre apt-get ...
+
+COPY postgres/setup.sql /root
+
+# Add basics first
+RUN apt-get update && apt-get install -y curl nano
+# Veja que novamente precisamos usar antes apt-get update, senão não encotnra os pacotes
+
+EXPOSE 5432
+
+

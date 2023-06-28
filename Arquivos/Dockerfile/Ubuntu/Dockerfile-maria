@@ -1,0 +1,20 @@
+FROM ubuntu as maria-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+RUN apt-get update && apt-get install -y mariadb-server
+
+COPY my/setup.sql /root
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
+COPY maria/setup.sql /
+
+# Add basics first
+RUN apt-get update && apt-get install -y curl nano
+
+EXPOSE 3306
+
+
