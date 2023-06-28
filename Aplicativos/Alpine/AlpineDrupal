@@ -1,0 +1,158 @@
+AlpineDrupal
+
+Drupal is a free and open source content management system (CMS) written in PHP and distributed under the GNU General Public License. It is used as a back-end system for at least 1% of all websites worldwide ranging from personal blogs to larger corporate and political sites including whitehouse.gov and data.gov.uk. It is also used for knowledge management and business collaboration.
+Contents
+
+    1 Install lighttpd, PHP and MySql
+    2 Configure Lighttpd
+    3 Start lighttpd service and add to needed runlevel
+    4 Installing and configuring drupal
+    5 Starting
+    6 Config MySql
+    7 Config your drupal
+
+Install lighttpd, PHP and MySql
+
+For installing the additional packages first activate community packages:
+
+vi /etc/apk/repositories
+
+Uncomment the following:
+
+http://pkg.example.com/alpine/v3.11/community
+
+Update the packagelist:
+
+apk update
+
+Install the additional packages:
+
+apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
+Configure Lighttpd
+
+Edit lighttpd.conf
+
+vi /etc/lighttpd/lighttpd.conf
+
+Uncomment line:
+
+include "mod_fastcgi.conf"
+
+Start lighttpd service and add to needed runlevel
+
+rc-service lighttpd start && rc-update add lighttpd default
+
+Install extra packages:
+
+apk add mysql mysql-client php-mysql php-mysqli php-pdo_mysql
+Installing and configuring drupal
+
+Create a folder named webapps
+
+mkdir -p /usr/share/webapps/
+
+Download the source code archive
+
+cd /usr/share/webapps/
+wget http://ftp.drupal.org/files/projects/drupal-7.19.tar.gz
+
+Unpack the archive and delete the tarball afterwards
+
+tar zxvf drupal-7.19.tar.gz 
+rm drupal-7.19.tar.gz
+
+Change the folder name
+
+mv drupal-7.19 drupal
+
+Change the folder permissions
+
+chown -R lighttpd /usr/share/webapps/
+
+Creating settings file
+
+cp  /usr/share/webapps/drupal/sites/default/default.settings.php /usr/share/webapps/drupal/sites/default/settings.php
+
+Create a symlink to the drupal folder
+
+ln -s /usr/share/webapps/drupal/ /var/www/localhost/htdocs/drupal
+Starting
+
+Starting http service and adding to boot
+
+/etc/init.d/lighttpd start && rc-update add lighttpd default
+
+
+Config MySql
+
+/usr/bin/mysql_install_db --user=mysql
+/etc/init.d/mysql start && rc-update add mysql default
+/usr/bin/mysqladmin -u root password 'password'
+
+Create the drupal database
+
+mysql -u root -p
+
+CREATE DATABASE drupal;
+GRANT ALL PRIVILEGES ON drupal.* TO "root";
+FLUSH PRIVILEGES;
+EXIT
+Config your drupal
+
+Browse to: http://WEBSERVER_IP_ADDRESS/drupal and Install Drupal completing the information as appropriate from the web browser.
+
+Drupal Installation steps:
+
+Note: After select each option, pres "Save and continue" button.
+
+1 - Select an installation profile
+
+    Standard ( Install with commonly used features pre-configured.)
+
+    Minimal ( Start with only a few modules enabled.)
+
+2 - Choose language
+
+    English (built-in)
+
+3 - Verify requirements
+
+    (Nothing to do here if all is ok)
+
+4 - Set up database Database type MySQL
+
+    Database name drupal
+    Database username root
+    Database password your-mysql-password
+
+- 5 Configure site
+
+    SITE INFORMATION
+
+        Site name
+        Site e-mail address
+
+    SITE MAINTENANCE ACCOUNT
+
+        Username
+        E-mail address
+        Password
+        Confirm password
+
+    SERVER SETTINGS
+
+        Default country
+        Default time zone
+
+    UPDATE NOTIFICATIONS
+
+        Check for updates automatically
+        Receive e-mail notifications
+
+After click on "Save and continue" you will see Drupal installation complete
+
+Congratulations, you installed Drupal!
+
+Review the messages above before visiting your new site.
+
+Review the messages above before visiting your new site. You have drupal cloud computing system working, to access go to http://WEBSERVER_IP_ADDRESS/drupal and enjoy! 

@@ -1,0 +1,68 @@
+version: '3'
+services:
+
+  #PHP Service
+  demo_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: demo_app
+    restart: unless-stopped
+    tty: true
+#    env_file:
+#      - .env
+    environment:
+      SERVICE_NAME: demo_app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #Nginx Service
+  demo_webserver:
+    image: nginx:alpine
+    container_name: demo_webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8123:80"
+#      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #MySQL Service
+  demo_db:
+    image: mysql:5.7.22
+    container_name: demo_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+#    env_file:
+#      - .env
+    environment:
+      MYSQL_DATABASE: app_database
+      MYSQL_ROOT_PASSWORD: strong_root_password  #replace this with a strong password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

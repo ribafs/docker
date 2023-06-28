@@ -1,0 +1,217 @@
+AlpineRoundcube
+Note: This how-to does not make use of the packaged version of Roundcube
+
+Roundcube is a free and open source webmail software for the masses, written in PHP.
+Contents
+
+    1 Installing PHP and Lighttpd
+    2 Configure Lighttpd
+    3 Start lighttpd service and add to needed runlevel
+    4 vHost
+    5 Download and Install Rouncube
+    6 Postgres installation
+    7 Roundcube Web Configuration
+    8 Final Steps
+
+Installing PHP and Lighttpd
+
+For installing the additional packages first activate community packages:
+
+vi /etc/apk/repositories
+
+Uncomment the following:
+
+http://pkg.example.com/alpine/v3.11/community
+
+Update the packagelist:
+
+apk update
+
+Install the additional packages:
+
+apk add lighttpd php7-common php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom
+Configure Lighttpd
+
+Edit lighttpd.conf
+
+vi /etc/lighttpd/lighttpd.conf
+
+Uncomment line:
+
+include "mod_fastcgi.conf"
+
+Start lighttpd service and add to needed runlevel
+
+rc-service lighttpd start && rc-update add lighttpd default
+
+To add security, configure https access in Lighttpd.
+
+Add additional packages
+
+apk add php-openssl php-intl
+vHost
+
+vi /etc/lighttpd/lighttpd.conf
+
+    Uncomment this line:
+
+ "mod_simple_vhost"
+
+    Add this lines
+
+ simple-vhost.server-root   = "/var/www/localhost/htdocs/"
+ simple-vhost.default-host  = "/"
+ simple-vhost.document-root = "www/"
+
+ $SERVER["socket"] == "round.cube.mail.ipaddres:443" {
+ ssl.engine    = "enable"
+ ssl.pemfile   = "/etc/lighttpd/server-bundle.pem"
+ }
+  
+
+    Restart the web service:
+
+/etc/init.d/lighttpd restart
+
+    Set the php timezone acording to: [1]
+
+vi /etc/php/php.ini
+
+    Uncomment and set the date.timezone = (e.g. 'America/Asuncion') 
+
+Download and Install Rouncube
+
+    Create folder
+
+mkdir -p /usr/share/webapps
+cd /usr/share/webapps
+
+    Download
+
+wget http://downloads.sourceforge.net/project/roundcubemail/roundcubemail/0.5.2/roundcubemail-0.5.2.tar.gz
+
+    Unpack
+
+tar zxvf roundcubemail-0.5.2.tar.gz
+
+    Rename folder and change permissions
+
+mv roundcubemail-0.5.2 roundcubemail
+chmod 775 -R roundcubemail
+
+    Create the symlynk
+
+mv /var/www/localhost/htdocs/ /var/www/localhost/htdocs.old
+ln -s /usr/share/webapps/roundcube/ /var/www/localhost/htdocs/
+
+    Create logs folder
+
+mkdir -p /var/log/roundcube/
+chown -R lighttpd:lighttpd /var/log/roundcube/
+chmod 775 /var/log/roundcube/ -R
+Postgres installation
+
+    Add postgresql, create and configure database
+
+apk add postgresql postgresql-client
+/etc/init.d/postgresql setup
+/etc/init.d/postgresql start
+rc-update add postgresql
+
+su postgres
+createuser roundcube
+
+Answers: N,N,Y
+
+    Shall the new role be a superuser? (y/n) n
+    Shall the new role be allowed to create databases? (y/n) n
+    Shall the new role be allowed to create more new roles? (y/n) y
+
+createdb -O roundcube -E UNICODE -T template0 roundcubemail
+
+Note: Set the same timzone you use in the php.ini (e.g. 'America/Asuncion')
+
+ psql roundcubemail
+ ALTER USER roundcube WITH PASSWORD 'the_new_password';
+ ALTER DATABASE roundcubemail SET timezone TO 'America/Asuncion';
+ \c - roundcube
+ \i /usr/share/webapps/roundcube/SQL/postgres.initial.sql
+ roundcubemail=> \q
+ exit
+
+Roundcube Web Configuration
+
+Start your browser and visit: https://round.cube.mail.ipaddres/installer/
+
+Roundcube Webmail Installer have 3 steps:
+
+    Check environment
+
+        Check if all is ok, click NEXT
+
+    Create config
+
+Here you need to set:
+
+    a. General configuration
+
+        product_name
+
+            Your Country Branch Webmail Access
+
+        temp_dir
+
+            /tmp/
+
+        identities_level
+
+            one identity with possibility to edit all params
+
+    b. Logging & Debugging
+
+        log_driver
+
+            syslog
+
+        log_dir
+
+            /var/log/roundcube/
+
+    c. Database setup
+
+        db_dsnw
+
+            Database settings for read/write operations:
+            PgSQL Database type
+            localhost Database server
+            roundcubemail Database name
+            roundcube	Database user name
+            *********	Database password
+
+    d. IMAP Settings
+
+        default_host
+        The IMAP host(s) chosen to perform the log-in
+
+            your.exchange.ip.address
+
+        username_domain
+
+            your.domain
+
+    e. SMTP Settings
+
+        smtp_server
+
+            your.exchange.ip.address
+
+Now need to download and copy both files (main.inc.php and db.inc.php) to /etc/roundcube/
+
+    Test config
+
+        Test the SMTP config sending a mail and the IMAP config using a username and password.
+
+Final Steps
+
+    Remove or rename the /usr/share/webapps/roundcube/installer/ folder.
+    You should now be able to get to roundcube at: https://round.cube.mail.ipaddres/
