@@ -1,0 +1,10 @@
+## Vendo os logs de um container
+Imaginando que ainda temos o container apache-container no ar nós vamos agora listar todos os logs deste container. Deixemos este container rodando neste terminal e abramos outro terminal para executar:
+
+docker container logs apache-container
+
+docker ps
+
+docker logs ContainerID
+
+

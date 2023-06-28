@@ -1,0 +1,9 @@
+Criar
+
+info.php
+
+<?php
+
+phpinfo();
+
+

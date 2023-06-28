@@ -1,0 +1,97 @@
+Redes no Docker
+
+Bridge
+
+No Docker o modelo padrão que ele utiliza para o gerenciamento da rede dos containers é o modo bridge. Existe um isolamento entre a rede do host com a rede do container.
+
+Portas no docker-compose.yml
+
+"portaHost:portaContainer"
+
+Não usar as mesmas portas no container que está usando no host, exemplos:
+
+"80:80"
+"3306:3306"
+
+"8888:80"
+
+Isso indica que a porta 80 do container será mapeada para a porta 8888 no host.
+
+Se acessar em seu host
+
+http://localhost:8888
+
+Estará acessando o site do container na porta 80
+
+docker network ls
+
+A rede chamada bridge é uma rede especial. A menos que você diga o contrário, o Docker sempre inicia seus contêineres nesta rede.
+
+docker network inspect bridge
+
+docker network disconnect bridge networktest
+
+docker network create -d bridge my_bridge
+
+Adicionar containers para uma rede
+
+docker run -d --net=my_bridge --name db training/postgres
+
+docker inspect --format='{{json .NetworkSettings.Networks}}'  db
+
+docker run -d -p 8081:8081 -e "port=8081" --name app --network=my-bridge-network selaworkshops/python-app:2.0
+
+docker network     Manage networks
+
+docker network connect multi-host-network container1
+
+docker run -itd --network=multi-host-network busybox
+
+docker network connect --ip 10.10.36.122 multi-host-network container2
+
+docker network create -d bridge my-bridge-network
+
+docker run -itd --network=mynet busybox
+
+docker network create --driver=bridge --subnet=192.168.0.0/16 br0
+
+docker inspect app
+
+docker network connect my-bridge-network client
+
+docker network disconnect my-bridge-network app
+
+docker network rm my-bridge-network
+
+
+services:
+  proxy:
+    build: ./proxy
+    networks:
+      - frontend
+  app:
+    build: ./app
+    networks:
+      - frontend
+      - backend
+  db:
+    image: postgres
+    networks:
+      - backend
+
+
+ou
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+
+networks:
+  default:
+    driver: custom-driver
+
+

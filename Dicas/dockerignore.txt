@@ -1,0 +1,9 @@
+.dockerignore
+
+There is a bunch of stuff you can list here and which are not needed to run the application in the container. Instead of trying to list all of them, I distinguish three.
+
+.git
+node_modules
+dist
+
+Ignore node_modules for reasons I have already explained when covering volumes. dist is just the output directory of our build pipeline. You might not have its counterpart in your project when you write in JavaScript/CommonJS and do not need a build step. These are all simple things, but you would better not miss them.

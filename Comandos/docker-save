@@ -1,0 +1,9 @@
+docker save [OPTIONS] IMAGE [IMAGE...]
+
+docker save --output busybox.tar busybox
+
+docker save -o fedora-latest.tar fedora:latest
+
+docker save myimage:latest | gzip > myimage_latest.tar.gz
+
+

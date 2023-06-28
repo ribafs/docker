@@ -1,0 +1,171 @@
+version: '3'
+services:
+  
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+version: "3"
+
+services:
+  web:
+    image: "apache:${PHP_VERSION}"
+    restart: 'always'
+    depends_on:
+      - mariadb
+    restart: 'always'
+    ports:
+      - '8080:80'
+    links:
+      - mariadb
+  mariadb:
+    image: "mariadb:${MARIADB_VERSION}"
+    restart: 'always'
+    volumes: 
+      - "/var/lib/mysql/data:${MARIADB_DATA_DIR}"
+      - "/var/lib/mysql/logs:${MARIADB_LOG_DIR}"
+      - /var/docker/mariadb/conf:/etc/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+
+version: '3.4'
+
+services:
+  webmvc:
+    image: eshop/webmvc
+    environment:
+      - CatalogUrl=http://catalog-api
+      - OrderingUrl=http://ordering-api
+      - BasketUrl=http://basket-api
+    ports:
+      - "5100:80"
+    depends_on:
+      - catalog-api
+      - ordering-api
+      - basket-api
+
+  catalog-api:
+    image: eshop/catalog-api
+    environment:
+      - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+    expose:
+      - "80"
+    ports:
+      - "5101:80"
+    #extra hosts can be used for standalone SQL Server or services at the dev PC
+    extra_hosts:
+      - "CESARDLSURFBOOK:10.0.75.1"
+    depends_on:
+      - sqldata
+
+  ordering-api:
+    image: eshop/ordering-api
+    environment:
+      - ConnectionString=Server=sqldata;Database=Services.OrderingDb;User Id=sa;Password=[PLACEHOLDER]
+    ports:
+      - "5102:80"
+    #extra hosts can be used for standalone SQL Server or services at the dev PC
+    extra_hosts:
+      - "CESARDLSURFBOOK:10.0.75.1"
+    depends_on:
+      - sqldata
+
+  basket-api:
+    image: eshop/basket-api
+    environment:
+      - ConnectionString=sqldata
+    ports:
+      - "5103:80"
+    depends_on:
+      - sqldata
+
+  sqldata:
+    environment:
+      - SA_PASSWORD=[PLACEHOLDER]
+      - ACCEPT_EULA=Y
+    ports:
+      - "5434:1433"
+
+  basketdata:
+    image: redis
+
+
+docker-compose.yml
+version: '3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+
+   wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - "80:80"
+     restart: always
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
+       WORDPRESS_DB_NAME: wordpress
+volumes:
+    db_data: 
+
+

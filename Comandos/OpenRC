@@ -1,0 +1,121 @@
+
+The following commands are available to manage the init system:
+
+    rc-update add <service> <runlevel>
+
+    rc-update del <service> <runlevel>
+
+    rc-service <service> <start stop restart>
+
+    Equivalent to /etc/init.d/service <start stop restart>
+
+    rc-status - To check services and their set runlevels
+
+    rc <runlevel> - To change to a different runlevel
+
+    reboot - Equivalent to shutdown -r now from traditional GNU/Linux systems
+
+    halt - Equivalent to shutdown -h now from traditional GNU/Linux systems
+
+    poweroff - To turn off the machine
+
+
+rc-service networking stop 
+rc-service sshd start 
+rc-service chronyd status 
+
+    $ rc-service sshd start #Start a service.
+    $ rc-service sshd stop  #Stop a service.
+    $ rc-service sshd restart  #Restart a service.
+
+rc-update show -v 
+rc-update add sshd default 
+rc-update add sshd 
+rc-update delete sshd 
+rc-update delete chronyd -a 
+
+Instalar openrc num Dockerfile
+
+    FROM alpine:3.12
+    RUN apk add openrc
+    CMD ["/sbin/init"]
+
+
+Run tests via docker exec
+
+The above docker-compose.yml and Dockerfile will allow you to start up OpenRC in my_test_container with one command:
+
+    docker-compose up -d my_test_container
+
+With OpenRC up and running, you can use a second command to execute a shell on the very same container to test it out:
+
+    docker-compose exec my_test_container /bin/sh
+
+Or use exec to run other commands to test the services managed by OpenRC:
+
+    docker-compose exec my_test_container rc-status --servicelist
+
+Cleaning up
+
+The clean up steps with OpenRC are also basically the same as with systemd:
+
+    Stop the running container: docker-compose stop my_test_container
+    Remove the saved container state: docker-compose rm my_test_container
+    Remove the built image: docker image rm my_test_imag
+
+
+RUN apk add openrc
+RUN ln -sf /sbin/openrc-init /sbin/init
+ENTRYPOINT ["/sbin/init"]
+
+RUN cp /usr/bin/php7 /usr/bin/php && rm -f /var/cache/apk/*
+
+# Add apache to run and configure
+RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_module/LoadModule\ session_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_cookie_module/LoadModule\ session_cookie_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ session_crypto_module/LoadModule\ session_crypto_module/" /etc/apache2/httpd.conf \
+    && sed -i "s/#LoadModule\ deflate_module/LoadModule\ deflate_module/" /etc/apache2/httpd.conf \
+    && sed -i "s#^DocumentRoot \".*#DocumentRoot \"/app/public\"#g" /etc/apache2/httpd.conf \
+    && sed -i "s#/var/www/localhost/htdocs#/app/public#" /etc/apache2/httpd.conf \
+    && printf "\n<Directory \"/app/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
+
+RUN mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app
+
+RUN chown apache:apache /var/www/localhost/htdocs
+
+EXPOSE 80
+
+VOLUME [ “/sys/fs/cgroup” ]
+
+
+Adicionar mariadb para iniciar com o boot
+
+rc-update add mariadb default
+
+rc-status --list
+
+rc-status --manual
+
+rc-status --crashed
+
+rc-service --list | grep -i nginx
+
+rc-update add {service-name} {run-level-name}
+
+rc-update add apache2 default
+
+rc-service {service-name} start
+
+ou
+    
+/etc/init.d/{service-name} start
+
+rc-service {service-name} stop
+
+rc-service {service-name} restart
+
+https://www.cyberciti.biz/faq/how-to-enable-and-start-services-on-alpine-linux/
+
+Listar os serviços do boot
+rc-status default

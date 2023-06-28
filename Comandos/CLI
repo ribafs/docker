@@ -1,0 +1,22 @@
+CLI
+All the functionality of Docker-Compose is executed through its build in CLI, which has a very similar set of commands to what is offered by Docker.
+build    Build or rebuild services 
+help     Get help on a command 
+kill     Kill containers 
+logs     View output from containers 
+port     Print the public port for a port binding 
+ps       List containers 
+pull     Pulls service images 
+rm       Remove stopped containers 
+run      Run a one-off command 
+scale    Set number of containers for a service 
+start    Start services 
+stop     Stop services 
+restart  Restart services 
+up       Create and start containers
+down     Stops and removes containers
+They are not only similar but also behave like their Docker counterparts. The only difference is that they affect the entire multi-container architecture which is defined in the docker-compose.yml file instead of a single container.
+Some Docker commands are not available anymore and have been replaced with other commands that make more sense in the context of a completely multi-container setup.
+The most important new commands include the following:
+    • docker-compose up 
+    • docker-compose down

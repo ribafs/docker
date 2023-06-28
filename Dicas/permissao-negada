@@ -1,0 +1,66 @@
+Erro de permissão negada/Permission denied
+
+Quando havia um problema de permissão numa pasta interna (db), ao executar
+
+docker-compose up -d
+
+Building adminer
+Traceback (most recent call last):
+  File "bin/docker-compose", line 6, in <module>
+  File "compose/cli/main.py", line 71, in main
+  File "compose/cli/main.py", line 127, in perform_command
+  File "compose/cli/main.py", line 1052, in up
+  File "compose/cli/main.py", line 1048, in up
+  File "compose/project.py", line 466, in up
+  File "compose/service.py", line 345, in ensure_image_exists
+  File "compose/service.py", line 1047, in build
+  File "site-packages/docker/api/build.py", line 154, in build
+  File "site-packages/docker/utils/build.py", line 30, in tar
+  File "site-packages/docker/utils/build.py", line 82, in exclude_paths
+  File "site-packages/docker/utils/build.py", line 124, in walk
+  File "site-packages/docker/utils/build.py", line 124, in <genexpr>
+  File "site-packages/docker/utils/build.py", line 124, in walk
+  File "site-packages/docker/utils/build.py", line 124, in <genexpr>
+  File "site-packages/docker/utils/build.py", line 100, in walk
+PermissionError: [Errno 13] Permission denied: '/home/ribafs/testes/ma/performance_schema'
+[29772] Failed to execute script docker-compose
+
+No desktop, estando na pasta do projeto
+
+sudo chown -R ribafs ma
+
+Resolvido
+
+Original exception was:
+Traceback (most recent call last):
+  File "/usr/bin/docker-compose", line 11, in <module>
+    load_entry_point('docker-compose==1.25.0', 'console_scripts', 'docker-compose')()
+  File "/usr/lib/python3/dist-packages/compose/cli/main.py", line 72, in main
+    command()
+  File "/usr/lib/python3/dist-packages/compose/cli/main.py", line 128, in perform_command
+    handler(command, command_options)
+  File "/usr/lib/python3/dist-packages/compose/cli/main.py", line 1107, in up
+    to_attach = up(False)
+  File "/usr/lib/python3/dist-packages/compose/cli/main.py", line 1088, in up
+    return self.project.up(
+  File "/usr/lib/python3/dist-packages/compose/project.py", line 542, in up
+    svc.ensure_image_exists(do_build=do_build, silent=silent, cli=cli)
+  File "/usr/lib/python3/dist-packages/compose/service.py", line 366, in ensure_image_exists
+    self.build(cli=cli)
+  File "/usr/lib/python3/dist-packages/compose/service.py", line 1084, in build
+    build_output = builder.build(
+  File "/usr/lib/python3/dist-packages/docker/api/build.py", line 159, in build
+    context = utils.tar(
+  File "/usr/lib/python3/dist-packages/docker/utils/build.py", line 30, in tar
+    files=sorted(exclude_paths(root, exclude, dockerfile=dockerfile[0])),
+  File "/usr/lib/python3/dist-packages/docker/utils/build.py", line 49, in exclude_paths
+    return set(pm.walk(root))
+  File "/usr/lib/python3/dist-packages/docker/utils/build.py", line 214, in rec_walk
+    for sub in rec_walk(cur):
+  File "/usr/lib/python3/dist-packages/docker/utils/build.py", line 214, in rec_walk
+    for sub in rec_walk(cur):
+  File "/usr/lib/python3/dist-packages/docker/utils/build.py", line 184, in rec_walk
+    for f in os.listdir(current_dir):
+PermissionError: [Errno 13] Permission denied: '/home/ribafs/docker/testes/testes/postgres/postgres/data'
+
+Também de permissão

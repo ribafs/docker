@@ -1,0 +1,25 @@
+version: '3'
+services:
+    php-apache:
+        image: mitlabs/apache-php7.3
+        ports:
+            - 80:80
+        volumes:
+            - ./DocumentRoot:/var/www/html
+        links:
+            - 'mariadb'
+    mariadb:
+        image:mariadb:10.3
+        volumes:
+            - mariadb:/var/lib/mysql
+        environment:
+            TZ: "America/Chicago"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "AngeloOsradar"
+            MYSQL_USER: 'osradar'
+            MYSQL_PASSWORD: 'osradarpss'
+            MYSQL_DATABASE: 'testdb'
+        ports:
+            - 3306:3306
+volumes:
+    mariadb:

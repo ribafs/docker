@@ -1,0 +1,78 @@
+ docker volume create hello
+
+ docker run -d -v hello:/world busybox ls /world
+
+docker container run --name fundiaria -v fundiaria:/tmp
+
+docker volume create --driver local \
+    --opt type=nfs \
+    --opt o=addr=10.40.50.57,rw \
+    --opt device=:/fundiaria \
+    fundiaria
+
+Informações sobre um certo volume
+docker volume inspect volume_name
+
+docker volume ls
+
+docker volume rm volume
+
+
+Iniciar service com volume
+
+docker service create -d \
+  --replicas=4 \
+  --name devtest-service \
+  --mount source=myvol2,target=/app \
+  nginx:latest
+
+docker service ps devtest-service
+
+
+version '3'
+
+volumes:
+  web_data:
+    external: true
+
+services:
+  app:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - web_data:/usr/share/nginx/html:ro
+
+docker run -it --name [my_new_container] --volumes-from [another_container] [image:tag] [command]
+
+version: '3'
+services:
+    php:
+        build:
+            dockerfile: ./docker/php.dockerfile
+            context: .
+        image: php
+        container_name: meu_php
+        ports: 
+            - "80:80"
+        networks:
+            - development-network
+        volumes:
+            - /c/xampp/htdocs/Projetos/Cibus:/var/www/html
+        depends_on: 
+            - "mysql"
+
+    mysql:
+        image: mysql
+        container_name: meu_sql
+        networks:
+            - development-network
+        environment:
+            MYSQL_USER: root
+            MYSQL_ROOT_PASSWORD: admin
+        volumes:
+            - var/lib/mysql
+
+networks:
+    development-network:
+        driver: bridge

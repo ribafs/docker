@@ -1,0 +1,28 @@
+Os containers são aplicativos completos; cada um “empacotando” o código de aplicativo necessário, bibliotecas, dependências e ferramentas de sistema para rodar em uma variedade de plataformas e infraestruturas.
+
+Nesse sentido, a orquestração automatiza a implantação, o gerenciamento, a escala e a rede dos containers. Ela é ideal para quem precisa implantar e gerenciar centenas de milhares de hosts e containers Linux.
+
+A orquestração pode ser usada em todos os ambientes em que os containers são utilizados. A partir dela, você é capaz de implementar a mesma aplicação em ambientes distintos sem precisar projetá-la novamente.
+
+Além disso, com microserviços em containers, é mais fácil orquestrar serviços, incluindo armazenamento, rede e segurança. 
+
+A orquestração de containers tem a finalidade de automatizar e gerenciar tarefas como, por exemplo:
+
+    Provisionamento e implantação;
+    Configuração e programação;
+    Alocação de recursos;
+    Disponibilidade dos containers; 
+    Escala ou remoção de containers com base no balanceamento de cargas de trabalho na infraestrutura;
+    Balanceamento de carga e roteamento de tráfego;  
+    Monitoramento da integridade do container;
+    Configuração da aplicação com base no container em que ela será executada;
+    Proteção das interações entre os containers.
+
+Ferramentas para a orquestração de containers
+
+O Kubernetes e o Swarm são as duas principais opções na orquestração de containers. Eles criaram nichos confiáveis para si próprios e consolidaram suas posições no Docker e no ecossistema de contêineres. 
+
+Ambas as ferramentas permitem que você lide com um cluster de servidores que executa um ou mais serviços neles.
+
+https://esr.rnp.br/governanca-de-ti/orquestracao-de-containers-o-que-e-e-como-fazer/
+

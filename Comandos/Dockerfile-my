@@ -1,0 +1,25 @@
+FROM ubuntu:22.04 as ub-my-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+ENV DEBIAN_FRONTEND teletype
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+RUN apt-get update && apt-get install -y mariadb-server
+
+COPY my/setup.sql /root
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=America/Fortaleza
+
+RUN apt-get update && apt-get install -y tzdata
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
+# Add basics first
+RUN apt-get update && apt-get install -y curl nano
+
+EXPOSE 3306
+

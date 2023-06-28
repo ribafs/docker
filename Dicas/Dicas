@@ -1,0 +1,73 @@
+Para instalar algo no container temos algumas alternativas:
+
+- Copiar o software para a pasta web do container, antes de executá-lo
+
+Este conteúdo estará na pasta /var/www/html do container
+
+- Podemos fazer o download no container usando o wget
+
+- Existe também opção de copiar usando o próprio docker
+	- Com o container rodando abra um outro terminal e execute:
+	- docker ps
+	- docker cp nomeArquivo.zip ContainerID:/nomeArquivo.zip
+	Assim o arquivo será copiado para o raiz do container
+
+De lá para cá
+
+docker cp ContainerID:/nomeArquivo.zip nomeArquivo.zip
+
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+
+Copiar o script perms para o /usr/local/bin e mudar o seu chmod para +x
+
+Adicionar usuário e mudar o script /usr/local/bin/perms
+
+adduser ribafs www-data
+
+Então varrer os arquivos de /var/www/html com
+
+Toda a pasta
+perms
+
+Apenas uma sub pasta
+perms joomla
+
+Criar user para joomla
+
+mariadb -uroot
+CREATE USER 'joomlau'@'localhost' IDENTIFIED BY 'senha';
+GRANT ALL PRIVILEGES ON joomladb.* TO 'joomlau'@'localhost';
+
+Configurar o PHP para exibir erros
+Como estamos em ambiente de desenvolvimento
+
+nano /etc/php/7.4/apache2/php.ini
+
+display_errors = On
+
+service apache2 restart
+
+
+restart: unless-stopped
+
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
+
+# Set working directory
+WORKDIR /var/www/html
+
+USER $user
+https://maruan.medium.com/how-to-install-and-set-up-laravel-8-with-docker-compose-on-ubuntu-20-04-58149fed3e2e

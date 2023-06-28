@@ -1,0 +1,47 @@
+Algumas formas de criar containers docker
+
+- A partir de uma imagem no Docker Hub
+- Usando um container
+- Usando um docker-compose.yml com um ou mais containers
+
+Com imagens
+
+docker pull nomeimagem:versao-variacao
+
+docker pull debian:jessie-slim
+
+Após executar um dos comandos acima, rode:
+
+docker images
+
+Com o nome da imagem criada rode:
+
+docker run -it imagem sh/bash
+
+
+docker run -it imagem
+
+Após executar este comando ele procura pela imagem localmente, se encotnrar cria um contaienr com ela e abre o shell. Caso não encotnre localmente procurará do docker hub e criará o container, depois abrirá o shell deste container
+
+
+Criando um arquivo Dockerfile, contendo a imagem e outros comandos. Então execute:
+
+docker build . (se estiver na mesma pasta onde está o Dockerfile)
+
+docker build pasta (se dentro da pasta estiver o Dockerfile)
+
+docker build github.com/creack/docker-firefox
+
+
+Criando um docker-composere-yml com um único ou vários containers.
+
+Neste caso criamos uma pasta e dentro dela os arquivos e pastas:
+- docker-compose.yml
+- Dockerfile
+- pastas para volumes, scripts e configurações, como entrypoints.
+
+Após criar toda a estrutura executamos:
+
+docker-compose up -d
+
+

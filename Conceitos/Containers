@@ -1,0 +1,295 @@
+
+Conceitos
+
+A tecnologia está em constante evolução e a todo momento surgem novas ideias que aprimoram os métodos utilizados em TI. O container docker é uma delas e pode trazer vários benefícios para a sua organização.
+
+As empresas optam por essa modalidade porque os containers trazem diferentes possibilidades. Por serem ambientes isolados e portáveis, os desenvolvedores podem empacotar aplicações com bibliotecas e links necessários. O resultado é mais eficiência no trabalho e a simplificação da implantação.
+
+Porém, essa descrição ainda não diz todos os benefícios do uso dessa tecnologia. Por isso, criamos este post. Aqui, vamos explicar os principais detalhes sobre o docker, passando pelos seguintes aspectos:
+
+    conceito;
+    diferenças do sistema virtualização dessa forma;
+    por que se tornou uma tendência do mercado;
+    benefícios do uso.
+
+Então, que tal entender melhor essa tecnologia? É só continuar lendo!
+
+O que é um container docker?
+
+Esse conceito precisa ser compreendido em partes. O container é um ambiente isolado. Já o docker é uma plataforma open source na linguagem de programação Go, que possui alto desempenho e é desenvolvida diretamente no Google.
+
+Assim, o docker agrupa partes de softwares de um sistema de arquivo completo e que abrange todos os recursos necessários para a sua execução. Por isso, é uma plataforma de containers.
+
+Isso significa que tudo pode ser instalado no servidor e é armazenado nos containers. Dessa forma, os mesmos softwares e as suas versões podem ter uma execução facilitada em qualquer ambiente de desenvolvimento.
+
+O que ocorre na prática é que o docker destaca recursos e usa bibliotecas de kernel em comum. Os itens empacotados — ou até mesmo um ambiente inteiro — são dispostos no container e se tornam portáveis, o que torna o trabalho conjunto mais eficiente. Ao mesmo tempo, a implantação pode ser feita em ambientes não heterogêneos.
+
+Assim, o docker é uma implementação de virtualização de containers que vem conquistando cada vez mais espaço devido à computação em nuvem. Anteriormente, o hypervisor dominava o ambiente, mas agora ele é excluído do processo.
+
+Devido a todas as facilidades que oferece, o container é uma das principais tendências de TI. Ele simplifica a aplicação da metodologia DevOps e facilita o desenvolvimento ágil, tanto que o Google utiliza essa tecnologia há mais de 10 anos.
+
+Já o docker, por ser open source, possibilita a execução de deploys e o escalonamento de aplicações com mais facilidade. Além disso, devido à virtualização por container, propicia um ambiente isolado e leve para rodar o programa.
+Quais as diferenças do sistema virtualizado com docker?
+
+O container exclui a virtualização pelo hypervisor e muda o processo para o docker. Essa é a principal modificação. No entanto, há vários detalhes intrincados que precisam ser compreendidos.
+
+Para facilitar, vamos apresentar o modelo tradicional de virtualização e o novo, com o container:
+Sistema virtualizado por VM
+
+O modelo mais comum conta com uma máquina virtual (VM, do inglês virtual machine), que trabalha com um sistema operacional (SO) completo, porém separado do equipamento. A execução do software é feita em cima de um servidor físico com a finalidade de emular determinado sistema de hardware.
+
+Esse processo é possibilitado pelo hypervisor, software que cria e efetiva a VM. Basicamente, ele se localiza entre o hardware e o SO, sendo um elemento fundamental para a virtualização do servidor. Um exemplo de hypervisor é o VMWare, Hyper-V e o VirtualBox.
+
+Uma mesma máquina pode contar com diferentes VMs. Cada uma opera um SO exclusivo e possui seu próprio kernel, binários, aplicativos e bibliotecas, o que significa que ocupam um espaço grande no servidor.
+
+Quando foi criada, essa tecnologia trouxe diversos benefícios devido à capacidade de consolidação de aplicativos em um sistema único. Com isso, é possível alcançar a redução de custos pelo rápido provisionamento e obter o aprimoramento da possibilidade de recuperação de desastres.
+
+Duas áreas muito fortalecidas e beneficiadas com essa medida foram a de QA e development, porque se tornou possível testar os programas e usar os servidores liberados para montar esses ambientes.
+
+Assim, apesar de haver vários benefícios com a virtualização por VM, ainda era necessário criar uma alternativa mais simples e leve.
+Sistema virtualizado com docker
+
+Esse é um sistema desenvolvido na linguagem de programação Go. Com ele, os desenvolvedores conseguem criar e administrar diferentes ambientes isolados, fazendo com que os dockers sejam um sistema de virtualização diferente do tradicional.
+
+Isso acontece porque esse novo sistema de virtualização usa o Linux Container (LXC) como backend. Ele não fornece uma VM, mas sim um ambiente virtual semelhante ao chroot, mas com um isolamento maior. Essa característica permite definir limitações de recursos por container, por exemplo, CPU, memória, I/O, entre outros.
+
+Na prática, o SO convidado e o hypervisor são eliminados e o host entra em contato direto com as bibliotecas. Com essa ligação, os itens ficam portáveis para qualquer outro host que também possua o sistema de virtualização instalado. A consequência é a redução do tempo de deploy de uma aplicação ou infraestrutura.
+
+Assim, é desnecessário ajustar o ambiente para que o serviço funcione corretamente. Ou seja, ele é sempre igual e é configurado uma vez. A partir disso, basta replicá-lo.
+
+Outras possibilidades interessantes são criar os containers prontos para deploy (ou seja, imagens) a partir de dockerfiles, que são arquivos de definição.
+
+É importante destacar que os containers se localizam em cima de um servidor físico e do SO hospedeiro. Cada um deles compartilha o kernel do SO host e costuma partilhar também as bibliotecas e binários.
+
+A diferença é que os itens compartilhados servem somente para leitura, o que torna o container muito leve, especialmente se comparado à VM. Para ter uma ideia, o tamanho do primeiro é de Mb e, por isso, ele é iniciado em poucos segundos. Já a máquina virtual contém vários Gb e demora minutos para ser executada.
+
+Perceba que esse novo modelo de virtualização prevê o fornecimento do básico para que uma aplicação seja executada em um SO hospedeiro.
+
+Assim, escolher entre uma VM e um docker depende do contexto do projeto que se pretende realizar. A principal diferença é relativa ao consumo de recursos e espaço, porque a modalidade de virtualização mais recente possui diferentes camadas, que são reunidas com o UnionFS.
+
+Essa característica traz mais agilidade ao processo, porque o rebuild é desnecessário para o update das imagens. De modo geral, os containers são mais interessantes devido a alguns fatores, como:
+
+    velocidade;
+    rapidez no boot;
+    economia de recursos;
+    entendimento dos processos do container como sendo realizados dentro do sistema host;
+    possibilidade de fazer o upload de vários containers simultaneamente, o que consome menos recursos do hardware virtual ou físico.
+
+Assim, o container docker leva a um nível superior de virtualização, o que traz diferentes vantagens para a organização.
+Como o docker funciona?
+
+As médias e grandes empresas, principalmente, utilizam aplicações como ERPs e CRMs, ou seja, conjuntos de software que iniciam como projetos simples, mas que se tornam ineficientes com o tempo e impedem o progresso por contarem com um código-fonte monolítico.
+
+O container surgiu para resolver esse problema. A solução passa por diferentes etapas. A primeira delas é a desagregação do aplicativo em componentes menores, os chamados microsserviços. A partir disso, os desenvolvedores conseguem adotar uma arquitetura que aumenta a eficiência operacional.
+
+Isso acontece porque o código-fonte é destinada para cada componente de aplicação. Assim, o software passa por vários estágios, por exemplo, vai para um ambiente de testes, para um virtual e, por último, de produção.
+
+Em cada um desses locais, a aplicação deve ter uma performance consistente, que é garantida pelo container. Ele encapsula os componentes em um pacote único e leve, que permite executar os aplicativos com consistência independentemente do ambiente ser virtual ou físico.
+
+Já o docker faz a comunicação entre cliente e servidor por meio de um API. Para realizar esse workflow, é necessário ter o serviço instalado em um local e apontar o cliente para esse servidor.
+
+A plataforma em si usa alguns conjuntos de recursos para criar e administrar os containers, inclusive limitar os recursos. Dentre eles está a biblioteca libcontainer, que efetua a comunicação entre o Docker Daemon e o backend.
+
+Vale a pena destacar que o docker está embasado no conceito de layers. O container é construído por meio de chroot, namespaces, cgroups e outras funcionalidades do kernel a fim de isolar a área para a sua aplicação.
+
+Desse modo, no docker, o kernel monta o rootfs na modalidade somente leitura. Logo em seguida, um arquivo do sistema é criado como read-write sobre o rootf. Depois, o kernel sobrepõe a partição raíz como read-only e pega um novo file system para colocá-lo sobre o rootfs.
+
+Observe que o container está pronto para executar a imagem (layer somente leitura) após o carregamento do rootfs. Ele também é uma camada read-write criada a partir de uma imagem somente leitura.
+
+Por isso, ele é uma ferramenta excelente para DevOps. No caso dos administradores de sistemas há o benefício da flexibilidade, custos menores e menos áreas ocupadas. Para os desenvolvedores, é mais liberdade para que esses profissionais foquem a atividade principal.
+Por que ele vem se tornando uma tendência no mercado?
+
+O docker tem se popularizado devido a diferentes facilidades proporcionadas pela plataforma. Em comparação com a VM, a estrutura é menor, porque o hypervisor é substituído pelo docker engine e o SO hospedeiro é excluído.
+
+Ambos os modelos permitem o isolamento de recursos e incluem as bibliotecas, aplicação e arquivos necessários. A diferença é que a VM precisa do SO e, com isso, exige espaço e possui custo de manutenção.
+
+Essa especificação evidencia que o docker tem uma estrutura mais portátil e leve. É mais fácil mantê-la, porque os containers compartilham o mesmo SO da hospedagem. Apenas os processos são executados isoladamente e, portanto, o custo e a necessidade de espaço são menores.
+
+A portabilidade é outra vantagem do docker, o que traz ainda mais benefícios para os ambientes de development. Assim, uma aplicação é mais facilmente executada no ambiente de homologação e/ou de produção.
+
+Além disso, há uma garantia maior de que não haverá erros ou imprevistos durante o deploy. Por fim, gasta-se menos tempo para configurar os ambientes e se perde menos tempo analisando e identificando as diferenças existentes. O resultado é a integração das equipes de desenvolvimento e SysAdmin, que aumentam a produtividade.
+
+Para entender melhor a importância, basta observar um exemplo prático. Imagine que a sua empresa realiza um projeto em WordPress com o PHP versão 5.*, mas deseja atualizar a linguagem para a sétima.
+
+Esse processo de update da versão se torna mais simples com o docker. Você pode realizar testes para definir a versão que permanecerá sendo utilizada e assinalar os ajustes necessários.
+
+Devido a todas essas peculiaridades, centenas de empresas utilizam o docker em todo o mundo. Alguns exemplos são Uber, The Washington Post, PayPal, General Electric, eBay, Spotify etc. Um dos motivos para isso é o fato de diversas soluções de hospedagem adotaram a tecnologia.
+
+Outra justificativa é que, no começo, ele pode representar uma demanda muito grande de recursos, mas a recompensa são as vantagens em agilidade, já que a velocidade de implantação de containers vai de milissegundos a alguns segundos.
+Quais são as vantagens de utilizar?
+
+O container docker é uma tecnologia que apresenta diferentes benefícios às empresas. As principais são:
+Economia significativa de recursos
+
+Essa questão pode ser explicada pela contextualização da diferença existente entre imagens e containers. As primeiras são um ambiente read-only, enquanto os segundos são definidos como uma imagem em execução, na qual é gerada um layer extra que armazena os dados relativos à determinada operação.
+
+É possível configurar a dependência de uma imagem em relação a outra. Nessa situação é criada uma pilha de imagens, sendo que cada uma delas é somente leitura. Assim, pode-se montar um amontoado para diferentes containers, o que ocasiona uma economia de recursos sobre o disco, que é compartilhado entre os ambientes.
+
+Ainda é possível exemplificar essa situação por um ambiente composto por uma imagem Apache, Debian e módulo PHP. Se forem necessários 20 containers da pilha de imagens, não é necessário utilizar o recurso multiplicado por 20.
+
+Isso porque a utilização do espaço em disco se refere somente aos logs e arquivos temporários de cada container. Desse modo, os dados são armazenados no layer extraindividual.
+Disponibilidade maior do sistema
+
+Esse benefício é ocasionado pelo fato de o docker virtualizar o sistema de maneira diferente ao método da VM. Por compartilhar o SO e outros componentes, há mais espaço livre, o que deixa os processos mais ágeis e oferece uma disponibilidade maior.
+
+Em termos bastante simples, a máquina fica menos “pesada” e fica com mais espaço para rodar outros programas e aplicações.
+Possibilidade de compartilhamento
+
+Os arquivos podem ser compartilhados entre o host e o container ou até mesmo um volume tem a possibilidade de ser distribuído para outros. A prática da segunda situação é mais indicada nos casos em que se deseja ter persistência de dados e quando não se atrela ao host que hospeda o container.
+
+Outro aspecto que precisa ser considerado é que o container está em um nível de virtualização operacional, ou seja, é um processo em execução em um kernel compartilhado entre outros containers.
+
+Por meio do namespace é feito o isolamento da memória RAM, disco, processamento e acesso à rede. Ou seja, em um contexto isolado há o compartilhamento do kernel, mas a impressão é de que o SO é dedicado.
+
+Por fim, o compartilhamento pode ocorrer pela cloud. Essa tecnologia disponibiliza um repositório de imagens e ambientes prontos, que podem ser compartilhados. Com a utilização desse serviço, o docker chega a extrapolar o limite técnico e passa para questões de gerência, processo e update do ambiente.
+
+Com isso, torna-se mais fácil compartilhar as modificações e oferecer uma gestão centralizada em relação às definições de ambiente. O espaço para testes também se torna mais leve, o que permite baixar uma solução durante uma reunião, por exemplo, ou fornecer um padrão de melhores práticas para todos os colaboradores.
+Gerenciamento facilitado
+
+Os containers são executados em máquinas físicas ou virtuais e o grupo delas é chamado de cluster. Esse item precisa ser monitorado constantemente. Por isso, foram criadas ferramentas para fazer o gerenciamento, por exemplo, o Kubernetes e o OpenShift.
+
+Esses sistemas trabalham em conjunto com o docker e operam o equipamento que possibilita a execução dos containers. No entanto, os sistemas de arquivos também são gerenciados.
+
+Essas ferramentas de monitoramento geram uma abstração, denominada pod, no nível de um componente da aplicação. Essa questão inclui um grupo de um ou mais containers, armazenamento compartilhado e alternativas de operação.
+Similaridade dos ambientes
+
+A transformação da aplicação em uma imagem docker permite que ela seja instanciada como container em diferentes ambientes. Essa característica garante a sua utilização, por exemplo, tanto no notebook do desenvolvedor quando no servidor de produção.
+
+Tenha em mente que a imagem aceita parâmetros na iniciação do container, situação que indica diferentes comportamentos conforme o ambiente. Por exemplo: ele pode se conectar ao banco de dados local para testes a partir da base de dados e credenciais, mas em produção acessará um database com infraestrutura robusta, que possui as suas próprias credenciais.
+
+É importante destacar que ambientes semelhantes impactam a análise de erros e a confiabilidade do processo de entrega contínua de forma positiva. No segundo caso, a base é a criação de um artefato único que faz a migração, que pode ser a própria imagem do docker com as dependências necessárias para a execução do código dinâmico ou compilado.
+Aplicação como pacote completo
+
+As imagens do docker possibilitam o empacotamento da aplicação e as suas dependências, o que simplifica o processo de distribuição por não ser exigida ampla documentação sobre a configuração da infraestrutura com a finalidade de execução. Para isso, basta disponibilizar o repositório e permitir o acesso para o usuário.
+
+A partir disso é possível fazer o download do pacote, que pode ser executado facilmente. O update também sofre impacto positivo, porque a estrutura de layers permite que, em caso de modificação, somente a alteração seja transferida.
+
+Essa medida faz com que o ambiente possa ser mudado de maneira simples e rápida. Com apenas um comando existe a capacidade de fazer o update da imagem da aplicação, que é refletida no container em execução quando for desejado.
+
+As imagens podem ser categorizadas com tags, o que facilita o armazenamento de diferentes versões de uma aplicação. Se houver algum problema na atualização, é possível retornar para a imagem com a tag anterior.
+Padronização e replicação
+
+As imagens do docker são construídas por meio de arquivos de definição, o que assegura o seguimento de um determinado padrão e eleva a confiança na replicação. Dessa maneira, fica muito mais viável escalar a estrutura.
+
+Com a chegada de um novo membro para a equipe de TI, por exemplo, ele pode se integrar e receber o ambiente de trabalho rapidamente, com apenas alguns comandos. Ele ainda pode desenvolver os códigos de acordo com o padrão adotado para a equipe.
+
+Por sua vez, na necessidade de testar uma versão com as imagens, é possível mudar um ou mais parâmetros de um arquivo de definição. Ou seja, é mais simples criar e mudar a infraestrutura.
+Possibilidade de acessar comunidade
+
+O repositório de imagens docker pode ser acessado para conseguir modelos de infraestrutura de aplicações e serviços prontos para integrações complexas. Dois exemplos são o mysql como banco de dados e o nginx como proxy reverso.
+
+No caso de a aplicação exigir esses recursos, você pode apenas usar as imagens do repositório e configurar os parâmetros para adequação ao seu ambiente. Essa é uma vantagem principalmente porque as imagens oficiais costumam ser condizentes com as boas práticas.
+
+Como você pôde perceber, a tecnologia do docker é um pouco complexa, mas vale a pena apostar nela. A sua empresa consegue economizar recursos, configurar parâmetros e virtualizar em um nível muito mais alto que o permitido pelas VMs atualmente.
+
+Por isso, vale a pena apostar no container docker para ter todas essas vantagens.
+
+Crédito
+https://www.meupositivo.com.br/panoramapositivo/container-docker/
+
+ As camadas do Dockerfile
+
+O dockerfile é uma ferramenta poderosa para definir imagens, graças à sua estrutura em camadas , que contém comandos, bibliotecas a serem usadas e dependências.
+Algumas camadas podem estar em mais projetos, portanto, esse recurso garante a reutilização do que já foi baixado e, consequentemente, garante as performances e, não menos importante, a economia de tempo e espaço físico.
+
+Vamos supor, por exemplo, que precisamos usar imagens de dois RDBMS, como PostgreSQL e MySQL (ou MariaDB ).
+
+Primeiro, começamos a pesquisar, com o comando docker search , as imagens oficiais contidas no dockerhub para esses dois sistemas e, em seguida, captamos as imagens oficiais.
+
+Podemos observar que o status final indica o download correto das imagens (versão mais recente – identificada pela tag padrão ) e que nos dois casos elas são compostas por 14 camadas distintas .
+Observamos, no entanto, que no caso do MariaDB, as quatro primeiras camadas são indicadas com “Já existe” . Na verdade, eles já haviam sido baixados em um pull anterior e, portanto, não é necessário fazer o download novamente.
+
+Um identificador distingue cada uma dessas camadas, enquanto a penúltima string “Digest” representa univocamente a imagem que acabou de ser baixada como um hash da própria imagem.
+
+Para entender melhor esse aspecto das camadas do Docker, vamos explorar como criar um DockerFile .
+
+ Criar um DockerFile
+
+Se necessário, é possível criar seus próprios Dockerfiles, adicionando níveis a uma imagem de base – uma que represente a base a partir da qual iniciar – ou a partir de uma imagem vazia, caso seja necessário ter a máxima liberdade de gerenciamento.
+Nos dois casos, a primeira linha conterá o comando FROM, que indicará a imagem de base (zero no caso de uma imagem vazia).
+Vamos dar o exemplo de um Dockerfile simples derivado de uma imagem oficial do ubuntu.
+Criamos nosso Dockerfile com o editor preferido e adicionamos as seguintes linhas:
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install --yes apache2
+COPY index.html /var/www/html/index.html
+
+No primeiro nível (do ubuntu ), adicionamos três níveis que representam os comandos que queremos adicionar.
+Executamos o comando build para criar a imagem conforme descrito no arquivo da seguinte maneira:
+
+docker build
+
+Não se esqueça do ponto (.) Que indica o diretório atual em que o docker pesquisa um arquivo docker, exatamente com esse nome.
+
+Como você pode ver nas imagens abaixo, a operação de compilação consiste em 4 etapas , que correspondem às quatro camadas da nossa imagem.
+
+Para entender melhor, vamos tentar executar novamente o comando agora
+
+É fácil testar que agora a criação da imagem é muito mais rápida e reutiliza imagens que já estão armazenadas em cache.
+A imagem 46115e101915 , por exemplo, é a que é reutilizada na etapa 3/4.
+Containers
+
+Até agora, falamos sobre como fazer o download de uma imagem ou criar e implementar sua própria.
+Mas é com o comando “docker run” que tudo realmente toma forma.
+
+docker run --rm --name ubuntu_apache -it ubuntu
+
+De fato, este comando permite instanciar um contêiner na imagem recém-criada .
+As opções escolhidas neste caso são as referentes à interatividade (-i) , à alocação de um console TTY (-t) e à possibilidade de remover diretamente o contêiner após sair (–rm) .
+
+A documentação oficial do Docker contém a lista de todas as opções para o comando run.
+
+Enquanto a imagem consiste em uma série de camadas, todas no modo somente leitura, o contêiner adiciona uma camada superior (também chamada camada de contêiner) no modo leitura/gravação .
+
+E toda vez que um novo contêiner é instanciado na mesma imagem, uma nova camada é adicionada para criar novos contêineres.
+
+Se quisermos ter uma lista de contêineres ativos e inativos , podemos executar o comando:
+
+docker ps -a
+
+O uso de contêineres é útil porque você pode criar com facilidade e rapidez um ambiente de desenvolvimento ou teste quantas vezes quiser.
+
+Saindo do console com o comando exit , o contêiner, graças à opção –rm , não existirá mais.
+
+Agora vamos tentar usar o comando:
+
+docker run --name ubuntu_apache -it ubuntu
+
+sem a opção de remoção anterior.
+
+docker run
+
+Nesse ponto, se quiséssemos removê-lo manualmente, teríamos que usar o:
+
+docker rm
+
+comando seguido pelo id.
+
+Mas não antes de parar.
+
+Portanto, a sequência correta dos comandos é a seguinte:
+
+docker stop rm
+
+Se, em vez disso, desejamos reiniciar o contêiner parado anteriormente , o comando a ser usado é:
+
+docker start
+
+e, no nosso exemplo, seria:
+
+docker start
+
+Crédito
+
+https://www.iperiusbackup.net/pt-br/qual-a-diferenca-entre-uma-imagem-docker-e-conteiner-como-criar-um-arquivo-docker-2/
+
+https://woliveiras.com.br/posts/imagem-docker-ou-um-container-docker/
+
+Na prática um container pode ser definido como uma instância, que possui sistema operacional, processos, área de armazenamento e ambiente de rede (endereço IP, gateway, máscara de rede, etc). No entanto, sabemos que um único host pode executar diversos containers, logo, cada container deve fornecer um ambiente isolado, tanto de outros containers quanto do próprio host.
+
+Esse isolamento garante que os processos de um determinado container não interfiram nos processos de outros, ou nos processos do host.
+
+Crédito
+
+https://www.mundotibrasil.com.br/marcador/conceitos-docker/
+

@@ -1,0 +1,31 @@
+docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]
+
+docker run -d -p 80:80 my_image service nginx start
+
+docker run --name ubuntu_bash --rm -i -t ubuntu bash
+
+docker run -dt --name alpine-cont alpine
+
+docker run -d -p 3306:3306 --name my-mysql \
+-v ~/my-mysql/sql-scripts:/docker-entrypoint-initdb.d/ \
+-e MYSQL_ROOT_PASSWORD=supersecret \
+-e MYSQL_DATABASE=company \
+mysql
+
+https://morioh.com/p/d8d9e7732952
+
+docker run -d -p 3306:3306 --name my-cont -e MYSQL_ROOT_PASSWORD=supersecret my-img
+
+docker run -td --name pg-container debian
+
+docker run -d f6b46a3b76be /usr/sbin/nginx -g 'daemon off;'
+
+We set memory limit only, this means the processes in the container can use 300M memory and 300M swap memory, by default, the total virtual memory size (--memory-swap) will be set as double of memory, in this case, memory + swap would be 2*300M, so processes can use 300M swap memory as well.
+
+docker run -it -m 300M --memory-swap 1G ubuntu:14.04 /bin/bash
+
+
+docker run --name maria  \
+-p 3306:3306 -p 33060:33060  \
+-e MYSQL_ROOT_HOST='%' -e MYSQL_ROOT_PASSWORD='root'   \
+-d debian-lampp-desktop_lampp

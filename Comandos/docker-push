@@ -1,0 +1,15 @@
+docker push [OPTIONS] NAME[:TAG]
+
+docker container commit c16378f943fe rhel-httpd:latest
+
+docker image tag rhel-httpd:latest registry-host:5000/myadmin/rhel-httpd:latest
+
+docker image push registry-host:5000/myadmin/rhel-httpd:latest
+
+docker images ls
+
+docker image push --all-tags registry-host:5000/myname/myimage
+
+docker tag yourusername/example-node-app yourdockerhubusername/example-node-app:v1
+
+docker push abiodunjames/example-node-app:v1

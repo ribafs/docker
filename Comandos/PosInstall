@@ -1,0 +1,20 @@
+docker run -it nomeImagem bash (ubuntu, debian, etc)
+
+docker run -it nomeImagem sh (alpine)
+
+cat /etc/issue - Debian 10
+
+apt update
+
+apt install -y postgresql nano
+
+service postgresql start
+
+su - postgres
+
+psql
+
+11.9
+
+exit
+

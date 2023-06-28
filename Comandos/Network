@@ -1,0 +1,17 @@
+Another essential concept is networks; you can create an isolated network for several containers. By default, Docker creates one for each docker run. Still, in some situations, you would like to name it and set the same network for more than the container; thus, they will be able to communicate with each other.
+
+To see all the created network run the command:
+
+docker network ls
+
+To create a network:
+
+docker network create network_name
+
+And finally, to fire a container with this network:
+
+docker run --net network_name -it image_name
+
+Another useful command is to run a container based on a different container’s network to enable communication between the two, just pass the container id or name to the--net flag. We have seen how containers communicate with each other so far, but what if you want to share data from an external source? For this case, we will define the internal ports that the container listens to. Indocker run -p 5050:80 image_name command, it defines that the hosting system port 5050 is bonded to the container’s port 80.
+
+

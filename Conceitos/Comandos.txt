@@ -1,0 +1,22 @@
+Imagens
+
+Listar imagens
+
+docker images
+
+Listar imagens com web em seu nome
+
+docker images web
+
+Listar imagem com tag
+
+docker alpine:edge
+
+Remover imagem
+
+docker rmi imagem
+
+Remover todas as imagens
+
+docker rmi $(docker images -f "dangling=true" -q)
+

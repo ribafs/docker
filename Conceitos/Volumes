@@ -1,0 +1,78 @@
+Criando volumes no Docker
+
+Volume é o jeito utilizado no Docker para criar um armazenamento persistente de dados, ou seja, ao desligar o contêiner os dados continuam existindo. Criamos uma pasta no host/desktop e outra no containers e mapeamos.
+
+Para criar um volume utilize o comando abaixo, neste caso será criando um volume chamado postgres-data:
+
+docker volume create --name=postgres-data
+
+Para listar todos volumes existentes em sua máquina utilize o comando:
+
+docker volume ls
+
+docker build -t alp-img .
+
+docker volume create --driver local --name alp-vol --opt type=none --opt device=/web --opt o=uid=root,gid=root --opt o=bind
+
+docker run -dtv alp-cont:/web --name alp-cont alp-img sh
+
+docker exec -it alp-cont sh
+
+
+
+Volumes são pastas locais que são montadas no container
+
+Exemplo:
+
+Temos a pasta de arquivos de um contaienr.
+Nesta pasta temos a pasta db, que contém um script setup.sql
+
+O Dockerfile:
+
+FROM ribafs/sqlite
+
+LABEL maintainer="ribafs@gmail.com"
+
+COPY db/setup.sql /
+
+
+O docker-compose.yml
+
+version: "3.6" 
+
+services:
+    sqlite:
+
+      container_name: sqlite-container
+
+      restart: always
+
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+
+      volumes:
+        - ./db:/var/lib/sqlite
+
+      tty: true
+
+volumes:
+  db:
+
+Criar o contaienr
+docker ps
+docker run -it sqlite_sqlite sh
+
+ls
+Aparece o script setup.sql no raiz
+
+Agora volto ao desktop, acesso a pasta db e crio o arquivo
+teste
+
+No container após executar
+ls
+Aparece nosso arquivo teste
+
+Ou seja o que colocarmos na pasta db será visto no raiz do conteiner
+Ao remover o arquivo teste do raiz do container o teste do db no desktop permanece
+

@@ -1,0 +1,11 @@
+Apareceu um erro longo, com script
+
+load_entry_point('docker-compose==1.25.0', 'console_scripts', 'docker-compose')(
+
+Ao final permission denied
+
+Era falta de permissão de escrita no diretório onde estava trabalhando
+
+sudo chown -R ribafs:ribafs /home/ribafs/docker
+
+

@@ -1,0 +1,45 @@
+Docker
+
+O que é Docker?
+
+De forma resumida, o Docker é uma plataforma de código aberto, desenvolvido na linguagem Go e criada pelo próprio Docker.Inc. Por ser de alto desempenho, o software garante maior facilidade na criação e administração de ambientes isolados, garantindo a rápida disponibilização de programas para o usuário final.
+
+Primeiro temos que definir o que não é Docker. Docker não é um sistema de virtualização tradicional. Enquanto em um ambiente de virtualização tradicional nós temos um S.O. completo e isolado, dentro do Docker nós temos recursos isolados que utilizando bibliotecas de kernel em comum (entre host e container), isso é possível pois o Docker utiliza como backend o nosso conhecido LXC.
+
+O Docker possibilita o empacotamento de uma aplicação ou ambiente inteiro dentro de um container, e a partir desse momento o ambiente inteiro torna-se portável para qualquer outro Host que contenha o Docker instalado.
+
+Isso reduz drasticamente o tempo de deploy de alguma infraestrutura ou até mesmo aplicação, pois não há necessidade de ajustes de ambiente para o correto funcionamento do serviço, o ambiente é sempre o mesmo, configure-o uma vez e replique-o quantas vezes quiser.
+Outra facilidade do Docker é poder criar suas imagens (containers prontos para deploy) a partir de arquivos de definição chamados Dockerfiles.
+
+https://www.mundodocker.com.br/o-que-e-docker/
+
+Imagem
+
+Uma imagem é um arquivo inerte, como uma imagem ISO de um sisema operacional. Ela geralmente contém o núcleo de um sistema operacional, o núcleo de um sistema com um ou mais serviços. Como por exemplo a imagem oficial "ubuntu", que contém somente o núcleo do Ubuntu na última versão em 72,9MB. Como a imagem ribafs/ubuntu-maria, que contém a imagem ubuntu e o mariadb. A ribafs/ubunto-php, que contém a ubuntu o Apache, o PHP e extensões. A ribafs/ubuntu, que contém o LAMP com a ubuntu. Uma imagem é um arquivo inerte.
+
+Container
+O container dá vida para uma imagem. É como uma máquina virtual que cria um sistema operacional dentro de um sistema operacional hospedeiro. O container permite que a imagem interaja com nosso sistema operacional. Definimos esta interação através dos arquivos docker-compose.yml e do Dockerfile.
+
+docker-compose
+
+O docker compose é uma forma de administrar vários containers, definindo em um único arquivo as configurações para os diversos containers, no caso o docker-composer.yml que interage com o Dockerfile de cada container.
+
+Com o Docker, é possível lidar com os containers como se fossem máquinas virtuais modulares e extremamente leves. Além disso, os containers oferecem maior flexibilidade para você criar, implantar, copiar e migrar um container de um ambiente para outro. Isso otimiza as aplicações na cloud.
+
+A tecnologia Docker usa o kernel do Linux e recursos do kernel como Cgroups e namespaces para segregar processos. Assim, eles podem ser executados de maneira independente. O objetivo dos containers é criar essa independência: a habilidade de executar diversos processos e aplicações separadamente para utilizar melhor a infraestrutura e, ao mesmo tempo, manter a segurança que você teria em sistemas separados.
+
+Host é a máquina onde é instalado o docker
+No host podemos instalara diversas imagens e diversos containers.
+
+Crédito
+https://www.redhat.com/pt-br/topics/containers/what-is-docker 
+
+Imagem e contêiner do Docker
+
+Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner.
+
+A mesma imagem pode criar vários contêineres
+
+Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados ​​para criar e inicializar um aplicativo em um novo contêiner do Docker.
+
+

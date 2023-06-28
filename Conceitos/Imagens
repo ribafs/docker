@@ -1,0 +1,73 @@
+
+Imagens
+
+As imagens do Docker têm camadas intermediárias que aumentam a capacidade de reutilização, diminuem o uso do disco e aceleram a construção do docker, permitindo que cada etapa seja armazenada em cache. Essas camadas intermediárias não são mostradas por padrão.
+
+O SIZE é o espaço cumulativo ocupado pela imagem e todas as suas imagens pai. Esse também é o espaço em disco usado pelo conteúdo do arquivo Tar criado quando você salva uma imagem na janela de encaixe.
+
+Uma imagem será listada mais de uma vez se tiver vários nomes de repositório ou tags. Esta única imagem (identificável por seu ID de IMAGEM correspondente) usa o TAMANHO listado apenas uma vez.
+
+Listar imagens
+
+docker images
+
+Listar imagens com web em seu nome
+
+docker images web
+
+Listar imagem com tag
+
+docker alpine:edge
+
+Remover imagem
+
+docker rmi imagem
+
+Remover todas as imagens
+
+docker rmi $(docker images -f "dangling=true" -q)
+
+Imagem e contêiner do Docker
+
+Para esclarecer melhor quais são as diferenças entre imagens e contêineres, tente pensar em uma linguagem orientada a objetos. Nessa analogia, a classe representa a imagem enquanto sua instância, o objeto, é o contêiner.
+
+A mesma imagem pode criar mais contêineres
+
+Portanto, a virtualização de contêiner é fundamentalmente baseada em imagens, nos arquivos disponíveis no Docker Hub e usados ​​para criar e inicializar um aplicativo em um novo contêiner do Docker.
+
+Cada imagem é definida por um Dockerfile, um arquivo de configuração que contém todos os comandos que um usuário precisa executar para modelar a imagem.
+
+Criando imagens
+
+Através de um Dockerfile, podemos criar uma nova imagem usando outra como base. Também é possível especificar uma série de comandos para criar estruturas específicas para o deploy de nossas aplicações.
+
+Usando uma imagem para executar um container
+
+Tendo nosso Dockerfile criado e nossa imagem criada, basta executar o comando abaixo para a mágica acontecer:
+
+docker container run -d -p 80:8080 node-app
+
+Com esse comando, estamos basicamente dizendo ao Docker “crie um container(docker container run) que rode no background, sem ocupar meu terminal atual(-d), mapeando uma porta local para uma outra exposta no container(-p 80:8080) e usando a imagem node-app”. Caso a imagem não exista, o docker daemon fará uma busca pelo nome em algum registry.
+
+Agora basta seguir a documentação do Docker para aprender muitas outras possibilidades para montar imagens e configurar containers. Por fim, não se esqueçam de acessar o localhost e ver o resultado dos quatro passos que seguimos ao longo desse artigo abaixo:
+
+docker-conceitos
+
+Camadas e controle de versão de imagens
+
+Um arquivo Docker pode ser formado por diversas camadas diferentes, onde se dividem em dois grupos:
+
+    Imagens: elas são formadas por diferentes camadas. Com a sua utilização, o usuário pode facilmente compartilhar um aplicativo ou um conjunto de serviços em diversos ambientes. Quando há alguma alteração na imagem, ou uso de um comando como executar ou copiar, é criada uma camada.
+
+    Containers: são formadas na reutilização das camadas. Um container é o local onde estão as modificações da aplicação que está em execução. É por meio dele que o usuário pode modificar uma imagem.
+
+Reversão
+
+Em algum momento você já realizou uma alteração em um sistema e, posteriormente, se arrependeu da modificação? Usando o recurso de reversão é possível recuperar a versão anterior.
+
+Para aumentar a eficiência no desenvolvimento de programas, as empresas buscam alternativas, como o Docker. Além de agilizar os processos, a plataforma dá ao desenvolvedor a possibilidade de rapidamente acessar uma versão anterior, caso encontre algum problema, trazendo maior produtividade e segurança para a equipe.
+
+Crédito
+
+https://www.opservices.com.br/o-que-e-docker/
+

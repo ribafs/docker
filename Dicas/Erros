@@ -1,0 +1,19 @@
+Existem erros que são fatais, parando o programa e outros que não são, apenas aparecem na tela e continuam.
+
+Então devemos ficar observando a execução e corrigir mesmo que não sejam fatais.
+
+Como estou criando 5 imagens com 5 Dockerfiles, todos usando a mesma imagem base do Ubuntu, então ao final, se tudo correr bem, terei 6 imagens, as 5 criadas e a imagem base.
+
+Geralmente podemos repetir o comando para que continue, após a correção de um erro:
+
+docker-compose up -d
+
+Apareceram dois erros de que pacotes PHP não existiam, mas o comando continuou.
+Removi os pacotes
+
+Apareceram alguns erros fatais:
+Um foi que APT-KEY não era mais suportado
+
+Removi e executei o comando novamente
+
+

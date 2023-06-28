@@ -1,0 +1,46 @@
+Roteiro de criação de um container Docker
+
+O objetivo do trabalho com docker é baixar uma imagem de uma distribuição, com certa versão e usar.
+Para isso criamos um container com a imagem, mais alguns pacotes e configurações, visto que geralmente apenas a imagem não é suficiente.
+
+Veja o roteiro para a criação de um contaienr Docker
+
+Basicamente temos duas formas de criar um container:
+
+- Baixando uma umagem e a usando
+
+docker run node-docker
+
+docker run --publish 8000:8000 node-docker
+
+docker run -d -p 8000:8000 node-docker
+
+docker run -d -p 8000:8000 --name rest-server node-docker
+
+Nos exemplos acima ele tentará executar a imagem sugerida entre as imagens locais. Caso não encontre tentará baixar do Docker Hub
+
+docker ps
+
+- Outra forma é criando um arquivo Dockerfile, que contém a imagem base, alguns comandos e configurações e então rodando o comando:
+
+docker build Dockerfile
+
+docker build Dockerfile-web
+
+docker build . (para que use o Dockerfile que está na pasta atual)
+
+- Outra forma é criar um ou mais Dockerfile e também um docker-commpose.yml e estando na pasta deles executar:
+
+docker-compose up -d
+
+docker build github.com/creack/docker-firefox
+
+docker build -f Dockerfile.debug .
+
+docker build -f dockerfiles/Dockerfile.debug -t myapp_debug .
+
+docker build -f dockerfiles/Dockerfile.prod  -t myapp_prod .
+
+
+Podemos criar apenas um único contaienr com todos os serviços que precisamos, como apache, php, mysql, etc, ou podemos criar um container para cada serviço. Se estamos desenvolvendo localmente é mais prático ter apenas um único container, mas se num servidor em produção é mais indicado criar um container para cada serviço, especialmente por cotna da segurança.
+

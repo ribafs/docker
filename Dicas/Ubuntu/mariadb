@@ -1,0 +1,10 @@
+
+      container_name: maria
+
+      command: --default-authentication-plugin=mysql_native_password
+
+      environment:
+        TZ: "America/Fortaleza"
+        MYSQL_DATABASE: "testes"
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+

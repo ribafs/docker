@@ -1,0 +1,45 @@
+Criar imagem hello world
+
+docker run hello-world
+
+Listar imagens
+
+docker images
+
+# define a imagem base
+FROM debian:latest
+
+# define o mantenedor da imagem
+LABEL maintainer="Macoratti"
+
+# Atualiza a imagem com os pacotes
+RUN apt-get update && apt-get upgrade -y
+
+# Instala o NGINX para testar
+RUN apt-get install nginx -y
+
+# Expoe a porta 80
+EXPOSE 80
+
+# Comando para iniciar o NGINX no Container
+CMD ["nginx", "-g", "daemon off;"]
+
+ FROM  - O primeiro argumento do Dockerfile deve ser sempre o FROM, seguido da imagem e versão que será utilizada. Caso não seja informada a versão, o Docker vai procurar a mais atual do seu repositório oficial.
+
+LABEL: coloca um metadado para o container;
+
+RUN: executa os comandos dentro do container;
+
+EXPOSE: expõe a porta informada do container;
+
+CMD: Informa o comando que será executado após a criação do container, e também pode ser usado para definir os parâmetros que serão usados no comando ENTRYPOINT.
+
+Além dos comandos usados temos também os comandos :
+
+ENTRYPOINT - Define o aplicativo padrão usado toda vez que um contêiner é criado a partir da imagem. Se usado em conjunto com o CMD, você pode remover o aplicativo e apenas definir os argumentos no CMD.
+
+ENV - Define/modifica as variáveis ​​de ambiente dentro dos Containers criados a partir da imagem.
+
+COPY - Copia arquivos do seu ambiente para o contâiner.Ex: COPY origem destino
+
+

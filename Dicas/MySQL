@@ -1,0 +1,15 @@
+Não devemos usar root a partir da versão 5.7
+
+CREATE DATABASE mini_fw CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'mini_us'@'localhost' IDENTIFIED BY 'zmxn1029M@';
+GRANT ALL PRIVILEGES ON mini_fw.* TO 'mini_us'@'localhost';
+FLUSH PRIVILEGES;
+\q
+
+
+Mostrar todos os users do mysql
+
+SELECT user FROM mysql.user;
+
+

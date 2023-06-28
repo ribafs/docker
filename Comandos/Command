@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0.19
+    command: '--default-authentication-plugin=mysql_native_password'
+
+command: by default, when the command docker-compose run is issued, execute '--default-authentication-plugin=mysql_native_password'
+
+command: >
+    bash -c "python manage.py migrate
+    && python manage.py runserver 0.0.0.0:8000"
+
+Or:
+
+command: bash -c "
+    python manage.py migrate
+    && python manage.py runserver 0.0.0.0:8000
+  "
+
+command:
+    - |
+       echo a
+       echo b
+       echo c
+
+
+
+You can use entrypoint here. entrypoint in docker is executed before the command while command is the default command that should be run when container starts. So most of the applications generally carry setup procedure in entrypoint file and in the last they allow command to run.
+
+make a shell script file may be as docker-entrypoint.sh (name does not matter) with following contents in it.
+
+#!/bin/bash
+python manage.py migrate
+exec "$@"
+
+in docker-compose.yml file use it with entrypoint: /docker-entrypoint.sh and register command as command: python manage.py runserver 0.0.0.0:8000 P.S : do not forget to copy docker-entrypoint.sh along with your code.
+
+
+command: sh /deploy/local/start_mongod.sh
+
+entrypoint: [ "bash", "-c", "chmod +x /scripts/rs-init.sh && sh /scripts/rs-init.sh"]
+

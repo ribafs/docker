@@ -1,0 +1,35 @@
+sudo apt-get install php5-xdebug
+
+Now update the options in PHP.INI - /etc/php5/apache2/php.ini
+Added for xdebug
+
+zend_extension="/usr/lib/php5/20121212/xdebug.so"
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp 
+xdebug.remote_mode=req
+xdebug.remote_host=127.0.0.1 
+xdebug.remote_port=9000
+xdebug.max_nesting_level=300
+
+Restart Apache2, and you are ready to go!
+
+sudo service apache2 restart
+
+Now go to phpstorm -> settings -> Language & Frameworks -> PHP -> Debug
+
+Make sure the debug port is 9000
+
+now press the start listening for php debug connections button (a phone receiver icon)
+
+enjoy the debugging... :)
+
+
+Compose
+
+sudo apt-get update
+
+sudo apt-get install curl php5-cli git
+
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+

@@ -1,0 +1,8 @@
+## Inspecionando um container
+
+Através do comando inspect você pode ter todos os metadados correspondentes a um container. Nele você pode tirar informações como quantidade de memória, volume apontado, dados de rede, tempo de execução e muito mais.
+
+Sendo assim vamos executar:
+
+docker container inspect apache-container
+

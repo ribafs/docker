@@ -1,0 +1,19 @@
+# Básicos
+RUN apt-get update && apt-get aptitude git composer curl
+
+# Apache, PHP 7 e extensões
+RUN apt-get update && apt-get install -y apache2 libapache2-mod-php7.4
+RUN apt-get update && apt-get install -y php7.4 php7.4-gd php7.4-mysql php7.4-curl
+RUN apt-get update && apt-get install -y php7.4-pgsql php7.4-sqlite
+RUN apt-get update && apt-get install -y php-pear php7.4-xml php7.4-xsl php-xdebug php7.4-intl
+RUN apt-get update && apt-get install -y php7.4-zip php7.4-mbstring
+RUN apt-get update && phpenmod mbstring
+RUN apt-get update && apt-get install -y php-apcu
+RUN apt-get update && wget http://spout.ussg.indiana.edu/linux/ubuntu/pool/main/m/memcached/memcached_1.5.22-2ubuntu0.1_amd64.deb
+RUN apt-get update && dpkg -i memcached_1.5.22-2ubuntu0.1_amd64.deb
+RUN apt-get update && apt-get install -y php-memcache
+RUN rm memcached_1.5.22-2ubuntu0.1_amd64.deb
+
+# Adminer
+RUN apt-get install -y apache2 libapache2-mod-php7.4 \
+    php7.4 php7.4-session php7.4-mysql php7.4-pgsql

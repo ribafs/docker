@@ -1,0 +1,13 @@
+docker exec -it <mycontainer> bash
+
+docker exec -it container sh
+
+docker exec -d ubuntu_bash touch /tmp/execWorks
+
+docker exec -it ubuntu_bash bash
+
+docker exec -it alpine-cont sh
+
+docker exec -it pg-container bash
+
+

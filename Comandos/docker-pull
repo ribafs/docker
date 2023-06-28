@@ -1,0 +1,63 @@
+docker pull alpine:latest
+
+## Criando container partindo da imagen
+
+Diretamente da imagem
+
+docker pull debian
+
+docker run -td --name container-debian debian
+
+docker inages - 114MB
+
+docker exec -it container-debian bash
+
+
+docker pull ubuntu
+
+docker run -td --name meu_ubuntu ubuntu
+
+docker images - 72.9MB
+
+docker exec -it meu_ubuntu bash
+
+
+docker pull alpine
+
+docker run -t -d --name meu_alpine alpine
+
+docker images - 5.58MB
+
+docker exec -it meu_alpine sh
+
+
+sqlite3 com alpine
+
+docker pull alpine
+
+docker run -t -d --name meu_alpine alpine
+
+docker images - 5.58MB
+
+docker exec -it meu_alpine sh
+
+apk add sqlite
+
+sqlite3 --version
+
+sqlite3 teste
+
+
+adminer com alpine
+
+docker pull alpine
+
+docker run -t -d --name meu_adminer alpine
+
+docker images - 5.58MB
+
+docker exec -it meu_adminer sh
+
+apk add adminer
+
+https://docs.docker.com/engine/reference/commandline/container_create/

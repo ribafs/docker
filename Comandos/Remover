@@ -1,0 +1,40 @@
+sudo docker rmi 2fbbd6743d14 -f
+
+Parar todos os containers rodando:
+
+docker stop $(docker ps -a -q)
+
+docker rm $(docker ps -a -q)
+
+Remover todas as imagens
+
+docker rmi $(docker images -a -q)
+
+
+Excluir todos os contaienrs parados
+
+docker rm $(docker ps -a -q)
+
+Para remover adicionalmente quaisquer contêineres e todas as imagens não utilizadas
+docker system prune -a
+
+Parar todos os containers
+docker stop $(docker ps -a -q)
+
+Remover todos
+docker rm $(docker ps -a -q)
+
+Remover todas as imagens
+docker rmi $(docker images -a -q)
+
+Remover todos os volumes
+docker-compose down -v
+
+Remover container
+
+sudo docker container stop 266e596c9826
+
+sudo docker container rm 266e596c9826
+
+
+

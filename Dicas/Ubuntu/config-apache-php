@@ -1,0 +1,25 @@
+sudo nano /etc/php/7.4/apache2/php.ini
+
+display_error = On
+error_reporting = E_ALL # comentar o existente
+output_buffering = On
+
+sudo nano /etc/apache2/apache2.conf
+
+ServerName localhost
+
+Mudar as ocorrenciasn de 
+AllowOverride none
+Para
+AllowOverride All
+
+<Directory />
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order deny,allow
+    Allow from all
+</Directory>
+
+sudo service apache2 restart
+
+

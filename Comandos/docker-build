@@ -1,0 +1,30 @@
+docker build https://github.com/docker/rootfs.git#container:docker
+
+docker build http://server/context.tar.gz
+
+docker build - < Dockerfile
+
+docker build .
+
+docker build github.com/creack/docker-firefox
+
+docker build - < context.tar.gz
+
+docker build -f Dockerfile.debug .
+
+docker build -f dockerfiles/Dockerfile.debug -t myapp_debug .
+
+docker build -t yourusername/repository-name .
+
+docker build -t yourusername/example-node-app
+
+docker build -t macoratti/nginx:1.0 .
+
+onde:
+
+docker build            -> O comando
+-t                             -> Parâmetro usado para informar que a imagem pertence ao meu usuário
+macoratti/nginx:1.0 -> O nome da imagem e a tag atribuída à imagem
+.                               -> significa o diretório atual (pois dei o build dentro da pasta do Dockerfile)
+
+

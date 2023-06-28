@@ -1,0 +1,17 @@
+apt install -y apache2 libapache2-mod-php5 aptitude git mc curl phpunit ssh;
+apt install -y mariadb-server postgresql sqlite3;
+
+apt install -y php5 php5-gd php5-mysql php5-sqlite php5-curl;
+apt install -y php-pear php5-xsl php5-xdebug
+
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+apt-get install -y nodejs
+apt install npm
+npm install yarn -g -y
+
+a2enmod rewrite;
+systemctl restart apache2;
+
+apt update;
+apt upgrade -y;;
+

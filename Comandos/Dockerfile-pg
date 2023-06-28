@@ -1,0 +1,29 @@
+FROM ubuntu:22.04 as ub-pg-img
+
+LABEL MAINTAINER Ribamar FS <ribafs@gmail.com>
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV DEBIAN_FRONTEND teletype
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+ENV TZ=America/Fortaleza
+
+RUN apt-get update && apt-get install -y tzdata
+
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
+RUN apt-get update && apt-get install -y postgresql
+# Nunca usar o apt-get install como primeiro comando. Sempre usar apt-get update e depois apt-get install .... 
+# Como também nunc usar: apt install, mas sempre apt-get ...
+
+COPY pg/setup.sql /root
+
+# Add basics first
+RUN apt-get update && apt-get install -y curl nano
+# Veja que novamente precisamos usar antes apt-get update, senão não encotnra os pacotes
+
+EXPOSE 5432
+
+
